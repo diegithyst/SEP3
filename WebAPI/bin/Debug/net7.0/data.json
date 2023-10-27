@@ -1,0 +1,138 @@
+{
+  "Users": [
+    {
+      "username": "test",
+      "password": "test",
+      "id": 1,
+      "securityLevel": 0
+    }
+  ],
+  "Posts": [
+    {
+      "title": "3rd attempt",
+      "body": "waientgijsnrtgskrta",
+      "author": {
+        "username": "paco",
+        "password": "paco1234",
+        "id": 1,
+        "securityLevel": 0
+      },
+      "edited": false,
+      "id": 3,
+      "upVote": 0,
+      "downVote": 0
+    },
+    {
+      "title": "dfghjkl;",
+      "body": "dfgyughku,ujyg",
+      "author": {
+        "username": "test",
+        "password": "test1",
+        "id": 2,
+        "securityLevel": 0
+      },
+      "edited": false,
+      "id": 4,
+      "upVote": 0,
+      "downVote": 0
+    },
+    {
+      "title": "funcionara?",
+      "body": "porfiiiiiiiii",
+      "author": {
+        "username": "paco",
+        "password": "paco1234",
+        "id": 1,
+        "securityLevel": 0
+      },
+      "edited": true,
+      "id": 2,
+      "upVote": 0,
+      "downVote": 0
+    },
+    {
+      "title": "string",
+      "body": "string",
+      "author": {
+        "username": "paco",
+        "password": "paco1234",
+        "id": 1,
+        "securityLevel": 0
+      },
+      "edited": true,
+      "id": 1,
+      "upVote": 0,
+      "downVote": 0
+    },
+    {
+      "title": "testpost",
+      "body": "testpost",
+      "author": {
+        "username": "test2",
+        "password": "test2",
+        "id": 0,
+        "securityLevel": 4
+      },
+      "edited": false,
+      "id": 5,
+      "upVote": 0,
+      "downVote": 0
+    },
+    {
+      "title": "testpost2",
+      "body": "testpost2",
+      "author": {
+        "username": "test2",
+        "password": "test2",
+        "id": 3,
+        "securityLevel": 4
+      },
+      "edited": false,
+      "id": 6,
+      "upVote": 0,
+      "downVote": 0
+    },
+    {
+      "title": "testpost3",
+      "body": "testpost3",
+      "author": {
+        "username": "test2",
+        "password": "test2",
+        "id": 3,
+        "securityLevel": 4
+      },
+      "edited": false,
+      "id": 7,
+      "upVote": 0,
+      "downVote": 0
+    }
+  ],
+  "Comments": [
+    {
+      "text": "6th attempt",
+      "author": {
+        "username": "paco",
+        "password": "paco1234",
+        "id": 1,
+        "securityLevel": 0
+      },
+      "post": {
+        "title": "string",
+        "body": "string",
+        "author": {
+          "username": "paco",
+          "password": "paco1234",
+          "id": 1,
+          "securityLevel": 0
+        },
+        "edited": true,
+        "id": 1,
+        "upVote": 0,
+        "downVote": 0
+      },
+      "id": 1,
+      "upvote": 0,
+      "downVote": 0
+    }
+  ]
+}
