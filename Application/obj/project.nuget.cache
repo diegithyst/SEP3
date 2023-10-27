@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "v6VDt+GtoBqcRJrMPyVTjR1RRH9XvroYOcXO0lUCP1+pSUvRBrx4LN3WydHBr190XobVfqT/SUKNJi3xFjUX1Q==",
+  "dgSpecHash": "f9wNEL4DCdCGAFsKGvhFPKDx/rX7KKSdKSePpssWHOuqlyJ2CGyXSnFMBGZ4xsA5ffqRslelOvurye5YZQk6wA==",
   "success": true,
-  "projectFilePath": "/Users/hmp/RiderProjects/Assignment1/Application/Application.csproj",
+  "projectFilePath": "/Users/hmp/Documents/GitHub/SEP3/Application/Application.csproj",
   "expectedPackageFiles": [
     "/Users/hmp/.nuget/packages/microsoft.aspnetcore.authorization/7.0.13/microsoft.aspnetcore.authorization.7.0.13.nupkg.sha512",
     "/Users/hmp/.nuget/packages/microsoft.aspnetcore.metadata/7.0.13/microsoft.aspnetcore.metadata.7.0.13.nupkg.sha512",

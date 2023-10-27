@@ -432,11 +432,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/hmp/RiderProjects/Assignment1/BlazorServer/BlazorServer.csproj",
+      "projectUniqueName": "/Users/hmp/Documents/GitHub/SEP3/BlazorServer/BlazorServer.csproj",
       "projectName": "BlazorServer",
-      "projectPath": "/Users/hmp/RiderProjects/Assignment1/BlazorServer/BlazorServer.csproj",
+      "projectPath": "/Users/hmp/Documents/GitHub/SEP3/BlazorServer/BlazorServer.csproj",
       "packagesPath": "/Users/hmp/.nuget/packages/",
-      "outputPath": "/Users/hmp/RiderProjects/Assignment1/BlazorServer/obj/",
+      "outputPath": "/Users/hmp/Documents/GitHub/SEP3/BlazorServer/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/Users/hmp/.nuget/NuGet/NuGet.Config"
@@ -451,8 +451,8 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "projectReferences": {
-            "/Users/hmp/RiderProjects/Assignment1/HttpClients/HttpClients.csproj": {
-              "projectPath": "/Users/hmp/RiderProjects/Assignment1/HttpClients/HttpClients.csproj"
+            "/Users/hmp/Documents/GitHub/SEP3/HttpClients/HttpClients.csproj": {
+              "projectPath": "/Users/hmp/Documents/GitHub/SEP3/HttpClients/HttpClients.csproj"
             }
           }
         }

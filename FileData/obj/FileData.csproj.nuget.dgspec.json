@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/Users/hmp/RiderProjects/Assignment1/FileData/FileData.csproj": {}
+    "/Users/hmp/Documents/GitHub/SEP3/FileData/FileData.csproj": {}
   },
   "projects": {
-    "/Users/hmp/RiderProjects/Assignment1/Application/Application.csproj": {
+    "/Users/hmp/Documents/GitHub/SEP3/Application/Application.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/hmp/RiderProjects/Assignment1/Application/Application.csproj",
+        "projectUniqueName": "/Users/hmp/Documents/GitHub/SEP3/Application/Application.csproj",
         "projectName": "Application",
-        "projectPath": "/Users/hmp/RiderProjects/Assignment1/Application/Application.csproj",
+        "projectPath": "/Users/hmp/Documents/GitHub/SEP3/Application/Application.csproj",
         "packagesPath": "/Users/hmp/.nuget/packages/",
-        "outputPath": "/Users/hmp/RiderProjects/Assignment1/Application/obj/",
+        "outputPath": "/Users/hmp/Documents/GitHub/SEP3/Application/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/hmp/.nuget/NuGet/NuGet.Config"
@@ -26,8 +26,8 @@
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "/Users/hmp/RiderProjects/Assignment1/Domain/Domain.csproj": {
-                "projectPath": "/Users/hmp/RiderProjects/Assignment1/Domain/Domain.csproj"
+              "/Users/hmp/Documents/GitHub/SEP3/Domain/Domain.csproj": {
+                "projectPath": "/Users/hmp/Documents/GitHub/SEP3/Domain/Domain.csproj"
               }
             }
           }
@@ -61,14 +61,14 @@
         }
       }
     },
-    "/Users/hmp/RiderProjects/Assignment1/Domain/Domain.csproj": {
+    "/Users/hmp/Documents/GitHub/SEP3/Domain/Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/hmp/RiderProjects/Assignment1/Domain/Domain.csproj",
+        "projectUniqueName": "/Users/hmp/Documents/GitHub/SEP3/Domain/Domain.csproj",
         "projectName": "Domain",
-        "projectPath": "/Users/hmp/RiderProjects/Assignment1/Domain/Domain.csproj",
+        "projectPath": "/Users/hmp/Documents/GitHub/SEP3/Domain/Domain.csproj",
         "packagesPath": "/Users/hmp/.nuget/packages/",
-        "outputPath": "/Users/hmp/RiderProjects/Assignment1/Domain/obj/",
+        "outputPath": "/Users/hmp/Documents/GitHub/SEP3/Domain/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/hmp/.nuget/NuGet/NuGet.Config"
@@ -120,14 +120,14 @@
         }
       }
     },
-    "/Users/hmp/RiderProjects/Assignment1/FileData/FileData.csproj": {
+    "/Users/hmp/Documents/GitHub/SEP3/FileData/FileData.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/hmp/RiderProjects/Assignment1/FileData/FileData.csproj",
+        "projectUniqueName": "/Users/hmp/Documents/GitHub/SEP3/FileData/FileData.csproj",
         "projectName": "FileData",
-        "projectPath": "/Users/hmp/RiderProjects/Assignment1/FileData/FileData.csproj",
+        "projectPath": "/Users/hmp/Documents/GitHub/SEP3/FileData/FileData.csproj",
         "packagesPath": "/Users/hmp/.nuget/packages/",
-        "outputPath": "/Users/hmp/RiderProjects/Assignment1/FileData/obj/",
+        "outputPath": "/Users/hmp/Documents/GitHub/SEP3/FileData/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/hmp/.nuget/NuGet/NuGet.Config"
@@ -142,8 +142,8 @@
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "/Users/hmp/RiderProjects/Assignment1/Application/Application.csproj": {
-                "projectPath": "/Users/hmp/RiderProjects/Assignment1/Application/Application.csproj"
+              "/Users/hmp/Documents/GitHub/SEP3/Application/Application.csproj": {
+                "projectPath": "/Users/hmp/Documents/GitHub/SEP3/Application/Application.csproj"
               }
             }
           }

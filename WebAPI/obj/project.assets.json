@@ -1226,11 +1226,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/hmp/RiderProjects/Assignment1/WebAPI/WebAPI.csproj",
+      "projectUniqueName": "/Users/hmp/Documents/GitHub/SEP3/WebAPI/WebAPI.csproj",
       "projectName": "WebAPI",
-      "projectPath": "/Users/hmp/RiderProjects/Assignment1/WebAPI/WebAPI.csproj",
+      "projectPath": "/Users/hmp/Documents/GitHub/SEP3/WebAPI/WebAPI.csproj",
       "packagesPath": "/Users/hmp/.nuget/packages/",
-      "outputPath": "/Users/hmp/RiderProjects/Assignment1/WebAPI/obj/",
+      "outputPath": "/Users/hmp/Documents/GitHub/SEP3/WebAPI/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/Users/hmp/.nuget/NuGet/NuGet.Config"
@@ -1245,11 +1245,11 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "projectReferences": {
-            "/Users/hmp/RiderProjects/Assignment1/Application/Application.csproj": {
-              "projectPath": "/Users/hmp/RiderProjects/Assignment1/Application/Application.csproj"
+            "/Users/hmp/Documents/GitHub/SEP3/Application/Application.csproj": {
+              "projectPath": "/Users/hmp/Documents/GitHub/SEP3/Application/Application.csproj"
             },
-            "/Users/hmp/RiderProjects/Assignment1/FileData/FileData.csproj": {
-              "projectPath": "/Users/hmp/RiderProjects/Assignment1/FileData/FileData.csproj"
+            "/Users/hmp/Documents/GitHub/SEP3/FileData/FileData.csproj": {
+              "projectPath": "/Users/hmp/Documents/GitHub/SEP3/FileData/FileData.csproj"
             }
           }
         }

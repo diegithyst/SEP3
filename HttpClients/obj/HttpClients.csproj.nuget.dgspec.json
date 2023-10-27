@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/Users/hmp/RiderProjects/Assignment1/HttpClients/HttpClients.csproj": {}
+    "/Users/hmp/Documents/GitHub/SEP3/HttpClients/HttpClients.csproj": {}
   },
   "projects": {
-    "/Users/hmp/RiderProjects/Assignment1/Domain/Domain.csproj": {
+    "/Users/hmp/Documents/GitHub/SEP3/Domain/Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/hmp/RiderProjects/Assignment1/Domain/Domain.csproj",
+        "projectUniqueName": "/Users/hmp/Documents/GitHub/SEP3/Domain/Domain.csproj",
         "projectName": "Domain",
-        "projectPath": "/Users/hmp/RiderProjects/Assignment1/Domain/Domain.csproj",
+        "projectPath": "/Users/hmp/Documents/GitHub/SEP3/Domain/Domain.csproj",
         "packagesPath": "/Users/hmp/.nuget/packages/",
-        "outputPath": "/Users/hmp/RiderProjects/Assignment1/Domain/obj/",
+        "outputPath": "/Users/hmp/Documents/GitHub/SEP3/Domain/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/hmp/.nuget/NuGet/NuGet.Config"
@@ -63,14 +63,14 @@
         }
       }
     },
-    "/Users/hmp/RiderProjects/Assignment1/HttpClients/HttpClients.csproj": {
+    "/Users/hmp/Documents/GitHub/SEP3/HttpClients/HttpClients.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/hmp/RiderProjects/Assignment1/HttpClients/HttpClients.csproj",
+        "projectUniqueName": "/Users/hmp/Documents/GitHub/SEP3/HttpClients/HttpClients.csproj",
         "projectName": "HttpClients",
-        "projectPath": "/Users/hmp/RiderProjects/Assignment1/HttpClients/HttpClients.csproj",
+        "projectPath": "/Users/hmp/Documents/GitHub/SEP3/HttpClients/HttpClients.csproj",
         "packagesPath": "/Users/hmp/.nuget/packages/",
-        "outputPath": "/Users/hmp/RiderProjects/Assignment1/HttpClients/obj/",
+        "outputPath": "/Users/hmp/Documents/GitHub/SEP3/HttpClients/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/hmp/.nuget/NuGet/NuGet.Config"
@@ -85,8 +85,8 @@
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "/Users/hmp/RiderProjects/Assignment1/Domain/Domain.csproj": {
-                "projectPath": "/Users/hmp/RiderProjects/Assignment1/Domain/Domain.csproj"
+              "/Users/hmp/Documents/GitHub/SEP3/Domain/Domain.csproj": {
+                "projectPath": "/Users/hmp/Documents/GitHub/SEP3/Domain/Domain.csproj"
               }
             }
           }

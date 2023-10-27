@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "FZsiXK5/3k2eGXSWvH9fwLbBFdSw6Gg+ox9rluoULro=",
+  "Hash": "okVSGGghbbbz7v+FHxD84eJypm/DJ4J1/dlFkK8Ry3c=",
   "Source": "BlazorServer",
   "BasePath": "_content/BlazorServer",
   "Mode": "Default",
@@ -10,17 +10,17 @@
     {
       "Name": "BlazorServer/wwwroot",
       "Source": "BlazorServer",
-      "ContentRoot": "/Users/hmp/RiderProjects/Assignment1/BlazorServer/wwwroot/",
+      "ContentRoot": "/Users/hmp/Documents/GitHub/SEP3/BlazorServer/wwwroot/",
       "BasePath": "_content/BlazorServer",
       "Pattern": "**"
     }
   ],
   "Assets": [
     {
-      "Identity": "/Users/hmp/RiderProjects/Assignment1/BlazorServer/obj/Debug/net7.0/scopedcss/bundle/BlazorServer.styles.css",
+      "Identity": "/Users/hmp/Documents/GitHub/SEP3/BlazorServer/obj/Debug/net7.0/scopedcss/bundle/BlazorServer.styles.css",
       "SourceId": "BlazorServer",
       "SourceType": "Computed",
-      "ContentRoot": "/Users/hmp/RiderProjects/Assignment1/BlazorServer/obj/Debug/net7.0/scopedcss/bundle/",
+      "ContentRoot": "/Users/hmp/Documents/GitHub/SEP3/BlazorServer/obj/Debug/net7.0/scopedcss/bundle/",
       "BasePath": "_content/BlazorServer",
       "RelativePath": "BlazorServer.styles.css",
       "AssetKind": "All",
@@ -31,13 +31,13 @@
       "AssetTraitValue": "ApplicationBundle",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "/Users/hmp/RiderProjects/Assignment1/BlazorServer/obj/Debug/net7.0/scopedcss/bundle/BlazorServer.styles.css"
+      "OriginalItemSpec": "/Users/hmp/Documents/GitHub/SEP3/BlazorServer/obj/Debug/net7.0/scopedcss/bundle/BlazorServer.styles.css"
     },
     {
-      "Identity": "/Users/hmp/RiderProjects/Assignment1/BlazorServer/obj/Debug/net7.0/scopedcss/projectbundle/BlazorServer.bundle.scp.css",
+      "Identity": "/Users/hmp/Documents/GitHub/SEP3/BlazorServer/obj/Debug/net7.0/scopedcss/projectbundle/BlazorServer.bundle.scp.css",
       "SourceId": "BlazorServer",
       "SourceType": "Computed",
-      "ContentRoot": "/Users/hmp/RiderProjects/Assignment1/BlazorServer/obj/Debug/net7.0/scopedcss/projectbundle/",
+      "ContentRoot": "/Users/hmp/Documents/GitHub/SEP3/BlazorServer/obj/Debug/net7.0/scopedcss/projectbundle/",
       "BasePath": "_content/BlazorServer",
       "RelativePath": "BlazorServer.bundle.scp.css",
       "AssetKind": "All",
@@ -48,13 +48,30 @@
       "AssetTraitValue": "ProjectBundle",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "/Users/hmp/RiderProjects/Assignment1/BlazorServer/obj/Debug/net7.0/scopedcss/projectbundle/BlazorServer.bundle.scp.css"
+      "OriginalItemSpec": "/Users/hmp/Documents/GitHub/SEP3/BlazorServer/obj/Debug/net7.0/scopedcss/projectbundle/BlazorServer.bundle.scp.css"
     },
     {
-      "Identity": "/Users/hmp/RiderProjects/Assignment1/BlazorServer/wwwroot/css/bootstrap/bootstrap.min.css",
+      "Identity": "/Users/hmp/Documents/GitHub/SEP3/BlazorServer/wwwroot/.DS_Store",
       "SourceId": "BlazorServer",
       "SourceType": "Discovered",
-      "ContentRoot": "/Users/hmp/RiderProjects/Assignment1/BlazorServer/wwwroot/",
+      "ContentRoot": "/Users/hmp/Documents/GitHub/SEP3/BlazorServer/wwwroot/",
+      "BasePath": "_content/BlazorServer",
+      "RelativePath": ".DS_Store",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/.DS_Store"
+    },
+    {
+      "Identity": "/Users/hmp/Documents/GitHub/SEP3/BlazorServer/wwwroot/css/bootstrap/bootstrap.min.css",
+      "SourceId": "BlazorServer",
+      "SourceType": "Discovered",
+      "ContentRoot": "/Users/hmp/Documents/GitHub/SEP3/BlazorServer/wwwroot/",
       "BasePath": "_content/BlazorServer",
       "RelativePath": "css/bootstrap/bootstrap.min.css",
       "AssetKind": "All",
@@ -68,10 +85,10 @@
       "OriginalItemSpec": "wwwroot/css/bootstrap/bootstrap.min.css"
     },
     {
-      "Identity": "/Users/hmp/RiderProjects/Assignment1/BlazorServer/wwwroot/css/bootstrap/bootstrap.min.css.map",
+      "Identity": "/Users/hmp/Documents/GitHub/SEP3/BlazorServer/wwwroot/css/bootstrap/bootstrap.min.css.map",
       "SourceId": "BlazorServer",
       "SourceType": "Discovered",
-      "ContentRoot": "/Users/hmp/RiderProjects/Assignment1/BlazorServer/wwwroot/",
+      "ContentRoot": "/Users/hmp/Documents/GitHub/SEP3/BlazorServer/wwwroot/",
       "BasePath": "_content/BlazorServer",
       "RelativePath": "css/bootstrap/bootstrap.min.css.map",
       "AssetKind": "All",
@@ -85,10 +102,10 @@
       "OriginalItemSpec": "wwwroot/css/bootstrap/bootstrap.min.css.map"
     },
     {
-      "Identity": "/Users/hmp/RiderProjects/Assignment1/BlazorServer/wwwroot/css/open-iconic/FONT-LICENSE",
+      "Identity": "/Users/hmp/Documents/GitHub/SEP3/BlazorServer/wwwroot/css/open-iconic/FONT-LICENSE",
       "SourceId": "BlazorServer",
       "SourceType": "Discovered",
-      "ContentRoot": "/Users/hmp/RiderProjects/Assignment1/BlazorServer/wwwroot/",
+      "ContentRoot": "/Users/hmp/Documents/GitHub/SEP3/BlazorServer/wwwroot/",
       "BasePath": "_content/BlazorServer",
       "RelativePath": "css/open-iconic/FONT-LICENSE",
       "AssetKind": "All",
@@ -102,10 +119,10 @@
       "OriginalItemSpec": "wwwroot/css/open-iconic/FONT-LICENSE"
     },
     {
-      "Identity": "/Users/hmp/RiderProjects/Assignment1/BlazorServer/wwwroot/css/open-iconic/font/css/open-iconic-bootstrap.min.css",
+      "Identity": "/Users/hmp/Documents/GitHub/SEP3/BlazorServer/wwwroot/css/open-iconic/font/css/open-iconic-bootstrap.min.css",
       "SourceId": "BlazorServer",
       "SourceType": "Discovered",
-      "ContentRoot": "/Users/hmp/RiderProjects/Assignment1/BlazorServer/wwwroot/",
+      "ContentRoot": "/Users/hmp/Documents/GitHub/SEP3/BlazorServer/wwwroot/",
       "BasePath": "_content/BlazorServer",
       "RelativePath": "css/open-iconic/font/css/open-iconic-bootstrap.min.css",
       "AssetKind": "All",
@@ -119,10 +136,10 @@
       "OriginalItemSpec": "wwwroot/css/open-iconic/font/css/open-iconic-bootstrap.min.css"
     },
     {
-      "Identity": "/Users/hmp/RiderProjects/Assignment1/BlazorServer/wwwroot/css/open-iconic/font/fonts/open-iconic.eot",
+      "Identity": "/Users/hmp/Documents/GitHub/SEP3/BlazorServer/wwwroot/css/open-iconic/font/fonts/open-iconic.eot",
       "SourceId": "BlazorServer",
       "SourceType": "Discovered",
-      "ContentRoot": "/Users/hmp/RiderProjects/Assignment1/BlazorServer/wwwroot/",
+      "ContentRoot": "/Users/hmp/Documents/GitHub/SEP3/BlazorServer/wwwroot/",
       "BasePath": "_content/BlazorServer",
       "RelativePath": "css/open-iconic/font/fonts/open-iconic.eot",
       "AssetKind": "All",
@@ -136,10 +153,10 @@
       "OriginalItemSpec": "wwwroot/css/open-iconic/font/fonts/open-iconic.eot"
     },
     {
-      "Identity": "/Users/hmp/RiderProjects/Assignment1/BlazorServer/wwwroot/css/open-iconic/font/fonts/open-iconic.otf",
+      "Identity": "/Users/hmp/Documents/GitHub/SEP3/BlazorServer/wwwroot/css/open-iconic/font/fonts/open-iconic.otf",
       "SourceId": "BlazorServer",
       "SourceType": "Discovered",
-      "ContentRoot": "/Users/hmp/RiderProjects/Assignment1/BlazorServer/wwwroot/",
+      "ContentRoot": "/Users/hmp/Documents/GitHub/SEP3/BlazorServer/wwwroot/",
       "BasePath": "_content/BlazorServer",
       "RelativePath": "css/open-iconic/font/fonts/open-iconic.otf",
       "AssetKind": "All",
@@ -153,10 +170,10 @@
       "OriginalItemSpec": "wwwroot/css/open-iconic/font/fonts/open-iconic.otf"
     },
     {
-      "Identity": "/Users/hmp/RiderProjects/Assignment1/BlazorServer/wwwroot/css/open-iconic/font/fonts/open-iconic.svg",
+      "Identity": "/Users/hmp/Documents/GitHub/SEP3/BlazorServer/wwwroot/css/open-iconic/font/fonts/open-iconic.svg",
       "SourceId": "BlazorServer",
       "SourceType": "Discovered",
-      "ContentRoot": "/Users/hmp/RiderProjects/Assignment1/BlazorServer/wwwroot/",
+      "ContentRoot": "/Users/hmp/Documents/GitHub/SEP3/BlazorServer/wwwroot/",
       "BasePath": "_content/BlazorServer",
       "RelativePath": "css/open-iconic/font/fonts/open-iconic.svg",
       "AssetKind": "All",
@@ -170,10 +187,10 @@
       "OriginalItemSpec": "wwwroot/css/open-iconic/font/fonts/open-iconic.svg"
     },
     {
-      "Identity": "/Users/hmp/RiderProjects/Assignment1/BlazorServer/wwwroot/css/open-iconic/font/fonts/open-iconic.ttf",
+      "Identity": "/Users/hmp/Documents/GitHub/SEP3/BlazorServer/wwwroot/css/open-iconic/font/fonts/open-iconic.ttf",
       "SourceId": "BlazorServer",
       "SourceType": "Discovered",
-      "ContentRoot": "/Users/hmp/RiderProjects/Assignment1/BlazorServer/wwwroot/",
+      "ContentRoot": "/Users/hmp/Documents/GitHub/SEP3/BlazorServer/wwwroot/",
       "BasePath": "_content/BlazorServer",
       "RelativePath": "css/open-iconic/font/fonts/open-iconic.ttf",
       "AssetKind": "All",
@@ -187,10 +204,10 @@
       "OriginalItemSpec": "wwwroot/css/open-iconic/font/fonts/open-iconic.ttf"
     },
     {
-      "Identity": "/Users/hmp/RiderProjects/Assignment1/BlazorServer/wwwroot/css/open-iconic/font/fonts/open-iconic.woff",
+      "Identity": "/Users/hmp/Documents/GitHub/SEP3/BlazorServer/wwwroot/css/open-iconic/font/fonts/open-iconic.woff",
       "SourceId": "BlazorServer",
       "SourceType": "Discovered",
-      "ContentRoot": "/Users/hmp/RiderProjects/Assignment1/BlazorServer/wwwroot/",
+      "ContentRoot": "/Users/hmp/Documents/GitHub/SEP3/BlazorServer/wwwroot/",
       "BasePath": "_content/BlazorServer",
       "RelativePath": "css/open-iconic/font/fonts/open-iconic.woff",
       "AssetKind": "All",
@@ -204,10 +221,10 @@
       "OriginalItemSpec": "wwwroot/css/open-iconic/font/fonts/open-iconic.woff"
     },
     {
-      "Identity": "/Users/hmp/RiderProjects/Assignment1/BlazorServer/wwwroot/css/open-iconic/ICON-LICENSE",
+      "Identity": "/Users/hmp/Documents/GitHub/SEP3/BlazorServer/wwwroot/css/open-iconic/ICON-LICENSE",
       "SourceId": "BlazorServer",
       "SourceType": "Discovered",
-      "ContentRoot": "/Users/hmp/RiderProjects/Assignment1/BlazorServer/wwwroot/",
+      "ContentRoot": "/Users/hmp/Documents/GitHub/SEP3/BlazorServer/wwwroot/",
       "BasePath": "_content/BlazorServer",
       "RelativePath": "css/open-iconic/ICON-LICENSE",
       "AssetKind": "All",
@@ -221,10 +238,10 @@
       "OriginalItemSpec": "wwwroot/css/open-iconic/ICON-LICENSE"
     },
     {
-      "Identity": "/Users/hmp/RiderProjects/Assignment1/BlazorServer/wwwroot/css/open-iconic/README.md",
+      "Identity": "/Users/hmp/Documents/GitHub/SEP3/BlazorServer/wwwroot/css/open-iconic/README.md",
       "SourceId": "BlazorServer",
       "SourceType": "Discovered",
-      "ContentRoot": "/Users/hmp/RiderProjects/Assignment1/BlazorServer/wwwroot/",
+      "ContentRoot": "/Users/hmp/Documents/GitHub/SEP3/BlazorServer/wwwroot/",
       "BasePath": "_content/BlazorServer",
       "RelativePath": "css/open-iconic/README.md",
       "AssetKind": "All",
@@ -238,10 +255,10 @@
       "OriginalItemSpec": "wwwroot/css/open-iconic/README.md"
     },
     {
-      "Identity": "/Users/hmp/RiderProjects/Assignment1/BlazorServer/wwwroot/css/site.css",
+      "Identity": "/Users/hmp/Documents/GitHub/SEP3/BlazorServer/wwwroot/css/site.css",
       "SourceId": "BlazorServer",
       "SourceType": "Discovered",
-      "ContentRoot": "/Users/hmp/RiderProjects/Assignment1/BlazorServer/wwwroot/",
+      "ContentRoot": "/Users/hmp/Documents/GitHub/SEP3/BlazorServer/wwwroot/",
       "BasePath": "_content/BlazorServer",
       "RelativePath": "css/site.css",
       "AssetKind": "All",
@@ -255,10 +272,10 @@
       "OriginalItemSpec": "wwwroot/css/site.css"
     },
     {
-      "Identity": "/Users/hmp/RiderProjects/Assignment1/BlazorServer/wwwroot/favicon.png",
+      "Identity": "/Users/hmp/Documents/GitHub/SEP3/BlazorServer/wwwroot/favicon.png",
       "SourceId": "BlazorServer",
       "SourceType": "Discovered",
-      "ContentRoot": "/Users/hmp/RiderProjects/Assignment1/BlazorServer/wwwroot/",
+      "ContentRoot": "/Users/hmp/Documents/GitHub/SEP3/BlazorServer/wwwroot/",
       "BasePath": "_content/BlazorServer",
       "RelativePath": "favicon.png",
       "AssetKind": "All",
@@ -272,10 +289,10 @@
       "OriginalItemSpec": "wwwroot/favicon.png"
     },
     {
-      "Identity": "/Users/hmp/RiderProjects/Assignment1/BlazorServer/wwwroot/icons/clear_funnel.png",
+      "Identity": "/Users/hmp/Documents/GitHub/SEP3/BlazorServer/wwwroot/icons/clear_funnel.png",
       "SourceId": "BlazorServer",
       "SourceType": "Discovered",
-      "ContentRoot": "/Users/hmp/RiderProjects/Assignment1/BlazorServer/wwwroot/",
+      "ContentRoot": "/Users/hmp/Documents/GitHub/SEP3/BlazorServer/wwwroot/",
       "BasePath": "_content/BlazorServer",
       "RelativePath": "icons/clear_funnel.png",
       "AssetKind": "All",
@@ -289,10 +306,10 @@
       "OriginalItemSpec": "wwwroot/icons/clear_funnel.png"
     },
     {
-      "Identity": "/Users/hmp/RiderProjects/Assignment1/BlazorServer/wwwroot/icons/edit.gif",
+      "Identity": "/Users/hmp/Documents/GitHub/SEP3/BlazorServer/wwwroot/icons/edit.gif",
       "SourceId": "BlazorServer",
       "SourceType": "Discovered",
-      "ContentRoot": "/Users/hmp/RiderProjects/Assignment1/BlazorServer/wwwroot/",
+      "ContentRoot": "/Users/hmp/Documents/GitHub/SEP3/BlazorServer/wwwroot/",
       "BasePath": "_content/BlazorServer",
       "RelativePath": "icons/edit.gif",
       "AssetKind": "All",
@@ -306,10 +323,10 @@
       "OriginalItemSpec": "wwwroot/icons/edit.gif"
     },
     {
-      "Identity": "/Users/hmp/RiderProjects/Assignment1/BlazorServer/wwwroot/icons/funnel.png",
+      "Identity": "/Users/hmp/Documents/GitHub/SEP3/BlazorServer/wwwroot/icons/funnel.png",
       "SourceId": "BlazorServer",
       "SourceType": "Discovered",
-      "ContentRoot": "/Users/hmp/RiderProjects/Assignment1/BlazorServer/wwwroot/",
+      "ContentRoot": "/Users/hmp/Documents/GitHub/SEP3/BlazorServer/wwwroot/",
       "BasePath": "_content/BlazorServer",
       "RelativePath": "icons/funnel.png",
       "AssetKind": "All",
@@ -323,10 +340,10 @@
       "OriginalItemSpec": "wwwroot/icons/funnel.png"
     },
     {
-      "Identity": "/Users/hmp/RiderProjects/Assignment1/BlazorServer/wwwroot/icons/Login.png",
+      "Identity": "/Users/hmp/Documents/GitHub/SEP3/BlazorServer/wwwroot/icons/Login.png",
       "SourceId": "BlazorServer",
       "SourceType": "Discovered",
-      "ContentRoot": "/Users/hmp/RiderProjects/Assignment1/BlazorServer/wwwroot/",
+      "ContentRoot": "/Users/hmp/Documents/GitHub/SEP3/BlazorServer/wwwroot/",
       "BasePath": "_content/BlazorServer",
       "RelativePath": "icons/Login.png",
       "AssetKind": "All",
@@ -340,10 +357,10 @@
       "OriginalItemSpec": "wwwroot/icons/Login.png"
     },
     {
-      "Identity": "/Users/hmp/RiderProjects/Assignment1/BlazorServer/wwwroot/icons/Logout.png",
+      "Identity": "/Users/hmp/Documents/GitHub/SEP3/BlazorServer/wwwroot/icons/Logout.png",
       "SourceId": "BlazorServer",
       "SourceType": "Discovered",
-      "ContentRoot": "/Users/hmp/RiderProjects/Assignment1/BlazorServer/wwwroot/",
+      "ContentRoot": "/Users/hmp/Documents/GitHub/SEP3/BlazorServer/wwwroot/",
       "BasePath": "_content/BlazorServer",
       "RelativePath": "icons/Logout.png",
       "AssetKind": "All",

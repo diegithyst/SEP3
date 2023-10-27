@@ -309,11 +309,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/hmp/RiderProjects/Assignment1/Domain/Domain.csproj",
+      "projectUniqueName": "/Users/hmp/Documents/GitHub/SEP3/Domain/Domain.csproj",
       "projectName": "Domain",
-      "projectPath": "/Users/hmp/RiderProjects/Assignment1/Domain/Domain.csproj",
+      "projectPath": "/Users/hmp/Documents/GitHub/SEP3/Domain/Domain.csproj",
       "packagesPath": "/Users/hmp/.nuget/packages/",
-      "outputPath": "/Users/hmp/RiderProjects/Assignment1/Domain/obj/",
+      "outputPath": "/Users/hmp/Documents/GitHub/SEP3/Domain/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/Users/hmp/.nuget/NuGet/NuGet.Config"
