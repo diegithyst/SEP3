@@ -1,0 +1,130 @@
+@page "/ViewPosts"
+@using Domain.Models
+@using HttpClients.ClientInterfaces
+@inject IPostService postService
+
+<h3>Posts</h3>
+
+<div class="filter-bar">
+    <div class="filters-container">
+        <img src="icons/@(doShowFilters ? "clear_" : "")funnel.png" class="funnel" @onclick="@(() => doShowFilters = !doShowFilters)" alt="Funnel"/>
+        @if (doShowFilters)
+        {
+            <div class="filter">
+                <label>Username:</label>
+                <input type="text" @bind="usernameFilter"/>
+            </div>
+            <div class="filter">
+                <label>Is edited?</label>
+                <select @bind="editedStatusFilter">
+                    <option value="all">All</option>
+                    <option value="true">Yes</option>
+                    <option value="false">No</option>
+                </select>
+            </div>
+            <div class="filter">
+                <label>Title contains:</label>
+                <input type="text" @bind="titleContainsFilter"/>
+            </div>
+            <div class="filter">
+                <label>Body contains:</label>
+                <input type="text" @bind="bodyContainsFilter"/>
+            </div>
+        }
+    </div>
+</div>
+
+<div>
+    <button @onclick="LoadPosts">Load</button>
+</div>
+
+@if (posts == null)
+{
+}
+else if (!posts.Any())
+{
+    <p>No Posts to display</p>
+}
+else
+{
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Post ID</th>
+            <th>Owner</th>
+            <th>Title</th>
+            <th>Edited?</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var item in posts)
+        {
+            <tr>
+                <td>@item.id</td>
+                <td>@item.author.username</td>
+                <td><a href="/ViewPost/@item.id">@item.title</a></td>
+                <td>@item.edited</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+}
+@if (!string.IsNullOrEmpty(msg))
+{
+    <label style="color: red">@msg</label>
+}
+
+@code {
+    private IEnumerable<Post>? posts;
+    private string msg = "";
+    
+    private string? usernameFilter;
+    private int? userIdFilter;
+    private string? editedStatusFilter;
+    private string? titleContainsFilter;
+    private bool doShowFilters = false;
+    private string? bodyContainsFilter;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadPosts();
+    }
+
+    private async Task LoadPosts()
+    {
+        try
+        {
+            bool? editedFilterValue = null;
+            if (!string.IsNullOrEmpty(editedStatusFilter) && !editedStatusFilter.Equals("all"))
+            {
+                editedFilterValue = bool.Parse(editedStatusFilter);
+            }
+            posts = await postService.GetAsync(usernameFilter, editedFilterValue, titleContainsFilter, bodyContainsFilter);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            msg = e.Message;
+        }
+    } 
+
+
+    private async Task RemovePost(int postId)
+    {
+        msg = "";
+        try
+        {
+            //await postService.DeleteAsync(postId);
+
+            var list = new List<Post>(posts!);
+            list.RemoveAll(post => post.id == postId);
+            posts = list.AsEnumerable();
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            msg = e.Message;
+        }
+    }
+
+}

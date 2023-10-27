@@ -1,0 +1,190 @@
+{
+  "format": 1,
+  "restore": {
+    "/Users/hmp/RiderProjects/Assignment1/BlazorServer/BlazorServer.csproj": {}
+  },
+  "projects": {
+    "/Users/hmp/RiderProjects/Assignment1/BlazorServer/BlazorServer.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/hmp/RiderProjects/Assignment1/BlazorServer/BlazorServer.csproj",
+        "projectName": "BlazorServer",
+        "projectPath": "/Users/hmp/RiderProjects/Assignment1/BlazorServer/BlazorServer.csproj",
+        "packagesPath": "/Users/hmp/.nuget/packages/",
+        "outputPath": "/Users/hmp/RiderProjects/Assignment1/BlazorServer/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/hmp/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net7.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net7.0": {
+            "targetAlias": "net7.0",
+            "projectReferences": {
+              "/Users/hmp/RiderProjects/Assignment1/HttpClients/HttpClients.csproj": {
+                "projectPath": "/Users/hmp/RiderProjects/Assignment1/HttpClients/HttpClients.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net7.0": {
+          "targetAlias": "net7.0",
+          "dependencies": {
+            "Microsoft.AspNetCore.Components.Authorization": {
+              "target": "Package",
+              "version": "[7.0.13, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/7.0.400/RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/Users/hmp/RiderProjects/Assignment1/Domain/Domain.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/hmp/RiderProjects/Assignment1/Domain/Domain.csproj",
+        "projectName": "Domain",
+        "projectPath": "/Users/hmp/RiderProjects/Assignment1/Domain/Domain.csproj",
+        "packagesPath": "/Users/hmp/.nuget/packages/",
+        "outputPath": "/Users/hmp/RiderProjects/Assignment1/Domain/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/hmp/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net7.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net7.0": {
+            "targetAlias": "net7.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net7.0": {
+          "targetAlias": "net7.0",
+          "dependencies": {
+            "Microsoft.AspNetCore.Authorization": {
+              "target": "Package",
+              "version": "[7.0.13, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/7.0.400/RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/Users/hmp/RiderProjects/Assignment1/HttpClients/HttpClients.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/hmp/RiderProjects/Assignment1/HttpClients/HttpClients.csproj",
+        "projectName": "HttpClients",
+        "projectPath": "/Users/hmp/RiderProjects/Assignment1/HttpClients/HttpClients.csproj",
+        "packagesPath": "/Users/hmp/.nuget/packages/",
+        "outputPath": "/Users/hmp/RiderProjects/Assignment1/HttpClients/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/hmp/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net7.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net7.0": {
+            "targetAlias": "net7.0",
+            "projectReferences": {
+              "/Users/hmp/RiderProjects/Assignment1/Domain/Domain.csproj": {
+                "projectPath": "/Users/hmp/RiderProjects/Assignment1/Domain/Domain.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net7.0": {
+          "targetAlias": "net7.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/7.0.400/RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,115 @@
+@page "/ViewPost/{id:int}"
+@using Domain.DTOs
+@using Domain.Models
+@using HttpClients.ClientInterfaces
+@using Microsoft.AspNetCore.Components
+@using System.Security.Claims
+@inject IPostService postService
+@inject IUserService userService
+@inject NavigationManager navMgr
+
+<div class="card">
+    @if (users == null)
+    {
+        <label>Loading users...</label>
+    }
+    else if (!users.Any())
+    {
+        <label>No users, you cannot create a Post</label>
+    }
+    else if (dto == null)
+    {
+        <label>Loading Post data..</label>
+    }
+    else
+    {
+        <h3>Update Todo</h3>
+        <div class="form-group field">
+            <label>Title:</label>
+            <input type="text" @bind="dto.newTitle"/>
+        </div>
+        <div class="form-group field" id="body">
+            <label>Body:</label>
+            <textarea @bind="dto.newBody" style="width: 80%;height: 100px;"/>
+        </div>
+        <div class="form-group field">
+            <label>Owner: @getUsername()</label>
+        </div>
+        @if (username.Equals(loggedUsername))
+        {
+            <div class="button-row">
+                <button @onclick="UpdateAsync" class="acceptbtn">Update</button>
+            </div>
+        }
+    }
+    @if (!string.IsNullOrEmpty(msg))
+    {
+        <label style="color: red">@msg</label>
+    }
+</div>
+
+
+@code {
+
+    [Parameter]
+    public int Id { get; set; }
+
+    private PostEditDto dto = null!;
+    private string msg = "";
+    private IEnumerable<User>? users;
+    private PostBasicDto postData = null;
+    private string username = "";
+    private string loggedUsername = "";
+    
+    [CascadingParameter]
+    public Task<AuthenticationState> AuthState { get; set; } = null!;
+
+    protected override async Task OnInitializedAsync()
+    {
+        msg = "";
+        try
+        {
+            users = await userService.GetUsersAsync();
+            postData = await postService.GetByIdAsync(Id);
+            User currentlyAssigned = users.First(user => user.username.Equals(postData.author.username));
+            username = currentlyAssigned.username;
+
+            dto = new PostEditDto(Id, currentlyAssigned.id, postData.title, postData.body);
+
+            AuthenticationState authState = await AuthState;
+            ClaimsPrincipal user = authState.User;
+            loggedUsername = user.Identity!.Name!;
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            msg = e.Message;
+        }
+    }
+
+    private async Task UpdateAsync()
+    {
+        try
+        {
+            await postService.UpdateAsync(dto);
+            navMgr.NavigateTo("/ViewPosts");
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            msg = e.Message;
+        }
+    }
+
+    private string getUsername()
+    {
+        if (!string.IsNullOrEmpty(username))
+        {
+            return username;
+        }
+        return "no user found";
+    }
+    
+
+}
+
