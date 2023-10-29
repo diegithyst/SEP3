@@ -9,11 +9,20 @@ package persistentserver;
 
 service PersistentServer{
   rpc GetTotalBalance(ClientBasicDTO) returns (TotalBalance){}
+  rpc GetClientById(ClientBasicDTO) returns (Client){}
 }
 message ClientBasicDTO{
-  int32 clientId = 1;
+  int64 clientId = 1;
 }
 message TotalBalance{
   double totalBalance = 1;
   int32 currencyType = 2;
+}
+message Client{
+  int64 clientId = 1;
+  string name = 2;
+  string country = 3;
+  string identityDocument = 4;
+  string birthday = 5;
+  string planType = 6;
 }

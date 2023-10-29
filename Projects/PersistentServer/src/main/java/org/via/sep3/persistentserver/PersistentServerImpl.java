@@ -1,15 +1,38 @@
 package org.via.sep3.persistentserver;
 
+import io.grpc.Status;
 import io.grpc.stub.StreamObserver;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.via.sep3.persistentserver.proto.Client;
 import org.via.sep3.persistentserver.proto.ClientBasicDTO;
 import org.via.sep3.persistentserver.proto.PersistentServerGrpc;
 import org.via.sep3.persistentserver.proto.TotalBalance;
 
 public class PersistentServerImpl extends PersistentServerGrpc.PersistentServerImplBase {
+    private SessionFactory sf;
+    public PersistentServerImpl(SessionFactory sf) {
+        super();
+        this.sf = sf;
+    }
+
     @Override
     public void getTotalBalance(ClientBasicDTO request, StreamObserver<TotalBalance> responseObserver) {
         TotalBalance reply = TotalBalance.newBuilder().setTotalBalance(122.2).setCurrencyType(2).build();
         responseObserver.onNext(reply);
         responseObserver.onCompleted();
+    }
+
+    @Override
+    public void getClientById(ClientBasicDTO request, StreamObserver<Client> responseObserver) {
+        try(Session s = sf.openSession()){
+            org.via.sep3.persistentserver.model.Client c = s.get(org.via.sep3.persistentserver.model.Client.class,request.getClientId());
+            if(c != null){
+                responseObserver.onNext(c.getProtoClient());
+                responseObserver.onCompleted();
+            }else {
+                responseObserver.onError(Status.NOT_FOUND.asException());
+            }
+        }
     }
 }

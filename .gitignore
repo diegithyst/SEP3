@@ -1,3 +1,5 @@
 .idea/*
 Projects/PersistentServer/.idea/*
 Projects/PersistentServer/target/*
+Projects/PersistentServer/database/*
+Projects/PersistentServer/ps.log
