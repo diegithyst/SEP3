@@ -6,23 +6,24 @@ namespace FileData.DAOs;
 public class AccountFileDao : IAccountDao
 {
     private readonly FileContext _context;
-
-    public AccountFileDao(FileContext context)
+    private readonly PersistentServerClient.PersistentServer.PersistentServerClient psc;
+    public AccountFileDao(FileContext context, GrpcContext grpcContext)
     {
         _context = context;
+        psc = grpcContext.Psc;
     }
 
 
     public Task<Account> CreateAsync(Account account)
     {
-        int id = 1;
+        long id = 1;
         if (_context.Accounts.Any())
         {
-            id = _context.Accounts.Max(a => a.identifier);
+            id = _context.Accounts.Max(a => a.id);
             id++;
         }
 
-        account.identifier = id;
+        account.id = id;
 
         
         _context.Accounts.Add(account);
@@ -30,24 +31,24 @@ public class AccountFileDao : IAccountDao
         return Task.FromResult(account);
     }
 
-    public Task<IEnumerable<Account>> GetByOwnerIdAsync(string ownerId)
+    public Task<IEnumerable<Account>> GetByOwnerIdAsync(long ownerId)
     {
-        IEnumerable<Account> accounts = _context.Accounts.AsEnumerable();
-
-        if (!string.IsNullOrEmpty(ownerId))
+        List<Account> ownerAccounts = new List<Account>();
+        PersistentServerClient.GrpcAccounts call = psc.GetClientAccounts(new PersistentServerClient.ClientBasicDTO { ClientId = ownerId });
+       foreach(PersistentServerClient.GrpcAccount ga in call.Accounts)
         {
-            accounts = _context.Accounts.Where(a => a.ownerId.Equals(ownerId, StringComparison.OrdinalIgnoreCase));
+            ownerAccounts.Add(new Account { id = ga.AccountId, ownerId = ga.ClientId, balance = ga.Balance, loan = ga.Loan, mainCurrency = ga.MainCurrency });
         }
 
-        return Task.FromResult(accounts);
+        return Task.FromResult(ownerAccounts.AsEnumerable());
     }
 
-    public Task<Account> GetByIdAsync(int id)
+    public Task<Account> GetByIdAsync(long id)
     {
-        Account? existing = _context.Accounts.FirstOrDefault(a => a.identifier == id);
-        if (existing != null)
+     PersistentServerClient.GrpcAccount ga = psc.GetAccountById(new PersistentServerClient.AccountBasicDTO { AccountId = id});
+        if (ga != null)
         {
-            return Task.FromResult(existing);
+            return Task.FromResult(new Account { id = ga.AccountId, ownerId = ga.ClientId, balance = ga.Balance, loan = ga.Loan, mainCurrency = ga.MainCurrency});
         }
         throw new Exception("There is no account with that id");
     }

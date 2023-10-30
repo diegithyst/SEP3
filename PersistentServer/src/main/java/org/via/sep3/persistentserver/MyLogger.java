@@ -33,6 +33,8 @@ public class MyLogger {
     } catch (IOException e) {
       throw new UncheckedIOException(e);
     }
-    rootLogger.setLevel(Level.FINE);
+    rootLogger.setLevel(Level.INFO);
+    Logger.getLogger("org.hibernate.SQL").setLevel(Level.FINE);
+    Logger.getLogger("org.hibernate.persister.entity.AbstractEntityPersister").setLevel(Level.FINE);
   }
 }

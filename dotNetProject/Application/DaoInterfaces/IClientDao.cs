@@ -6,7 +6,7 @@ namespace Application.DaoInterfaces;
 public interface IClientDao
 {
     Task<Client> CreateAsync(Client client);
-    Task<Client?> GetByIdAsync(string id);
+    Task<Client?> GetByIdAsync(long id);
 
     Task<IEnumerable<Client>> GetAsync(SearchClientParametersDto searchParameters);
 }

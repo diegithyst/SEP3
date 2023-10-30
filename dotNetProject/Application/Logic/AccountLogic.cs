@@ -24,22 +24,17 @@ public class AccountLogic : IAccountLogic
             throw new Exception($"No client was found with the id {dto.ownerId}!");
         }
 
-        //TODO what restrictions do we want here?
-
-        Account account = new Account(dto.mainCurrency, dto.loan, dto.ownerId)
-        {
-            balance = 0
-        };
+        Account account = new Account { mainCurrency = dto.mainCurrency, loan = dto.loan, ownerId = dto.ownerId, balance = 0 };
         Account created = await _accountDao.CreateAsync(account);
         return created;
     }
 
-    public Task<IEnumerable<Account?>> GetByOwnerIdAsync(string ownerId)
+    public Task<IEnumerable<Account?>> GetByOwnerIdAsync(long ownerId)
     {
         return _accountDao.GetByOwnerIdAsync(ownerId);
     }
 
-    public Task<Account?> GetByIdAsync(int id)
+    public Task<Account?> GetByIdAsync(long id)
     {
         if (_accountDao.GetByIdAsync(id) == null)
         {

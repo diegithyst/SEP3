@@ -1,9 +1,6 @@
 package org.via.sep3.persistentserver.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import org.via.sep3.persistentserver.proto.GrpcAccount;
 
 @Entity (name = "Account")
@@ -15,13 +12,14 @@ public class Account {
     private String mainCurrency;
     private Boolean loan;
     private Double balance;
-    private Long clientId;
-
-    public Account(String mainCurrency, Boolean loan, Double balance, Long clientId) {
+    @ManyToOne
+    @JoinColumn(name = "client_id")
+    private Client owner;
+    public Account(String mainCurrency, Boolean loan, Double balance, Client owner) {
         this.mainCurrency = mainCurrency;
         this.loan = loan;
         this.balance = balance;
-        this.clientId = clientId;
+        this.owner = owner;
     }
 
     public Account() {
@@ -55,12 +53,12 @@ public class Account {
         this.balance = balance;
     }
 
-    public Long getClientId() {
-        return clientId;
+    public Client getOwner() {
+        return owner;
     }
 
-    public void setClientId(Long clientId) {
-        this.clientId = clientId;
+    public void setOwner(Client owner) {
+        this.owner = owner;
     }
 
     public GrpcAccount getProtoAccount(){
@@ -68,7 +66,7 @@ public class Account {
                 .setBalance(getBalance())
                 .setMainCurrency(getMainCurrency())
                 .setLoan(getLoan())
-                .setClientId(getClientId()).build();
+                .setClientId(getOwner().getId()).build();
     }
     @Override
     public String toString() {
@@ -77,7 +75,7 @@ public class Account {
                 ", mainCurrency='" + mainCurrency + '\'' +
                 ", loan=" + loan +
                 ", balance=" + balance +
-                ", ownerId='" + clientId + '\'' +
+                ", ownerId='" + owner.getId() + '\'' +
                 '}';
     }
 }

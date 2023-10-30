@@ -40,5 +40,5 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
-
+app.Urls.Add("http://localhost:5066");
 app.Run();

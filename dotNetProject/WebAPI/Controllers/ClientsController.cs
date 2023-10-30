@@ -48,11 +48,11 @@ public class ClientsController : ControllerBase
     }*/
 
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<Client?>>> GetAsync([FromQuery] string? id)
+    public async Task<ActionResult<IEnumerable<Client?>>> GetAsync([FromQuery] long? id)
     {
         try
         {
-            SearchClientParametersDto parameters = new(id);
+            SearchClientParametersDto parameters = new(id, null);
             IEnumerable<Client> clients = await _clientLogic.GetAsync(parameters);
             return Ok(clients);
         }

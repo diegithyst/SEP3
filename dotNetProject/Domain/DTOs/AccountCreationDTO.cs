@@ -6,5 +6,5 @@ public class AccountCreationDTO
 {
     public string mainCurrency { get; set; }
     public bool loan { get; set; }
-    public string ownerId { get; set; }
+    public long ownerId { get; set; }
 }

@@ -23,18 +23,18 @@ public class ClientFileDao : IClientDao
         return Task.FromResult(client);
     }
 
-    public Task<Client?> GetByIdAsync(string id)
+    public Task<Client?> GetByIdAsync(long id)
     {
-        PersistentServerClient.Client grpcClient = psc.GetClientById(new PersistentServerClient.ClientBasicDTO { ClientId = long.Parse(id) });
+        PersistentServerClient.Client grpcClient = psc.GetClientById(new PersistentServerClient.ClientBasicDTO { ClientId = id });
         return Task.FromResult(new Client { id = grpcClient.ClientId, name = grpcClient.Name, country = grpcClient.Country, birthday = grpcClient.Birthday, identityDocument = grpcClient.IdentityDocument, planType = grpcClient.PlanType });
     }
 
     public Task<IEnumerable<Client>> GetAsync(SearchClientParametersDto searchParameters)
     {
         IEnumerable<Client> existing = context.Clients.AsEnumerable();
-        if (!string.IsNullOrEmpty(searchParameters.id))
+        if (!string.IsNullOrEmpty(searchParameters.identityDocument))
         {
-            existing  = existing.Where(c => c.identityDocument.Equals(searchParameters.id, StringComparison.OrdinalIgnoreCase));
+            existing  = existing.Where(c => c.identityDocument.Equals(searchParameters.identityDocument, StringComparison.OrdinalIgnoreCase));
         }
         return Task.FromResult(existing);
     }

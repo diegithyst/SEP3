@@ -6,8 +6,8 @@ namespace Application.LogicInterfaces;
 public interface IAccountLogic
 {
     Task<Account> CreateAsync(AccountCreationDTO dto);
-    Task<IEnumerable<Account?>> GetByOwnerIdAsync(string? ownerId);
+    Task<IEnumerable<Account?>> GetByOwnerIdAsync(long ownerId);
     //Task TransferMoneyAsync(double amountToTranfer, int accountIdentifier);
     
-    Task<Account?> GetByIdAsync(int id);
+    Task<Account?> GetByIdAsync(long id);
 }

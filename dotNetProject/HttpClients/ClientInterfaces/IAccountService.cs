@@ -4,5 +4,5 @@ namespace HttpClients.ClientInterfaces;
 
 public interface IAccountService
 {
-    Task<Account> GetAccount(int id);
+    Task<Account> GetAccount(long id);
 }

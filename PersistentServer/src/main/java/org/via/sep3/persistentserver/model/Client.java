@@ -1,9 +1,9 @@
 package org.via.sep3.persistentserver.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity(name = "Client")
 @Table(name = "client")
@@ -16,6 +16,9 @@ public class Client {
     private String identityDocument;
     private String birthday;
     private String planType;
+
+    @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL,orphanRemoval = true)
+    private List<Account> account = new ArrayList<>();
 
     public Client(String name, String country, String identityDocument, String birthday, String planType) {
         this.name = name;
@@ -70,6 +73,10 @@ public class Client {
 
     public void setPlanType(String planType) {
         this.planType = planType;
+    }
+
+    public List<Account> getAccounts() {
+        return account;
     }
 
     public org.via.sep3.persistentserver.proto.Client getProtoClient(){

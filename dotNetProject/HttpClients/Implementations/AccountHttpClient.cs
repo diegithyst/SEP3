@@ -15,11 +15,11 @@ public class AccountHttpClient : IAccountService
     }
     
     
-    public async Task<Account> GetAccount(int id)
+    public async Task<Account> GetAccount(long id)
     {
 
         string uri = "Accounts/getAccountById";
-        if (string.IsNullOrEmpty(uri))
+        if (id != 0)
         {
             uri += $"?accountId={id}";
         }

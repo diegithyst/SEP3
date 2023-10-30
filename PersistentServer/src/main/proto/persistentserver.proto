@@ -12,6 +12,7 @@ service PersistentServer{
   rpc GetTotalBalance(ClientBasicDTO) returns (TotalBalance){}
   rpc GetClientById(ClientBasicDTO) returns (Client){}
   rpc GetAccountById(AccountBasicDTO) returns (GrpcAccount){}
+  rpc GetClientAccounts(ClientBasicDTO) returns (GrpcAccounts){}
 }
 message ClientBasicDTO{
   int64 clientId = 1;
@@ -39,4 +40,7 @@ message GrpcAccount{
   bool loan = 3;
   double balance = 4;
   int64 clientId = 5;
+}
+message GrpcAccounts{
+  repeated GrpcAccount accounts = 1;
 }

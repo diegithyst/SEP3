@@ -9,5 +9,5 @@ public interface IClientLogic
     
     Task<IEnumerable<Client?>> GetAsync(SearchClientParametersDto searchClientParametersDto);
     
-    Task<Client?> GetByIdAsync(string id);
+    Task<Client?> GetByIdAsync(long id);
 }

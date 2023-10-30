@@ -22,7 +22,7 @@ public class AccountsController : ControllerBase
         try
         {
             Account account = await _accountLogic.CreateAsync(dto);
-            return Created($"/accounts/{account.identifier}", account);
+            return Created($"/accounts/{account.id}", account);
         }
         catch (Exception e)
         {
@@ -32,7 +32,7 @@ public class AccountsController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<Account>>> GetByOwnerIdAsync([FromQuery] string? ownerId)
+    public async Task<ActionResult<IEnumerable<Account>>> GetByOwnerIdAsync([FromQuery] long ownerId)
     {
         try
         {
@@ -47,8 +47,8 @@ public class AccountsController : ControllerBase
         }
     }
 
-    [HttpGet ("getByAccountId/")]
-    public async Task<ActionResult<Account>> GetByAccountId([FromQuery] int accountId)
+    [HttpGet ("getAccountById/")]
+    public async Task<ActionResult<Account>> GetAccountById([FromQuery] long accountId)
     {
         try
         {

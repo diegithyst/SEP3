@@ -9,7 +9,7 @@ namespace FileData
      public PersistentServer.PersistentServerClient Psc { get; }
         public GrpcContext()
         {
-            channel = GrpcChannel.ForAddress("https://localhost:50051");
+            channel = GrpcChannel.ForAddress("http://localhost:50051");
             Psc = new PersistentServer.PersistentServerClient(channel);
         }
     }

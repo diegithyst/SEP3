@@ -17,7 +17,7 @@ public class ClientLogic : IClientLogic
 
     public async Task<Client> CreateAsync(ClientCreationDTO clientToCreate)
     {
-        Client? existing = await _clientDao.GetByIdAsync(clientToCreate.id);
+        IEnumerable<Client> existing = await _clientDao.GetAsync(new SearchClientParametersDto(null,clientToCreate.identityDocument));
 
         if (existing != null)
         {
@@ -30,7 +30,7 @@ public class ClientLogic : IClientLogic
         {
             name = clientToCreate.name,
             country = clientToCreate.name,
-            identityDocument = clientToCreate.id,
+            identityDocument = clientToCreate.identityDocument,
             birthday = clientToCreate.birthday,
             planType = clientToCreate.planType
         };
@@ -46,7 +46,7 @@ public class ClientLogic : IClientLogic
     }
 
 
-    public Task<Client?> GetByIdAsync(string searchById)
+    public Task<Client?> GetByIdAsync(long searchById)
     {
         return _clientDao.GetByIdAsync(searchById);
     }
