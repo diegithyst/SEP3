@@ -1,5 +1,5 @@
 using System.Text.Json;
-using Domain.Models;
+using Domain.Model;
 
 namespace FileData;
 
@@ -8,45 +8,39 @@ public class FileContext
     private const string filePath = "data.json";
     private DataContainer? _dataContainer;
 
-    public ICollection<Post> Posts
+    public ICollection<Account> Accounts
     {
         get
         {
             LoadData();
-            return _dataContainer!.Posts;
+            return _dataContainer.Accounts;
         }
     }
 
-    public ICollection<User> Users
+    public ICollection<Client> Clients
     {
         get
         {
             LoadData();
-            return _dataContainer!.Users;
-        }
-    }
-
-    public ICollection<Comment> Comments
-    {
-        get
-        {
-            LoadData();
-            return _dataContainer!.Comments;
+            return _dataContainer.Clients;
         }
     }
 
     private void LoadData()
     {
-        if (_dataContainer != null) return;
+        if (_dataContainer != null) 
+        {
+            return;
+        }
+
         if (!File.Exists(filePath))
         {
             _dataContainer = new()
             {
-                Comments = new List<Comment>(),
-                Posts = new List<Post>(),
-                Users = new List<User>()
+                Clients = new List<Client>(),
+                Accounts = new List<Account>()
             };
-            return;
+                return;
         }
 
         string content = File.ReadAllText(filePath);
@@ -55,10 +49,7 @@ public class FileContext
 
     public void SaveChanges()
     {
-        string serialized = JsonSerializer.Serialize(_dataContainer, new JsonSerializerOptions
-        {
-            WriteIndented = true
-        });
+        string serialized = JsonSerializer.Serialize(_dataContainer);
         File.WriteAllText(filePath, serialized);
         _dataContainer = null;
     }

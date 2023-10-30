@@ -1,10 +1,9 @@
-using Domain.Models;
+using Domain.Model;
 
 namespace FileData;
 
 public class DataContainer
 {
-    public ICollection<User> Users { get; set; }
-    public ICollection<Post> Posts { get; set; }
-    public ICollection<Comment> Comments { get; set; }
+    public ICollection<Client> Clients { get; set; }
+    public ICollection<Account> Accounts { get; set; }
 }

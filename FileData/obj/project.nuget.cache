@@ -1,15 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "EH+AWxvfEFTQOY9fnoCOZH8KVPi/M8qdJEA7Lup8s6QuxclR+kovgCKckNTD/msUkTvZ5Ulbt4THGeFRY+c0mA==",
+  "dgSpecHash": "GwCLXwbONptqD+4C4/Ful9Yp18rLkHKSFj/k6do9spE78y8L/pPHMIwAtn4yiq/4pZ/752KUoAHb6X0oRVkT8Q==",
   "success": true,
   "projectFilePath": "/Users/hmp/Documents/GitHub/SEP3/FileData/FileData.csproj",
-  "expectedPackageFiles": [
-    "/Users/hmp/.nuget/packages/microsoft.aspnetcore.authorization/7.0.13/microsoft.aspnetcore.authorization.7.0.13.nupkg.sha512",
-    "/Users/hmp/.nuget/packages/microsoft.aspnetcore.metadata/7.0.13/microsoft.aspnetcore.metadata.7.0.13.nupkg.sha512",
-    "/Users/hmp/.nuget/packages/microsoft.extensions.dependencyinjection.abstractions/7.0.0/microsoft.extensions.dependencyinjection.abstractions.7.0.0.nupkg.sha512",
-    "/Users/hmp/.nuget/packages/microsoft.extensions.logging.abstractions/7.0.1/microsoft.extensions.logging.abstractions.7.0.1.nupkg.sha512",
-    "/Users/hmp/.nuget/packages/microsoft.extensions.options/7.0.1/microsoft.extensions.options.7.0.1.nupkg.sha512",
-    "/Users/hmp/.nuget/packages/microsoft.extensions.primitives/7.0.0/microsoft.extensions.primitives.7.0.0.nupkg.sha512"
-  ],
+  "expectedPackageFiles": [],
   "logs": []
 }
