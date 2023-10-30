@@ -8,19 +8,19 @@
     "net7.0": []
   },
   "packageFolders": {
-    "/Users/hmp/.nuget/packages/": {}
+    "C:\\Users\\Mery\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/hmp/Documents/GitHub/SEP3/Domain/Domain.csproj",
+      "projectUniqueName": "C:\\Users\\Mery\\Documents\\GitHub\\SEP3\\SEP3\\Domain\\Domain.csproj",
       "projectName": "Domain",
-      "projectPath": "/Users/hmp/Documents/GitHub/SEP3/Domain/Domain.csproj",
-      "packagesPath": "/Users/hmp/.nuget/packages/",
-      "outputPath": "/Users/hmp/Documents/GitHub/SEP3/Domain/obj/",
+      "projectPath": "C:\\Users\\Mery\\Documents\\GitHub\\SEP3\\SEP3\\Domain\\Domain.csproj",
+      "packagesPath": "C:\\Users\\Mery\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Mery\\Documents\\GitHub\\SEP3\\SEP3\\Domain\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "/Users/hmp/.nuget/NuGet/NuGet.Config"
+        "C:\\Users\\Mery\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net7.0"
@@ -59,7 +59,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/7.0.400/RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.400\\RuntimeIdentifierGraph.json"
       }
     }
   }

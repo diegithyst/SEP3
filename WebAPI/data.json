@@ -1,1 +1,20 @@
-{"Clients":[{"name":"string","country":"string","identityDocument":"1234A","birthday":"string","planType":"string"}],"Accounts":[{"mainCurrency":"Euro","loan":false,"balance":0,"ownerId":"1234A","identifier":1}]}
+{
+  "Clients": [
+    {
+      "name": "string",
+      "country": "string",
+      "identityDocument": "1234A",
+      "birthday": "string",
+      "planType": "string"
+    }
+  ],
+  "Accounts": [
+    {
+      "mainCurrency": "Euro",
+      "loan": false,
+      "balance": 0,
+      "ownerId": "1234A",
+      "identifier": 1
+    }
+  ]
+}

@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "/Users/hmp/Documents/GitHub/SEP3/FileData/FileData.csproj": {}
+    "C:\\Users\\Mery\\Documents\\GitHub\\SEP3\\SEP3\\FileData\\FileData.csproj": {}
   },
   "projects": {
-    "/Users/hmp/Documents/GitHub/SEP3/Application/Application.csproj": {
+    "C:\\Users\\Mery\\Documents\\GitHub\\SEP3\\SEP3\\Application\\Application.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/hmp/Documents/GitHub/SEP3/Application/Application.csproj",
+        "projectUniqueName": "C:\\Users\\Mery\\Documents\\GitHub\\SEP3\\SEP3\\Application\\Application.csproj",
         "projectName": "Application",
-        "projectPath": "/Users/hmp/Documents/GitHub/SEP3/Application/Application.csproj",
-        "packagesPath": "/Users/hmp/.nuget/packages/",
-        "outputPath": "/Users/hmp/Documents/GitHub/SEP3/Application/obj/",
+        "projectPath": "C:\\Users\\Mery\\Documents\\GitHub\\SEP3\\SEP3\\Application\\Application.csproj",
+        "packagesPath": "C:\\Users\\Mery\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Mery\\Documents\\GitHub\\SEP3\\SEP3\\Application\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/Users/hmp/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\Mery\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net7.0"
@@ -26,8 +26,8 @@
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "/Users/hmp/Documents/GitHub/SEP3/Domain/Domain.csproj": {
-                "projectPath": "/Users/hmp/Documents/GitHub/SEP3/Domain/Domain.csproj"
+              "C:\\Users\\Mery\\Documents\\GitHub\\SEP3\\SEP3\\Domain\\Domain.csproj": {
+                "projectPath": "C:\\Users\\Mery\\Documents\\GitHub\\SEP3\\SEP3\\Domain\\Domain.csproj"
               }
             }
           }
@@ -57,21 +57,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/7.0.400/RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.400\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "/Users/hmp/Documents/GitHub/SEP3/Domain/Domain.csproj": {
+    "C:\\Users\\Mery\\Documents\\GitHub\\SEP3\\SEP3\\Domain\\Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/hmp/Documents/GitHub/SEP3/Domain/Domain.csproj",
+        "projectUniqueName": "C:\\Users\\Mery\\Documents\\GitHub\\SEP3\\SEP3\\Domain\\Domain.csproj",
         "projectName": "Domain",
-        "projectPath": "/Users/hmp/Documents/GitHub/SEP3/Domain/Domain.csproj",
-        "packagesPath": "/Users/hmp/.nuget/packages/",
-        "outputPath": "/Users/hmp/Documents/GitHub/SEP3/Domain/obj/",
+        "projectPath": "C:\\Users\\Mery\\Documents\\GitHub\\SEP3\\SEP3\\Domain\\Domain.csproj",
+        "packagesPath": "C:\\Users\\Mery\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Mery\\Documents\\GitHub\\SEP3\\SEP3\\Domain\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/Users/hmp/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\Mery\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net7.0"
@@ -110,21 +110,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/7.0.400/RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.400\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "/Users/hmp/Documents/GitHub/SEP3/FileData/FileData.csproj": {
+    "C:\\Users\\Mery\\Documents\\GitHub\\SEP3\\SEP3\\FileData\\FileData.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/hmp/Documents/GitHub/SEP3/FileData/FileData.csproj",
+        "projectUniqueName": "C:\\Users\\Mery\\Documents\\GitHub\\SEP3\\SEP3\\FileData\\FileData.csproj",
         "projectName": "FileData",
-        "projectPath": "/Users/hmp/Documents/GitHub/SEP3/FileData/FileData.csproj",
-        "packagesPath": "/Users/hmp/.nuget/packages/",
-        "outputPath": "/Users/hmp/Documents/GitHub/SEP3/FileData/obj/",
+        "projectPath": "C:\\Users\\Mery\\Documents\\GitHub\\SEP3\\SEP3\\FileData\\FileData.csproj",
+        "packagesPath": "C:\\Users\\Mery\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Mery\\Documents\\GitHub\\SEP3\\SEP3\\FileData\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/Users/hmp/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\Mery\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net7.0"
@@ -136,8 +136,8 @@
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "/Users/hmp/Documents/GitHub/SEP3/Application/Application.csproj": {
-                "projectPath": "/Users/hmp/Documents/GitHub/SEP3/Application/Application.csproj"
+              "C:\\Users\\Mery\\Documents\\GitHub\\SEP3\\SEP3\\Application\\Application.csproj": {
+                "projectPath": "C:\\Users\\Mery\\Documents\\GitHub\\SEP3\\SEP3\\Application\\Application.csproj"
               }
             }
           }
@@ -167,7 +167,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/7.0.400/RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.400\\RuntimeIdentifierGraph.json"
         }
       }
     }

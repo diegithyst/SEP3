@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "BWVJoBDEGqi+2mlAA/OXZq/Vj4zq8G5Z+XzvdN9L2mysdyWrjPGmS3Tgr7rnpREJAxJkVgLQvbjsrGl9Isrfqg==",
+  "dgSpecHash": "pRdO+P9UxCX6hj2XjTOXATmw2P8VFETokLdtu2c5tLvXIpRT3eX8bdj7r1iaDmiGRI1z7hxDgruAaWksqycWbA==",
   "success": true,
-  "projectFilePath": "/Users/hmp/Documents/GitHub/SEP3/Domain/Domain.csproj",
+  "projectFilePath": "C:\\Users\\Mery\\Documents\\GitHub\\SEP3\\SEP3\\Domain\\Domain.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }
