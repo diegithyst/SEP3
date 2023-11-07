@@ -29,7 +29,12 @@
             Account account = await accountService.GetAccount(id);
             MainCurrency = account.mainCurrency;
             Loan = account.loan;
-            Balance = account.balance;
+            double Total = 0;
+            for (int i = 0; i < account.Currencies.Count; i++)
+            {
+                Total += account.Currencies[i].
+            }
+            Balance = account.Currencies.
         }
         catch (Exception e)
         {
