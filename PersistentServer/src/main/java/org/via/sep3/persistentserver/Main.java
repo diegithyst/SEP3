@@ -79,7 +79,7 @@ public class Main {
                 if (s.createQuery("from Client", Client.class).stream().count()<1){
                     Transaction t = s.beginTransaction();
                     MyLogger.getInstance().log("***psinit","db is empty so put some bootstrap data into it. ");
-                    s.persist(new Client("en","hungary","AAAAA","31042000","Premium"));
+                    s.persist(new Client("Fredie","Freda","Makko","password","hungary","AAAAA","31042000","Premium"));
                     t.commit();
                 } else {
                     for(Client c:s.createQuery("from Client", Client.class).list()){
@@ -89,7 +89,7 @@ public class Main {
                 if (s.createQuery("from Account", Account.class).stream().count()<1){
                     Transaction t = s.beginTransaction();
                     MyLogger.getInstance().log("***psinit","db is empty so put some bootstrap data into it. ");
-                    s.persist(new Account("Euro",false,0.00, s.get(Client.class,1)));
+                    s.persist(new Account("Euro",false,100000000000.00, s.get(Client.class,1)));
                     t.commit();
                 } else {
                     for(Account a:s.createQuery("from Account", Account.class).list()){

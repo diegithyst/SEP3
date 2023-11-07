@@ -16,4 +16,4 @@ dotNetProject/FileData/bin/*
 dotNetProject/FileData/obj/*
 dotNetProject/HttpClients/bin/*
 dotNetProject/HttpClients/obj/*
-dotNetProject/vs/*
+dotNetProject/.vs/*
