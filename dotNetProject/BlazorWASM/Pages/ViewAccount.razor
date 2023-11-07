@@ -32,9 +32,9 @@
             double Total = 0;
             for (int i = 0; i < account.Currencies.Count; i++)
             {
-                Total += account.Currencies[i].
+                Total += account.Currencies[i].balance; //put conversion code here later
             }
-            Balance = account.Currencies.
+            Balance = Total;
         }
         catch (Exception e)
         {
