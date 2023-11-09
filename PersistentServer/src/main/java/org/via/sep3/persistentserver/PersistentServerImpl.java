@@ -5,6 +5,7 @@ import io.grpc.stub.StreamObserver;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.via.sep3.persistentserver.model.Account;
+import org.via.sep3.persistentserver.model.Currency;
 import org.via.sep3.persistentserver.proto.*;
 
 public class PersistentServerImpl extends PersistentServerGrpc.PersistentServerImplBase {
@@ -16,7 +17,7 @@ public class PersistentServerImpl extends PersistentServerGrpc.PersistentServerI
 
     @Override
     public void getTotalBalance(ClientBasicDTO request, StreamObserver<TotalBalance> responseObserver) {
-        TotalBalance reply = TotalBalance.newBuilder().setTotalBalance(122.2).setCurrencyType(2).build();
+        TotalBalance reply = TotalBalance.newBuilder().setTotalBalance(122.2).setCurrencyName(2).build();
         responseObserver.onNext(reply);
         responseObserver.onCompleted();
     }
@@ -54,6 +55,36 @@ public class PersistentServerImpl extends PersistentServerGrpc.PersistentServerI
                 GrpcAccounts.Builder gas = GrpcAccounts.newBuilder();
                 for(Account a : c.getAccounts()){
                     gas.addAccounts(a.getProtoAccount());
+                }
+                responseObserver.onNext(gas.build());
+                responseObserver.onCompleted();
+            }else {
+                responseObserver.onError(Status.NOT_FOUND.asException());
+            }
+        }
+    }
+
+    @Override
+    public void getCurrency(CurrencyBasicDTO request, StreamObserver<GrpcCurrency> responseObserver) {
+        try(Session s = sf.openSession()){
+            Currency c = s.get(Currency.class,request.getCurrencyId());
+            if(c != null){
+                responseObserver.onNext(c.getProtoCurrency());
+                responseObserver.onCompleted();
+            }else {
+                responseObserver.onError(Status.NOT_FOUND.asException());
+            }
+        }
+    }
+
+    @Override
+    public void getCurrencies(AccountBasicDTO request, StreamObserver<GrpcCurrencies> responseObserver) {
+        try(Session s = sf.openSession()){
+            Account a = s.get(Account.class,request.getAccountId());
+            if(a != null){
+                GrpcCurrencies.Builder gas = GrpcCurrencies.newBuilder();
+                for(Currency c : a.getCurrencies()){
+                    gas.addCurrencies(c.getProtoCurrency());
                 }
                 responseObserver.onNext(gas.build());
                 responseObserver.onCompleted();

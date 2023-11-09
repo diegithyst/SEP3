@@ -3,6 +3,9 @@ package org.via.sep3.persistentserver.model;
 import jakarta.persistence.*;
 import org.via.sep3.persistentserver.proto.GrpcAccount;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity (name = "Account")
 @Table (name = "account")
 public class Account {
@@ -15,6 +18,8 @@ public class Account {
     @ManyToOne
     @JoinColumn(name = "client_id")
     private Client owner;
+    @OneToMany(mappedBy = "account", cascade = CascadeType.ALL,orphanRemoval = true)
+    private List<Currency> currencies = new ArrayList<>();
     public Account(String mainCurrency, Boolean loan, Double balance, Client owner) {
         this.mainCurrency = mainCurrency;
         this.loan = loan;
@@ -68,6 +73,11 @@ public class Account {
                 .setLoan(getLoan())
                 .setClientId(getOwner().getId()).build();
     }
+
+    public List<Currency> getCurrencies() {
+        return currencies;
+    }
+
     @Override
     public String toString() {
         return "Account{" +
