@@ -65,7 +65,7 @@ public class PersistentServerImpl extends PersistentServerGrpc.PersistentServerI
     }
 
     @Override
-    public void getCurrency(CurrencyBasicDTO request, StreamObserver<GrpcCurrency> responseObserver) {
+    public void getCurrencyById(CurrencyBasicDTO request, StreamObserver<GrpcCurrency> responseObserver) {
         try(Session s = sf.openSession()){
             Currency c = s.get(Currency.class,request.getCurrencyId());
             if(c != null){

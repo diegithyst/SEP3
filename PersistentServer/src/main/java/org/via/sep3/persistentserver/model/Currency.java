@@ -1,9 +1,6 @@
 package org.via.sep3.persistentserver.model;
 
 import jakarta.persistence.*;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
-import org.via.sep3.persistentserver.proto.GrpcAccount;
 import org.via.sep3.persistentserver.proto.GrpcCurrency;
 
 @Entity(name = "Currency")
@@ -67,7 +64,7 @@ public class Currency {
         return "Currency{" +
                 "name='" + name + '\'' +
                 ", balance=" + balance +
-                ", account=" + account +
+                ", accountId=" + account.getId() +
                 '}';
     }
 }

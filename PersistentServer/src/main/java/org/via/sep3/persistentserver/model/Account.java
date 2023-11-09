@@ -85,6 +85,7 @@ public class Account {
                 ", mainCurrency='" + mainCurrency + '\'' +
                 ", loan=" + loan +
                 ", balance=" + balance +
+                ", currencies=" + currencies +
                 ", ownerId='" + owner.getId() + '\'' +
                 '}';
     }
