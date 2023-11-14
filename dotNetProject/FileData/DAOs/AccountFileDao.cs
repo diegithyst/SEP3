@@ -37,7 +37,7 @@ public class AccountFileDao : IAccountDao
         PersistentServerClient.GrpcAccounts call = psc.GetClientAccounts(new PersistentServerClient.ClientBasicDTO { ClientId = ownerId });
        foreach(PersistentServerClient.GrpcAccount ga in call.Accounts)
         {
-            ownerAccounts.Add(new Account { id = ga.AccountId, ownerId = ga.ClientId, balance = ga.Balance, loan = ga.Loan, mainCurrency = ga.MainCurrency });
+            ownerAccounts.Add(new Account { id = ga.AccountId, ownerId = ga.ClientId, Currencies = ga., loan = ga.Loan, mainCurrency = ga.MainCurrency });
         }
 
         return Task.FromResult(ownerAccounts.AsEnumerable());
