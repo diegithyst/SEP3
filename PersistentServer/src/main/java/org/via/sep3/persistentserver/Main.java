@@ -11,6 +11,7 @@ import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.via.sep3.persistentserver.model.Account;
 import org.via.sep3.persistentserver.model.Client;
+import org.via.sep3.persistentserver.model.Currency;
 
 import java.io.File;
 import java.io.IOException;
@@ -72,14 +73,14 @@ public class Main {
         final StandardServiceRegistry registry = new StandardServiceRegistryBuilder().loadProperties(new File("src/main/config/hibernate.properties")).build();
         try {
             SessionFactory sf = new MetadataSources(registry)
-                            .addAnnotatedClasses(Client.class, Account.class)
+                            .addAnnotatedClasses(Client.class, Account.class, Currency.class)
                             .buildMetadata()
                             .buildSessionFactory();
             try(Session s = sf.openSession()){
                 if (s.createQuery("from Client", Client.class).stream().count()<1){
                     Transaction t = s.beginTransaction();
                     MyLogger.getInstance().log("***psinit","db is empty so put some bootstrap data into it. ");
-                    s.persist(new Client("en","hungary","AAAAA","31042000","Premium"));
+                    s.persist(new Client("Fredie","Freda","Makko","password","hungary","AAAAA","31042000","Premium"));
                     t.commit();
                 } else {
                     for(Client c:s.createQuery("from Client", Client.class).list()){
@@ -89,7 +90,10 @@ public class Main {
                 if (s.createQuery("from Account", Account.class).stream().count()<1){
                     Transaction t = s.beginTransaction();
                     MyLogger.getInstance().log("***psinit","db is empty so put some bootstrap data into it. ");
-                    s.persist(new Account("Euro",false,0.00, s.get(Client.class,1)));
+                    Account account = new Account("Euro",false,100000000000.00, s.get(Client.class,1));
+                    s.persist(account);
+                    s.persist(new Currency("Euro",5000.00,account));
+                    s.persist(new Currency("Dkk",52000.00,account));
                     t.commit();
                 } else {
                     for(Account a:s.createQuery("from Account", Account.class).list()){
@@ -103,6 +107,7 @@ public class Main {
         }
 
         catch (Exception e) {
+            e.printStackTrace();
             // The registry would be destroyed by the SessionFactory, but we
             // had trouble building the SessionFactory so destroy it manually.
             StandardServiceRegistryBuilder.destroy(registry);
