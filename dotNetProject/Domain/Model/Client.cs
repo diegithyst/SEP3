@@ -6,6 +6,6 @@ public class Client
     public string country { get; set; }
     public string identityDocument { get; set; }
     public string birthday { get; set; }
-    public string planType { get; set; }
+    public IPlan planType { get; set; }
     public long id { get; set; }
 }

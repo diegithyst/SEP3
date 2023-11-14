@@ -13,11 +13,15 @@ public class ClientFileDao : IClientDao
         psc = grpcContext.Psc;
     }
     
-    public Task<Client> CreateAsync(Client client)
+    public Task<Client> CreateAsync(ClientCreationDTO clientDto)
     {
-        context.Clients.Add(client);
-        context.SaveChanges();
-        return Task.FromResult(client);
+        // convert plan to string somewhere here
+        
+        
+        PersistentServerClient.Client grpcClient = psc.CreateClient(clientDto);
+
+        IPlan newPlan = PlanMaker.MakePlan(grpcClient.PlanType);
+        return Task.FromResult(new Client { id = grpcClient.ClientId, name = grpcClient.Name, country = grpcClient.Country, birthday = grpcClient.Birthday, identityDocument = grpcClient.IdentityDocument, planType = newPlan });
     }
 
     public Task<Client?> GetByIdAsync(long id)
