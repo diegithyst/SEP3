@@ -5,11 +5,9 @@ namespace FileData.DAOs;
 
 public class AccountFileDao : IAccountDao
 {
-    private readonly FileContext _context;
     private readonly PersistentServerClient.PersistentServer.PersistentServerClient psc;
-    public AccountFileDao(FileContext context, GrpcContext grpcContext)
+    public AccountFileDao(GrpcContext grpcContext)
     {
-        _context = context;
         psc = grpcContext.Psc;
     }
 

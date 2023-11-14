@@ -6,20 +6,17 @@ namespace FileData.DAOs;
 
 public class ClientFileDao : IClientDao
 {
-    private readonly FileContext context;
     private readonly PersistentServerClient.PersistentServer.PersistentServerClient psc;
 
-    public ClientFileDao(FileContext context, GrpcContext grpcContext)
+    public ClientFileDao(GrpcContext grpcContext)
     {
-        this.context = context;
         psc = grpcContext.Psc;
     }
-
+    
     public Task<Client> CreateAsync(Client client)
     {
         context.Clients.Add(client);
         context.SaveChanges();
-
         return Task.FromResult(client);
     }
 
