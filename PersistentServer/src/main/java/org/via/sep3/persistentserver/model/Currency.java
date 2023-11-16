@@ -10,12 +10,12 @@ public class Currency {
     @GeneratedValue
     private Long id;
     private String name;
-    private double balance;
+    private Double balance;
     @ManyToOne
     @JoinColumn(name = "account_id")
     private Account account;
 
-    public Currency(String name, double balance, Account account) {
+    public Currency(String name, Double balance, Account account) {
         this.name = name;
         this.balance = balance;
         this.account = account;
@@ -32,11 +32,11 @@ public class Currency {
         this.name = name;
     }
 
-    public double getBalance() {
+    public Double getBalance() {
         return balance;
     }
 
-    public void setBalance(double balance) {
+    public void setBalance(Double balance) {
         this.balance = balance;
     }
 
