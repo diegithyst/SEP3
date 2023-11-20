@@ -14,7 +14,6 @@ public class AccountHttpClient : IAccountService
         this.client = client;
     }
     
-    
     public async Task<Account> GetAccount(long id)
     {
 
