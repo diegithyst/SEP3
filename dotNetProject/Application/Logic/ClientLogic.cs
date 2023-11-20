@@ -23,16 +23,20 @@ public class ClientLogic : IClientLogic
         {
             throw new Exception("There is already a client with this ID!");
         }
+        IPlan convertedFromString = PlanMaker.MakePlan(clientToCreate.planType);
 
+        
         //ValidateData(clientToCreate);
         //TODO what restrictions do we want?
-        Client toCreate = new Client
+        ClientCreationDTO toCreate = new ClientCreationDTO
         {
-            name = clientToCreate.name,
-            country = clientToCreate.name,
+            firstname = clientToCreate.firstname,
+            lastname = clientToCreate.lastname,
+            username = clientToCreate.username,
+            country = clientToCreate.country,
             identityDocument = clientToCreate.identityDocument,
             birthday = clientToCreate.birthday,
-            planType = clientToCreate.planType
+            planType = convertedFromString
         };
 
         Client created = await _clientDao.CreateAsync(toCreate);
