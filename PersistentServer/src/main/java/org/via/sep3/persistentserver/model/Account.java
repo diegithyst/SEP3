@@ -14,16 +14,14 @@ public class Account {
     private Long id;
     private String mainCurrency;
     private Boolean loan;
-    private Double balance;
     @ManyToOne
     @JoinColumn(name = "client_id")
     private Client owner;
     @OneToMany(mappedBy = "account", cascade = CascadeType.ALL,orphanRemoval = true)
     private List<Currency> currencies = new ArrayList<>();
-    public Account(String mainCurrency, Boolean loan, Double balance, Client owner) {
+    public Account(String mainCurrency, Boolean loan, Client owner) {
         this.mainCurrency = mainCurrency;
         this.loan = loan;
-        this.balance = balance;
         this.owner = owner;
     }
 
@@ -50,14 +48,6 @@ public class Account {
         this.loan = loan;
     }
 
-    public Double getBalance() {
-        return balance;
-    }
-
-    public void setBalance(Double balance) {
-        this.balance = balance;
-    }
-
     public Client getOwner() {
         return owner;
     }
@@ -68,7 +58,6 @@ public class Account {
 
     public GrpcAccount getProtoAccount(){
         return GrpcAccount.newBuilder().setAccountId(getId())
-                .setBalance(getBalance())
                 .setMainCurrency(getMainCurrency())
                 .setLoan(getLoan())
                 .setClientId(getOwner().getId()).build();
@@ -84,7 +73,6 @@ public class Account {
                 "identifier=" + id +
                 ", mainCurrency='" + mainCurrency + '\'' +
                 ", loan=" + loan +
-                ", balance=" + balance +
                 ", currencies=" + currencies +
                 ", ownerId='" + owner.getId() + '\'' +
                 '}';

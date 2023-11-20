@@ -15,9 +15,21 @@ service PersistentServer{
   rpc GetClientAccounts(ClientBasicDTO) returns (GrpcAccounts){}
   rpc GetCurrencyById(CurrencyBasicDTO) returns (GrpcCurrency){}
   rpc GetCurrencies(AccountBasicDTO) returns (GrpcCurrencies){}
+  rpc CreateClient(ClientCreationDTO) returns (Client){}
+  rpc CreateAccount(AccountCreationDTO) returns (GrpcAccount){}
 }
 message ClientBasicDTO{
   int64 clientId = 1;
+}
+message ClientCreationDTO{
+  string userName = 1;
+  string firstName = 2;
+  string lastName = 3;
+  string password = 4;
+  string country = 5;
+  string identityDocument = 6;
+  string birthday = 7;
+  string planType = 8;
 }
 message TotalBalance{
   double totalBalance = 1;
@@ -43,11 +55,14 @@ message GrpcAccount{
   int64 accountId = 1;
   string mainCurrency = 2;
   bool loan = 3;
-  double balance = 4;
-  int64 clientId = 5;
+  int64 clientId = 4;
 }
 message GrpcAccounts{
   repeated GrpcAccount accounts = 1;
+}
+message AccountCreationDTO{
+  string mainCurrency = 1;
+  int64 clientId = 2;
 }
 message CurrencyBasicDTO{
   int64 currencyId = 1;
