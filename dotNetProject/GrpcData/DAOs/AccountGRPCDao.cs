@@ -3,10 +3,10 @@ using Domain.Model;
 
 namespace FileData.DAOs;
 
-public class AccountFileDao : IAccountDao
+public class AccountGRPCDao : IAccountDao
 {
     private readonly PersistentServerClient.PersistentServer.PersistentServerClient psc;
-    public AccountFileDao(GrpcContext grpcContext)
+    public AccountGRPCDao(GrpcContext grpcContext)
     {
         psc = grpcContext.Psc;
     }
@@ -46,7 +46,7 @@ public class AccountFileDao : IAccountDao
      PersistentServerClient.GrpcAccount ga = psc.GetAccountById(new PersistentServerClient.AccountBasicDTO { AccountId = id});
         if (ga != null)
         {
-            return Task.FromResult(new Account { id = ga.AccountId, ownerId = ga.ClientId, balance = ga.Balance, loan = ga.Loan, mainCurrency = ga.MainCurrency});
+            return Task.FromResult(new Account { id = ga.AccountId, ownerId = ga.ClientId, loan = ga.Loan, mainCurrency = ga.MainCurrency});
         }
         throw new Exception("There is no account with that id");
     }

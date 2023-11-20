@@ -16,7 +16,8 @@ namespace FileData
 
         public Client CreateClient(ClientCreationDTO dto)
         {
-            Client createdClient = Psc.CreateClient()
+            Client createdClient = Psc.CreateClient(dto);
+            return createdClient;
         }
     }
 }

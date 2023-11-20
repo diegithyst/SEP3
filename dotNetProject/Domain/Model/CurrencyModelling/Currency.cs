@@ -1,6 +1,6 @@
 namespace Domain.Model;
 
-public class Currency
+public interface Currency
 {
     public string name { get; set; }
     public double balance { get; set; }

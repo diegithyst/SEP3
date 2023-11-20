@@ -14,9 +14,9 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<GrpcContext>();
-builder.Services.AddScoped<IClientDao, ClientFileDao>();
+builder.Services.AddScoped<IClientDao, ClientGRPCDao>();
 builder.Services.AddScoped<IClientLogic, ClientLogic>();
-builder.Services.AddScoped<IAccountDao, AccountFileDao>();
+builder.Services.AddScoped<IAccountDao, AccountGRPCDao>();
 builder.Services.AddScoped<IAccountLogic, AccountLogic>();
 
 var app = builder.Build();
