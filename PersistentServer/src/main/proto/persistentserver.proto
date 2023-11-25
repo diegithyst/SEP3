@@ -9,7 +9,6 @@ option objc_class_prefix = "PSP";
 package persistentserver;
 
 service PersistentServer{
-  rpc GetTotalBalance(ClientBasicDTO) returns (TotalBalance){}
   rpc GetClientById(ClientBasicDTO) returns (Client){}
   rpc GetAccountById(AccountBasicDTO) returns (GrpcAccount){}
   rpc GetClientAccounts(ClientBasicDTO) returns (GrpcAccounts){}
@@ -17,6 +16,10 @@ service PersistentServer{
   rpc GetCurrencies(AccountBasicDTO) returns (GrpcCurrencies){}
   rpc CreateClient(ClientCreationDTO) returns (Client){}
   rpc CreateAccount(AccountCreationDTO) returns (GrpcAccount){}
+  rpc GetAdministratorByID(AdministratorBasicDTO) returns (GrpcAdministrator){}
+  rpc GetClients(AdministratorBasicDTO) returns (Clients){}
+  rpc GetMoneyTransferById(MoneyTransferBasicDTO) returns (GrpcMoneyTransfer){}
+  rpc GetMoneyTransfers(AccountBasicDTO) returns (GrpcMoneyTransfers){}
 }
 message ClientBasicDTO{
   int64 clientId = 1;
@@ -31,10 +34,6 @@ message ClientCreationDTO{
   string birthday = 7;
   string planType = 8;
 }
-message TotalBalance{
-  double totalBalance = 1;
-  int32 currencyName = 2;
-}
 message Client{
   int64 clientId = 1;
   string userName = 2;
@@ -45,6 +44,10 @@ message Client{
   string identityDocument = 7;
   string birthday = 8;
   string planType = 9;
+}
+
+message Clients{
+  repeated Client clients = 1;
 }
 
 message AccountBasicDTO{
@@ -75,4 +78,26 @@ message GrpcCurrency{
 }
 message GrpcCurrencies{
   repeated GrpcCurrency currencies = 1;
+}
+message AdministratorBasicDTO{
+  int64 administratorId = 1;
+}
+message GrpcAdministrator{
+  int64 administratorId = 1;
+  string username = 2;
+  string password = 3;
+}
+message MoneyTransferBasicDTO{
+  int64 moneyTransferId = 1;
+}
+message GrpcMoneyTransfer{
+  int64 moneyTransferId = 1;
+  string sender = 2;
+  string receipt = 3;
+  string senderCurrency = 4;
+  double amount = 5;
+  double commission = 6;
+}
+message GrpcMoneyTransfers{
+  repeated GrpcMoneyTransfer moneyTransfers = 1;
 }

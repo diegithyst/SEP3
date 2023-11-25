@@ -6,7 +6,9 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.via.sep3.persistentserver.model.Account;
+import org.via.sep3.persistentserver.model.Administrator;
 import org.via.sep3.persistentserver.model.Currency;
+import org.via.sep3.persistentserver.model.MoneyTransfer;
 import org.via.sep3.persistentserver.proto.*;
 
 public class PersistentServerImpl extends PersistentServerGrpc.PersistentServerImplBase {
@@ -15,14 +17,6 @@ public class PersistentServerImpl extends PersistentServerGrpc.PersistentServerI
         super();
         this.sf = sf;
     }
-
-    @Override
-    public void getTotalBalance(ClientBasicDTO request, StreamObserver<TotalBalance> responseObserver) {
-        TotalBalance reply = TotalBalance.newBuilder().setTotalBalance(122.2).setCurrencyName(2).build();
-        responseObserver.onNext(reply);
-        responseObserver.onCompleted();
-    }
-
     @Override
     public void getClientById(ClientBasicDTO request, StreamObserver<Client> responseObserver) {
         try(Session s = sf.openSession()){
@@ -127,6 +121,65 @@ public class PersistentServerImpl extends PersistentServerGrpc.PersistentServerI
             t.commit();
             responseObserver.onNext(a.getProtoAccount());
             responseObserver.onCompleted();
+        }
+    }
+
+    @Override
+    public void getAdministratorByID(AdministratorBasicDTO request, StreamObserver<GrpcAdministrator> responseObserver) {
+        try(Session s = sf.openSession()){
+            Administrator a = s.get(Administrator.class,request.getAdministratorId());
+            if(a != null){
+                responseObserver.onNext(a.getProtoAdministrator());
+                responseObserver.onCompleted();
+            }else {
+                responseObserver.onError(Status.NOT_FOUND.asException());
+            }
+        }
+    }
+
+    @Override
+    public void getClients(AdministratorBasicDTO request, StreamObserver<Clients> responseObserver) {
+        try(Session s = sf.openSession()){
+            Administrator a = s.get(Administrator.class,request.getAdministratorId());
+            if(a != null){
+                Clients.Builder gas = Clients.newBuilder();
+                for(org.via.sep3.persistentserver.model.Client c : a.getClients()){
+                    gas.addClients(c.getProtoClient());
+                }
+                responseObserver.onNext(gas.build());
+                responseObserver.onCompleted();
+            }else {
+                responseObserver.onError(Status.NOT_FOUND.asException());
+            }
+        }
+    }
+    @Override
+    public void getMoneyTransferById(MoneyTransferBasicDTO request, StreamObserver<GrpcMoneyTransfer> responseObserver) {
+        try(Session s = sf.openSession()){
+            MoneyTransfer m = s.get(MoneyTransfer.class,request.getMoneyTransferId());
+            if(m != null){
+                responseObserver.onNext(m.getProtoMoneyTransfer());
+                responseObserver.onCompleted();
+            }else {
+                responseObserver.onError(Status.NOT_FOUND.asException());
+            }
+        }
+    }
+
+    @Override
+    public void getMoneyTransfers(AccountBasicDTO request, StreamObserver<GrpcMoneyTransfers> responseObserver) {
+        try(Session s = sf.openSession()){
+            Account a = s.get(Account.class,request.getAccountId());
+            if(a != null){
+                GrpcMoneyTransfers.Builder gas = GrpcMoneyTransfers.newBuilder();
+                for(MoneyTransfer m : a.getMoneyTransfers()){
+                    gas.addMoneyTransfers(m.getProtoMoneyTransfer());
+                }
+                responseObserver.onNext(gas.build());
+                responseObserver.onCompleted();
+            }else {
+                responseObserver.onError(Status.NOT_FOUND.asException());
+            }
         }
     }
 }

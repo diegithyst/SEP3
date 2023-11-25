@@ -19,6 +19,8 @@ public class Account {
     private Client owner;
     @OneToMany(mappedBy = "account", cascade = CascadeType.ALL,orphanRemoval = true)
     private List<Currency> currencies = new ArrayList<>();
+    @OneToMany(mappedBy = "account", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<MoneyTransfer> moneyTransfers = new ArrayList<>();
     public Account(String mainCurrency, Boolean loan, Client owner) {
         this.mainCurrency = mainCurrency;
         this.loan = loan;
@@ -65,6 +67,10 @@ public class Account {
 
     public List<Currency> getCurrencies() {
         return currencies;
+    }
+
+    public List<MoneyTransfer> getMoneyTransfers() {
+        return moneyTransfers;
     }
 
     @Override

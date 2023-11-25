@@ -9,9 +9,7 @@ import org.hibernate.Transaction;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
-import org.via.sep3.persistentserver.model.Account;
-import org.via.sep3.persistentserver.model.Client;
-import org.via.sep3.persistentserver.model.Currency;
+import org.via.sep3.persistentserver.model.*;
 
 import java.io.File;
 import java.io.IOException;
@@ -73,7 +71,7 @@ public class Main {
         final StandardServiceRegistry registry = new StandardServiceRegistryBuilder().loadProperties(new File("src/main/config/hibernate.properties")).build();
         try {
             SessionFactory sf = new MetadataSources(registry)
-                            .addAnnotatedClasses(Client.class, Account.class, Currency.class)
+                            .addAnnotatedClasses(Client.class, Account.class, Currency.class, Administrator.class, MoneyTransfer.class)
                             .buildMetadata()
                             .buildSessionFactory();
             try(Session s = sf.openSession()){
