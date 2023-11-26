@@ -11,7 +11,7 @@ import org.via.sep3.persistentserver.proto.GrpcMoneyTransfer;
 public class MoneyTransfer {
     @Id
     @GeneratedValue
-    private long id;
+    private Long id;
     private String sender;
     private String recipient;
     private String senderCurrency;
@@ -26,7 +26,7 @@ public class MoneyTransfer {
         this.commission = commission;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 

@@ -10,7 +10,7 @@ import java.util.List;
 public class Administrator {
     @Id
     @GeneratedValue
-    private long id;
+    private Long id;
     private String username;
     private String password;
     @OneToMany(mappedBy = "admin", cascade = CascadeType.ALL,orphanRemoval = true)
@@ -24,7 +24,7 @@ public class Administrator {
     public Administrator() {
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
