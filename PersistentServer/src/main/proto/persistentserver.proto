@@ -10,16 +10,29 @@ package persistentserver;
 
 service PersistentServer{
   rpc GetClientById(ClientBasicDTO) returns (Client){}
+  rpc CreateClient(ClientCreationDTO) returns (Client){}
+  rpc GetClients(AdministratorBasicDTO) returns (Clients){}
+  rpc DeleteClient(ClientBasicDTO) returns(GrpcResult){}
+  rpc UpdateClient(ClientUpdateDTO) returns(Client){}
+
   rpc GetAccountById(AccountBasicDTO) returns (GrpcAccount){}
   rpc GetClientAccounts(ClientBasicDTO) returns (GrpcAccounts){}
+  rpc CreateAccount(AccountCreationDTO) returns (GrpcAccount){}
+  rpc UpdateAccount(AccountUpdateDTO) returns(GrpcAccount){}
+  rpc DeleteAccount(AccountBasicDTO) returns (GrpcResult){}
+
   rpc GetCurrencyById(CurrencyBasicDTO) returns (GrpcCurrency){}
   rpc GetCurrencies(AccountBasicDTO) returns (GrpcCurrencies){}
-  rpc CreateClient(ClientCreationDTO) returns (Client){}
-  rpc CreateAccount(AccountCreationDTO) returns (GrpcAccount){}
+
   rpc GetAdministratorByID(AdministratorBasicDTO) returns (GrpcAdministrator){}
-  rpc GetClients(AdministratorBasicDTO) returns (Clients){}
+
   rpc GetMoneyTransferById(MoneyTransferBasicDTO) returns (GrpcMoneyTransfer){}
   rpc GetMoneyTransfers(AccountBasicDTO) returns (GrpcMoneyTransfers){}
+
+
+}
+message GrpcResult{
+  bool success = 1;
 }
 message ClientBasicDTO{
   int64 clientId = 1;
@@ -33,6 +46,17 @@ message ClientCreationDTO{
   string identityDocument = 6;
   string birthday = 7;
   string planType = 8;
+}
+message ClientUpdateDTO{
+  string userName = 1;
+  string firstName = 2;
+  string lastName = 3;
+  string password = 4;
+  string country = 5;
+  string identityDocument = 6;
+  string birthday = 7;
+  string planType = 8;
+  int64 clientId = 9;
 }
 message Client{
   int64 clientId = 1;
@@ -62,6 +86,12 @@ message GrpcAccount{
 }
 message GrpcAccounts{
   repeated GrpcAccount accounts = 1;
+}
+message AccountUpdateDTO{
+  int64 accountId = 1;
+  string mainCurrency = 2;
+  bool loan = 3;
+  int64 clientId = 4;
 }
 message AccountCreationDTO{
   string mainCurrency = 1;

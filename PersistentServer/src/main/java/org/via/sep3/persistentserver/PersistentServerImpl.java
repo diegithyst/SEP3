@@ -182,4 +182,59 @@ public class PersistentServerImpl extends PersistentServerGrpc.PersistentServerI
             }
         }
     }
+
+    @Override
+    public void deleteClient(ClientBasicDTO request, StreamObserver<GrpcResult> responseObserver) {
+        try(Session s = sf.openSession()){
+             s.remove(s.getReference(org.via.sep3.persistentserver.model.Client.class,request.getClientId()));
+             responseObserver.onNext(GrpcResult.newBuilder().setSuccess(true).build());
+             responseObserver.onCompleted();
+        }
+    }
+
+
+    @Override
+    public void updateClient(ClientUpdateDTO request, StreamObserver<Client> responseObserver) {
+        try(Session s = sf.openSession()){
+            org.via.sep3.persistentserver.model.Client c = s.get(org.via.sep3.persistentserver.model.Client.class,request.getClientId());
+            if(c != null){
+                c.setUserName(request.getUserName());
+                c.setFirstName(request.getFirstName());
+                c.setLastName(request.getLastName());
+                c.setPassword(request.getPassword());
+                c.setBirthday(request.getBirthday());
+                c.setCountry(request.getCountry());
+                c.setIdentityDocument(request.getIdentityDocument());
+                c.setPlanType(request.getPlanType());
+                s.flush();
+                responseObserver.onNext(c.getProtoClient());
+                responseObserver.onCompleted();
+            }else {
+                responseObserver.onError(Status.NOT_FOUND.asException());
+            }
+        }
+    }
+
+    @Override
+    public void updateAccount(AccountUpdateDTO request, StreamObserver<GrpcAccount> responseObserver) {
+        try(Session s = sf.openSession()){
+            org.via.sep3.persistentserver.model.Account a = s.get(org.via.sep3.persistentserver.model.Account.class,request.getAccountId());
+            if(a != null){
+                a.setMainCurrency(request.getMainCurrency());
+                responseObserver.onNext(a.getProtoAccount());
+                responseObserver.onCompleted();
+            }else {
+                responseObserver.onError(Status.NOT_FOUND.asException());
+            }
+        }
+    }
+
+    @Override
+    public void deleteAccount(AccountBasicDTO request, StreamObserver<GrpcResult> responseObserver) {
+        try(Session s = sf.openSession()){
+            s.remove(s.getReference(org.via.sep3.persistentserver.model.Account.class,request.getAccountId()));
+            responseObserver.onNext(GrpcResult.newBuilder().setSuccess(true).build());
+            responseObserver.onCompleted();
+        }
+    }
 }
