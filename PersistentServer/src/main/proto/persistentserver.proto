@@ -23,11 +23,14 @@ service PersistentServer{
 
   rpc GetCurrencyById(CurrencyBasicDTO) returns (GrpcCurrency){}
   rpc GetCurrencies(AccountBasicDTO) returns (GrpcCurrencies){}
+  rpc UpdateCurrency(CurrencyUpdateDTO) returns (GrpcCurrency){}
+
 
   rpc GetAdministratorByID(AdministratorBasicDTO) returns (GrpcAdministrator){}
 
   rpc GetMoneyTransferById(MoneyTransferBasicDTO) returns (GrpcMoneyTransfer){}
   rpc GetMoneyTransfers(AccountBasicDTO) returns (GrpcMoneyTransfers){}
+  rpc MakeMoneyTransfer(CreateMoneyTransferDTO) returns (GrpcMoneyTransfer){}
 
 
 }
@@ -106,6 +109,12 @@ message GrpcCurrency{
   double balance = 3;
   int64 accountId = 4;
 }
+message CurrencyUpdateDTO{
+  int64 currencyId = 1;
+  string name = 2;
+  double balance = 3;
+  int64 accountId = 4;
+}
 message GrpcCurrencies{
   repeated GrpcCurrency currencies = 1;
 }
@@ -127,6 +136,13 @@ message GrpcMoneyTransfer{
   string senderCurrency = 4;
   double amount = 5;
   double commission = 6;
+}
+message CreateMoneyTransferDTO{
+  string sender = 1;
+  string receipt = 2;
+  string senderCurrency = 3;
+  double amount = 4;
+  double commission = 5;
 }
 message GrpcMoneyTransfers{
   repeated GrpcMoneyTransfer moneyTransfers = 1;

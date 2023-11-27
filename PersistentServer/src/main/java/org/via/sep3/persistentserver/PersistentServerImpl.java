@@ -237,4 +237,36 @@ public class PersistentServerImpl extends PersistentServerGrpc.PersistentServerI
             responseObserver.onCompleted();
         }
     }
+
+    @Override
+    public void updateCurrency(CurrencyUpdateDTO request, StreamObserver<GrpcCurrency> responseObserver) {
+        try(Session s = sf.openSession()){
+            Currency c = s.get(Currency.class,request.getCurrencyId());
+            if(c != null){
+                c.setName(request.getName());
+                c.setBalance(request.getBalance());
+                responseObserver.onNext(c.getProtoCurrency());
+                responseObserver.onCompleted();
+            }else {
+                responseObserver.onError(Status.NOT_FOUND.asException());
+            }
+        }
+    }
+
+    @Override
+    public void makeMoneyTransfer(CreateMoneyTransferDTO request, StreamObserver<GrpcMoneyTransfer> responseObserver) {
+        try(Session s = sf.openSession()){
+            Transaction t = s.beginTransaction();
+            MoneyTransfer mt = new MoneyTransfer();
+            mt.setSender(request.getSender());
+            mt.setSenderCurrency(request.getSenderCurrency());
+            mt.setAmount(request.getAmount());
+            mt.setCommission(request.getCommission());
+            mt.setRecipient(request.getReceipt());
+            s.persist(mt);
+            t.commit();
+            responseObserver.onNext(mt.getProtoMoneyTransfer());
+            responseObserver.onCompleted();
+        }
+    }
 }
