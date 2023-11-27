@@ -8,12 +8,13 @@ public class ClientCreationDTO
     
     public string username { get; set; }
     
+    public string password { get; set; }
     public string country { get; set; }
     public string identityDocument { get; set; }
     public string birthday { get; set; }
     public string planType { get; set; }
 
-    public ClientCreationDTO(string firstname,string lastname, string username, string country, string identityDocument, string birthday, string planType)
+    public ClientCreationDTO(string firstname,string lastname, string username, string password, string country, string identityDocument, string birthday, string planType)
     {
         this.firstname = firstname;
         this.lastname = lastname;

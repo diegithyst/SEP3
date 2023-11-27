@@ -31,7 +31,7 @@ public class AccountsController : ControllerBase
         }
     }
 
-    [HttpGet]
+    [HttpGet ()]
     public async Task<ActionResult<IEnumerable<Account>>> GetByOwnerIdAsync([FromQuery] long ownerId)
     {
         try

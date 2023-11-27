@@ -1,0 +1,55 @@
+@page "/CreateAccount/{loan:bool}"
+@using HttpClients.ClientInterfaces
+@using Domain.DTOs
+@inject IAccountService accountService
+<h3>CreateAccount</h3>
+
+<!--Needs to be authoritized as administrator-->
+
+@code {
+
+    [CascadingParameter]
+    private Task<AuthenticationState> AuthState { get; set; } = null!;
+    [Parameter]
+    private bool loan { get; set; }
+    
+    private string name;
+    private string mainCurrency;
+    private double value;
+    private long id;
+    
+    private string error;
+    
+    private async Task Create()
+    {
+        error = "";
+        if (loan == true)
+        {
+            try
+            {
+                await accountService.CreateAsync(new AccountCreationDTO(mainCurrency, loan, value, id, name));
+            }
+            catch (Exception e)
+            {
+                error = e.Message;
+            }
+        }
+        else
+        {
+            try
+            {
+                await accountService.CreateAsync(new AccountCreationDTO(mainCurrency, loan, id, name));
+            }
+            catch (Exception e)
+            {
+                error = e.Message;
+            }
+        }
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        var user = (await AuthState).User;
+        id = Int32.Parse(user.Claims.First(claim => claim.Type.Equals("Id")).Value);
+    }
+}

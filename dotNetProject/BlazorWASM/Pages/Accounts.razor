@@ -1,0 +1,30 @@
+@page "/Accounts"
+@using Domain.Model
+@using HttpClients.ClientInterfaces
+@inject IAccountService accountService
+<h3>Accounts</h3>
+
+@code {
+
+    [CascadingParameter]
+    private Task<AuthenticationState> AuthState { get; set; } = null!;
+    private IEnumerable<Account> accounts;
+    private string msg = "";
+    private int id;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var user = (await AuthState).User;
+        id = Int32.Parse(user.Claims.First(claim => claim.Type.Equals("Id")).Value);
+        msg = "";
+        try
+        {
+            //This may not work :c
+            accounts = await accountService.GetAccountsByClientIdAsync(id);
+        }
+        catch (Exception e)
+        {
+            throw new Exception(e.Message);
+        }
+    }
+}

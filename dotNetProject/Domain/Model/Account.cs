@@ -4,6 +4,7 @@ namespace Domain.Model;
 
 public class Account
 {
+    public string name { get; set; }
     public long id { get; set; }
     public string mainCurrency { get; set; }
     public bool loan { get; set; }

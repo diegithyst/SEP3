@@ -1,4 +1,7 @@
-﻿using System.Text.Json;
+﻿using System.Collections;
+using System.Net.Http.Json;
+using System.Text.Json;
+using Domain.DTOs;
 using Domain.Model;
 using HttpClients.ClientInterfaces;
 
@@ -13,10 +16,9 @@ public class AccountHttpClient : IAccountService
     {
         this.client = client;
     }
-    
-    public async Task<Account> GetAccount(long id)
-    {
 
+    public async Task<Account> GetAccountAsync(long id)
+    {
         string uri = "Accounts/getAccountById";
         if (id != 0)
         {
@@ -36,5 +38,33 @@ public class AccountHttpClient : IAccountService
         })!;
 
         return account;
+    }
+
+    public async Task CreateAsync(AccountCreationDTO dto)
+    {
+        HttpResponseMessage response = await client.PostAsJsonAsync("/accounts", dto);
+        if (!response.IsSuccessStatusCode)
+        {
+            string content = await response.Content.ReadAsStringAsync();
+            throw new Exception(content);
+        }
+    }
+
+    public async Task<ICollection<Account>> GetAccountsByClientIdAsync(long id)
+    {
+        HttpResponseMessage response = await client.GetAsync($"/Accounts/{id}");
+        string content = await response.Content.ReadAsStringAsync();
+        if (!response.IsSuccessStatusCode)
+        {
+            throw new Exception(content);
+        }
+
+        ICollection<Account> accounts = JsonSerializer.Deserialize<ICollection<Account>>(content);
+        return accounts;
+    }
+
+    public Task UpdateAsync()
+    {
+        throw new NotImplementedException();
     }
 }

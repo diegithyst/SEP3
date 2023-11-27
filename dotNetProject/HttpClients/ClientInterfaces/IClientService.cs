@@ -6,10 +6,10 @@ namespace HttpClients.ClientInterfaces;
 public interface IClientService
 {
     Task<ICollection<Client>> GetAsync();
+    
+    Task<Client> GetByIdAsync(long id);
 
-    Task UpdateAsync(ClientUpdateDto dto);
-
-    Task<Client> GetByIdAsync(int id);
-
-    Task DeleteAsync(int id);
+    Task DeleteAsync(long id);
+    
+    Task UpdateAsync();
 }

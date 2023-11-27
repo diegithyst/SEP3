@@ -1,0 +1,26 @@
+@page "/TransferMoney"
+@using HttpClients.ClientInterfaces
+@using Domain.DTOs
+@inject IMoneyTransferService mtService
+<h3>TransferMoney</h3>
+
+@code {
+    private long accountNrSender;
+    private long accountNrReceiver;
+    private string currency;
+    private double value;
+    private string error;
+
+    protected async Task TransferMoni()
+    {
+        error = "";
+        try
+        {
+            await mtService.CreateAsync(new MoneyTransferCreationDto(accountNrSender, accountNrReceiver, currency, value));
+        }
+        catch (Exception e)
+        {
+            error = $"Error: {e.Message}";
+        }
+    }
+}
