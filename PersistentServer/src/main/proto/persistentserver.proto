@@ -86,6 +86,7 @@ message GrpcAccount{
   string mainCurrency = 2;
   bool loan = 3;
   int64 clientId = 4;
+  string name = 5;
 }
 message GrpcAccounts{
   repeated GrpcAccount accounts = 1;
@@ -95,10 +96,12 @@ message AccountUpdateDTO{
   string mainCurrency = 2;
   bool loan = 3;
   int64 clientId = 4;
+  string name = 5;
 }
 message AccountCreationDTO{
   string mainCurrency = 1;
   int64 clientId = 2;
+  string name = 3;
 }
 message CurrencyBasicDTO{
   int64 currencyId = 1;

@@ -116,6 +116,7 @@ public class PersistentServerImpl extends PersistentServerGrpc.PersistentServerI
             org.via.sep3.persistentserver.model.Account a = new org.via.sep3.persistentserver.model.Account();
             a.setOwner( s.get(org.via.sep3.persistentserver.model.Client.class,request.getClientId()));
             a.setMainCurrency(request.getMainCurrency());
+            a.setName(request.getName());
             s.persist(a);
             s.persist(new Currency(request.getMainCurrency(),0.00,a));
             t.commit();
@@ -221,6 +222,7 @@ public class PersistentServerImpl extends PersistentServerGrpc.PersistentServerI
             org.via.sep3.persistentserver.model.Account a = s.get(org.via.sep3.persistentserver.model.Account.class,request.getAccountId());
             if(a != null){
                 a.setMainCurrency(request.getMainCurrency());
+                a.setName(request.getName());
                 responseObserver.onNext(a.getProtoAccount());
                 responseObserver.onCompleted();
             }else {
