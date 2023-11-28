@@ -2,10 +2,24 @@ namespace Domain.Model;
 
 public class CurrencyList
 {
-    ICollection<Currency> Currencies = new List<Currency>();
+    ICollection<ICurrency> Currencies = new List<ICurrency>();
 
-    public CurrencyList()
+    public CurrencyList(long accountId)
     {
-        Currency
+        ICurrency euro = new Euro
+        {
+            acountId = accountId
+        };
+        ICurrency pound = new Pound
+        {
+            acountId = accountId
+        };
+        ICurrency krone = new Krone
+        {
+            acountId = accountId
+        };
+        Currencies.Add(euro);
+        Currencies.Add(pound);
+        Currencies.Add(krone);
     }
 }

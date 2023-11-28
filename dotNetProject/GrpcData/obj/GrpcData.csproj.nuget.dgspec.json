@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Mery\\Documents\\GitHub\\SEP3\\dotNetProject\\GrpcData\\GrpcData.csproj": {}
+    "C:\\Users\\redve\\OneDrive\\Documents\\GitHub\\SEP3\\dotNetProject\\GrpcData\\GrpcData.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Mery\\Documents\\GitHub\\SEP3\\dotNetProject\\Application\\Application.csproj": {
+    "C:\\Users\\redve\\OneDrive\\Documents\\GitHub\\SEP3\\dotNetProject\\Application\\Application.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Mery\\Documents\\GitHub\\SEP3\\dotNetProject\\Application\\Application.csproj",
+        "projectUniqueName": "C:\\Users\\redve\\OneDrive\\Documents\\GitHub\\SEP3\\dotNetProject\\Application\\Application.csproj",
         "projectName": "Application",
-        "projectPath": "C:\\Users\\Mery\\Documents\\GitHub\\SEP3\\dotNetProject\\Application\\Application.csproj",
-        "packagesPath": "C:\\Users\\Mery\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Mery\\Documents\\GitHub\\SEP3\\dotNetProject\\Application\\obj\\",
+        "projectPath": "C:\\Users\\redve\\OneDrive\\Documents\\GitHub\\SEP3\\dotNetProject\\Application\\Application.csproj",
+        "packagesPath": "C:\\Users\\redve\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\redve\\OneDrive\\Documents\\GitHub\\SEP3\\dotNetProject\\Application\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Mery\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\redve\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net7.0"
@@ -26,8 +26,8 @@
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "C:\\Users\\Mery\\Documents\\GitHub\\SEP3\\dotNetProject\\Domain\\Domain.csproj": {
-                "projectPath": "C:\\Users\\Mery\\Documents\\GitHub\\SEP3\\dotNetProject\\Domain\\Domain.csproj"
+              "C:\\Users\\redve\\OneDrive\\Documents\\GitHub\\SEP3\\dotNetProject\\Domain\\Domain.csproj": {
+                "projectPath": "C:\\Users\\redve\\OneDrive\\Documents\\GitHub\\SEP3\\dotNetProject\\Domain\\Domain.csproj"
               }
             }
           }
@@ -61,17 +61,17 @@
         }
       }
     },
-    "C:\\Users\\Mery\\Documents\\GitHub\\SEP3\\dotNetProject\\Domain\\Domain.csproj": {
+    "C:\\Users\\redve\\OneDrive\\Documents\\GitHub\\SEP3\\dotNetProject\\Domain\\Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Mery\\Documents\\GitHub\\SEP3\\dotNetProject\\Domain\\Domain.csproj",
+        "projectUniqueName": "C:\\Users\\redve\\OneDrive\\Documents\\GitHub\\SEP3\\dotNetProject\\Domain\\Domain.csproj",
         "projectName": "Domain",
-        "projectPath": "C:\\Users\\Mery\\Documents\\GitHub\\SEP3\\dotNetProject\\Domain\\Domain.csproj",
-        "packagesPath": "C:\\Users\\Mery\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Mery\\Documents\\GitHub\\SEP3\\dotNetProject\\Domain\\obj\\",
+        "projectPath": "C:\\Users\\redve\\OneDrive\\Documents\\GitHub\\SEP3\\dotNetProject\\Domain\\Domain.csproj",
+        "packagesPath": "C:\\Users\\redve\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\redve\\OneDrive\\Documents\\GitHub\\SEP3\\dotNetProject\\Domain\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Mery\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\redve\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net7.0"
@@ -114,17 +114,17 @@
         }
       }
     },
-    "C:\\Users\\Mery\\Documents\\GitHub\\SEP3\\dotNetProject\\GrpcData\\GrpcData.csproj": {
+    "C:\\Users\\redve\\OneDrive\\Documents\\GitHub\\SEP3\\dotNetProject\\GrpcData\\GrpcData.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Mery\\Documents\\GitHub\\SEP3\\dotNetProject\\GrpcData\\GrpcData.csproj",
+        "projectUniqueName": "C:\\Users\\redve\\OneDrive\\Documents\\GitHub\\SEP3\\dotNetProject\\GrpcData\\GrpcData.csproj",
         "projectName": "GrpcData",
-        "projectPath": "C:\\Users\\Mery\\Documents\\GitHub\\SEP3\\dotNetProject\\GrpcData\\GrpcData.csproj",
-        "packagesPath": "C:\\Users\\Mery\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Mery\\Documents\\GitHub\\SEP3\\dotNetProject\\GrpcData\\obj\\",
+        "projectPath": "C:\\Users\\redve\\OneDrive\\Documents\\GitHub\\SEP3\\dotNetProject\\GrpcData\\GrpcData.csproj",
+        "packagesPath": "C:\\Users\\redve\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\redve\\OneDrive\\Documents\\GitHub\\SEP3\\dotNetProject\\GrpcData\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Mery\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\redve\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net7.0"
@@ -136,8 +136,8 @@
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "C:\\Users\\Mery\\Documents\\GitHub\\SEP3\\dotNetProject\\Application\\Application.csproj": {
-                "projectPath": "C:\\Users\\Mery\\Documents\\GitHub\\SEP3\\dotNetProject\\Application\\Application.csproj"
+              "C:\\Users\\redve\\OneDrive\\Documents\\GitHub\\SEP3\\dotNetProject\\Application\\Application.csproj": {
+                "projectPath": "C:\\Users\\redve\\OneDrive\\Documents\\GitHub\\SEP3\\dotNetProject\\Application\\Application.csproj"
               }
             }
           }

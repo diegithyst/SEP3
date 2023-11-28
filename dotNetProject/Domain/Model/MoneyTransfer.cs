@@ -6,7 +6,7 @@ public class MoneyTransfer
  
  private long accountNumberRecipient { get; set; }
  
- private Currency currency { get; set; }
+ private ICurrency currency { get; set; }
  
  private double value { get; set; }
 }
