@@ -2,10 +2,10 @@ namespace Domain.DTOs;
 
 public class MoneyTransferCreationDto
 {
-    private long SenderAccountNumber { get; set; }
-    private long ReceiverAccountNumber { get; set; }
-    private string Currency { get; set; }
-    private double Value { get; set; }
+    public long SenderAccountNumber { get; set; }
+    public long ReceiverAccountNumber { get; set; }
+    public string Currency { get; set; }
+    public double Value { get; set; }
 
     public MoneyTransferCreationDto(long senderAccountNumber, long receiverAccountNumber, string currency, double value)
     {

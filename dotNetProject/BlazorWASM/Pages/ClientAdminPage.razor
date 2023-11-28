@@ -3,8 +3,10 @@
 @using HttpClients.ClientInterfaces
 @using System.Security.Claims
 @using Domain.DTOs
+@using HttpClients.Implementations
 @inject IClientService ClientSquared
 @inject NavigationManager navMgr;
+@inject IMoneyTransferService MoneyTransferService;
 
 
 <h3>Client @_client.id</h3>
@@ -47,19 +49,29 @@
     <label style="color: red">@msg</label>
 }
 
-<div class="post-list">
-    <div class="post-card">
-        @foreach (var transactions in Clients)
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Sender Id</th>
+            <th>Receiver Id</th>
+            <th>Transaction Id</th>
+            <th>Value</th>
+            <th>Revert</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var item in transactions)
         {
-            <div class="post">
-                <h2 class="post-title">
-                    <a href="/ClientAdminPage/@client.id">@client.firstname @client.lastname</a>
-                </h2>
-                <p class="post-date">ID: @client.id</p>
-            </div>
+            <tr>
+                <td>@item.accountNumberSender</td>
+                <td>@item.accountNumberRecipient</td>
+                <td>@item.id</td>
+                <td>@item.value</td>
+                <td><button @onclick="revertTransaction(@item.id)">Revert</button></td>
+            </tr>
         }
-    </div>
-</div>
+        </tbody>
+    </table>
 
 
 @code {
@@ -77,6 +89,7 @@
 
     private Client _client;
     private ClientUpdateDTO clientDTO;
+    private IEnumerable<MoneyTransfer?>? transactions;
 
     protected override async Task OnInitializedAsync()
     {
@@ -84,6 +97,7 @@
         ClaimsPrincipal admin_ = authState.User;
     //TODO check that the logged user is an admin
         _client = await ClientSquared.GetByIdAsync(id);
+        transactions = await MoneyTransferService.GetAsync();
 
         currentPlan = _client.planType.getName();
         clientDTO.firstname = _client.firstname;
@@ -107,6 +121,14 @@
             Console.WriteLine(e);
             msg = e.Message;
         }
+    }
+
+    private async void revertTransaction(long id)
+    {
+        IEnumerable<MoneyTransfer?>? transferList = await MoneyTransferService.GetBySearchAsync(null, null, id);
+        MoneyTransfer transfer = transferList.ElementAtOrDefault(0);
+        MoneyTransferCreationDto dto = new MoneyTransferCreationDto(transfer.accountNumberSender, transfer.accountNumberRecipient, transfer.currency, transfer.value);
+        MoneyTransferService.CreateAsync(transferList.ElementAtOrDefault(0))
     }
 
 }

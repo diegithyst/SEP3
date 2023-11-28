@@ -6,8 +6,6 @@ namespace HttpClients.ClientInterfaces;
 public interface IMoneyTransferService
 {
     Task CreateAsync(MoneyTransferCreationDto dto);
-
-    Task<ICollection<MoneyTransfer>> GetListByAccountIdAsync();
-
-    Task<MoneyTransfer> GetByIdAsync();
+    Task<IEnumerable<MoneyTransfer?>?> GetBySearchAsync(long? receiverAccount, long? senderAccount, long? id);
+    Task<IEnumerable<MoneyTransfer?>?> GetAsync();
 }
