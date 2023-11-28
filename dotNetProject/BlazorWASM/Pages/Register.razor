@@ -1,0 +1,33 @@
+@page "/Register"
+@using HttpClients.ClientInterfaces
+@using Domain.DTOs
+@inject IAuthService authService
+@inject NavigationManager nav
+
+<h3>Register</h3>
+
+@code {
+    private string username;
+    private string password;
+    private string firstname;
+    private string lastname;
+    private string country;
+    private string identityDocument;
+    private string birthday;
+    private string planType;
+
+    private string error;
+    private async Task RegisterAsync()
+    {
+        error = "";
+        try
+        {
+            await authService.RegisterAsync(new ClientCreationDTO(firstname, lastname, username, password, country, identityDocument, birthday, planType));
+            nav.NavigateTo("/Login");
+        }
+        catch (Exception e)
+        {
+            error = $"Cannot register: {e.Message}";
+        }
+    }
+}

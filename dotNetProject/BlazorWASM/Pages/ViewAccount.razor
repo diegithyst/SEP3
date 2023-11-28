@@ -7,10 +7,7 @@
     <p>Id of the account: @id</p>
     <br/>
     <p>Currency of the account: @MainCurrency</p>
-    <br/>
-    <p>Does it have a loan? @Loan</p>
-    <br/>
-    <p>Balance: @Balance</p>
+<br/>
 </div>
 
 @code {
@@ -18,8 +15,9 @@
     public int id { get; set; }
     private string MainCurrency = "";
     private bool Loan;
-    private double Balance;
-
+    private string name;
+    private List<Currency> currencies;
+    
     private string msg = "";
 
     protected override async Task OnInitializedAsync()
@@ -29,12 +27,8 @@
             Account account = await accountService.GetAccountAsync(id);
             MainCurrency = account.mainCurrency;
             Loan = account.loan;
-            double Total = 0;
-            for (int i = 0; i < account.Currencies.Count; i++)
-            {
-                Total += account.Currencies[i].balance; //put conversion code here later
-            }
-            Balance = Total;
+            name = account.name;
+            currencies = account.Currencies;
         }
         catch (Exception e)
         {

@@ -18,13 +18,15 @@ public class AccountLogic : IAccountLogic
 
     public async Task<Account> CreateAsync(AccountCreationDTO dto)
     {
+        //This needs updating depending whether the dto has loan true or false
+        //Loan true has only one currency and also a value of loan taken, so this needs to be pushed into the currencies entity
         Client? existing = await _clientDao.GetByIdAsync(dto.ownerId);
         if (existing == null)
         {
             throw new Exception($"No client was found with the id {dto.ownerId}!");
         }
 
-        Currency main = new Currency { name = dto.mainCurrency, balance = 0 };
+        Currency main = new { name = dto.mainCurrency, balance = 0 };
         List<Currency> newCurrencyList = new List<Currency>();
         newCurrencyList.Add(main);
         Account account = new Account { mainCurrency = dto.mainCurrency, loan = dto.loan, ownerId = dto.ownerId,Currencies = newCurrencyList};

@@ -7,6 +7,6 @@ public interface IAccountService
 {
     Task<Account> GetAccountAsync(long id);
     Task CreateAsync(AccountCreationDTO dto);
-    Task<ICollection<Account>> GetListAsync();
-    Task UpdateAsync(AccountUpdateDto dto);
+    Task<ICollection<Account>> GetAccountsByClientIdAsync(long id);
+    Task UpdateAsync();
 }
