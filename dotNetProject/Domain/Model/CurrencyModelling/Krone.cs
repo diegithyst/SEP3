@@ -2,15 +2,10 @@ namespace Domain.Model;
 
 public class Krone:ICurrency
 {
-    public string name { get; set; }
-    public double balance { get; set; }
+    public string name { get; set; } = "Krone";
+    public double balance { get; set; } = 0;
     public long id { get; set; }
     public long acountId { get; set; }
-
-    public Krone()
-    {
-        name = "Krone";
-    }
 
     public Euro convertToEuro()
     {

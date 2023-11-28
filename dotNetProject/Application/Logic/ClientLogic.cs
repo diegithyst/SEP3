@@ -23,7 +23,6 @@ public class ClientLogic : IClientLogic
         {
             throw new Exception("There is already a client with this ID!");
         }
-        IPlan convertedFromString = PlanMaker.MakePlan(clientToCreate.planType);
 
         
         //ValidateData(clientToCreate);
@@ -36,7 +35,7 @@ public class ClientLogic : IClientLogic
             country = clientToCreate.country,
             identityDocument = clientToCreate.identityDocument,
             birthday = clientToCreate.birthday,
-            planType = convertedFromString
+            planType = clientToCreate.planType,
         };
 
         Client created = await _clientDao.CreateAsync(toCreate);

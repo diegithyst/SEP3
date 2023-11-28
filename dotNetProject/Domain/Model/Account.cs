@@ -10,5 +10,5 @@ public class Account
     public bool loan { get; set; }
     public long ownerId { get; set; }
 
-    public List<ICurrency> Currencies { get; set; }
+    public CurrencyList Currencies { get; set; }
 }

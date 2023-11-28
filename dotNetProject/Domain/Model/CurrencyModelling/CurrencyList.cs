@@ -4,20 +4,11 @@ public class CurrencyList
 {
     ICollection<ICurrency> Currencies = new List<ICurrency>();
 
-    public CurrencyList(long accountId)
+    public CurrencyList()
     {
-        ICurrency euro = new Euro
-        {
-            acountId = accountId
-        };
-        ICurrency pound = new Pound
-        {
-            acountId = accountId
-        };
-        ICurrency krone = new Krone
-        {
-            acountId = accountId
-        };
+        ICurrency euro = new Euro();
+        ICurrency pound = new Pound();
+        ICurrency krone = new Krone();
         Currencies.Add(euro);
         Currencies.Add(pound);
         Currencies.Add(krone);

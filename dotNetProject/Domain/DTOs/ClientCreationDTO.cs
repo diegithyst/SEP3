@@ -1,3 +1,5 @@
+using Domain.Model;
+
 namespace Domain.DTOs;
 
 public class ClientCreationDTO
@@ -12,7 +14,7 @@ public class ClientCreationDTO
     public string country { get; set; }
     public string identityDocument { get; set; }
     public string birthday { get; set; }
-    public string planType { get; set; }
+    public IPlan planType { get; set; }
 
     public ClientCreationDTO(string firstname,string lastname, string username, string password, string country, string identityDocument, string birthday, string planType)
     {
@@ -22,7 +24,7 @@ public class ClientCreationDTO
         this.country = country;
         this.identityDocument = identityDocument;
         this.birthday = birthday;
-        this.planType = planType;
+        this.planType = PlanMaker.MakePlan(planType);
     }
 
     public ClientCreationDTO()

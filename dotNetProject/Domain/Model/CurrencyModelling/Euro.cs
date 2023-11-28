@@ -2,15 +2,10 @@ namespace Domain.Model;
 
 public class Euro:ICurrency
 {
-    public string name { get; set; }
-    public double balance { get; set; }
+    public string name { get; set; } = "Euro";
+    public double balance { get; set; } = 0;
     public long id { get; set; }
     public long acountId { get; set; }
-
-    public Euro()
-    {
-        name = "Euro";
-    }
 
     public Euro convertToEuro()
     {
