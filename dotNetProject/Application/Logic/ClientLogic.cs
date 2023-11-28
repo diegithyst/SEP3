@@ -54,4 +54,29 @@ public class ClientLogic : IClientLogic
     {
         return _clientDao.GetByIdAsync(searchById);
     }
+
+    public async Task UpdateAsync(ClientUpdateDTO updateDto)
+    {
+        Client? toEdit = await _clientDao.GetByIdAsync(updateDto.id);
+
+        if (toEdit == null)
+        {
+            throw new Exception($"The client with id: {updateDto.id} doesn't exist");
+        }
+        
+        IPlan convertedFromString = PlanMaker.MakePlan(updateDto.planType);
+
+
+        Client edited = new Client
+        {
+            firstname = updateDto.firstname,
+            lastname = updateDto.lastname,
+            username = updateDto.username,
+            country = updateDto.country,
+            identityDocument = updateDto.identityDocument,
+            birthday = updateDto.birthday,
+            planType = convertedFromString
+        };
+        await _clientDao.UpdateAsync(edited);
+    }
 }

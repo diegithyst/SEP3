@@ -1,0 +1,20 @@
+.post-card {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    margin-bottom: 10px;
+    padding: 10px;
+}
+
+.post-title {
+    font-size: 18px;
+}
+
+.post-author {
+    color: #666;
+    font-size: 14px;
+}
+
+.post-date {
+    color: #666;
+    font-size: 14px;
+}

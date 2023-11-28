@@ -9,4 +9,5 @@ public interface IClientDao
     Task<Client?> GetByIdAsync(long id);
 
     Task<IEnumerable<Client>> GetAsync(SearchClientParametersDto searchParameters);
+    Task UpdateAsync(Client client);
 }

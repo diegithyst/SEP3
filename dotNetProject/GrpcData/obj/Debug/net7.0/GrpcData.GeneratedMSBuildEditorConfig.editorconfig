@@ -8,4 +8,4 @@ build_property.PlatformNeutralAssembly =
 build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = FileData
-build_property.ProjectDir = C:\Users\Mery\Documents\GitHub\SEP3\dotNetProject\GrpcData\
+build_property.ProjectDir = /Users/hmp/Documents/GitHub/SEP3/dotNetProject/GrpcData/

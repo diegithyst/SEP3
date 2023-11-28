@@ -1,15 +1,20 @@
 {
   "version": 2,
-  "dgSpecHash": "rpQYawufiHiZGie0fByBKmQlvvtNwmZO4eOYGGdKu7ma6y/oyHG2bcZDY6WLWSa9kjHGwlFVDCZ9WiX+15fQkQ==",
+  "dgSpecHash": "2y1YF1hj+jYi0CUotYTA9qP+A5HxKCbgQiVACvZ2A3ntiDUgGwhB3GYD11oZoeNL9Cncq/c+J1sYlDA8PuRPjw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Mery\\Documents\\GitHub\\SEP3\\dotNetProject\\GrpcData\\GrpcData.csproj",
+  "projectFilePath": "/Users/hmp/Documents/GitHub/SEP3/dotNetProject/GrpcData/GrpcData.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\Mery\\.nuget\\packages\\google.protobuf\\3.24.4\\google.protobuf.3.24.4.nupkg.sha512",
-    "C:\\Users\\Mery\\.nuget\\packages\\grpc.core.api\\2.58.0\\grpc.core.api.2.58.0.nupkg.sha512",
-    "C:\\Users\\Mery\\.nuget\\packages\\grpc.net.client\\2.58.0\\grpc.net.client.2.58.0.nupkg.sha512",
-    "C:\\Users\\Mery\\.nuget\\packages\\grpc.net.common\\2.58.0\\grpc.net.common.2.58.0.nupkg.sha512",
-    "C:\\Users\\Mery\\.nuget\\packages\\grpc.tools\\2.59.0\\grpc.tools.2.59.0.nupkg.sha512",
-    "C:\\Users\\Mery\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\6.0.0\\microsoft.extensions.logging.abstractions.6.0.0.nupkg.sha512"
+    "/Users/hmp/.nuget/packages/google.protobuf/3.24.4/google.protobuf.3.24.4.nupkg.sha512",
+    "/Users/hmp/.nuget/packages/grpc.core.api/2.58.0/grpc.core.api.2.58.0.nupkg.sha512",
+    "/Users/hmp/.nuget/packages/grpc.net.client/2.58.0/grpc.net.client.2.58.0.nupkg.sha512",
+    "/Users/hmp/.nuget/packages/grpc.net.common/2.58.0/grpc.net.common.2.58.0.nupkg.sha512",
+    "/Users/hmp/.nuget/packages/grpc.tools/2.59.0/grpc.tools.2.59.0.nupkg.sha512",
+    "/Users/hmp/.nuget/packages/microsoft.aspnetcore.authorization/7.0.14/microsoft.aspnetcore.authorization.7.0.14.nupkg.sha512",
+    "/Users/hmp/.nuget/packages/microsoft.aspnetcore.metadata/7.0.14/microsoft.aspnetcore.metadata.7.0.14.nupkg.sha512",
+    "/Users/hmp/.nuget/packages/microsoft.extensions.dependencyinjection.abstractions/7.0.0/microsoft.extensions.dependencyinjection.abstractions.7.0.0.nupkg.sha512",
+    "/Users/hmp/.nuget/packages/microsoft.extensions.logging.abstractions/7.0.1/microsoft.extensions.logging.abstractions.7.0.1.nupkg.sha512",
+    "/Users/hmp/.nuget/packages/microsoft.extensions.options/7.0.1/microsoft.extensions.options.7.0.1.nupkg.sha512",
+    "/Users/hmp/.nuget/packages/microsoft.extensions.primitives/7.0.0/microsoft.extensions.primitives.7.0.0.nupkg.sha512"
   ],
   "logs": []
 }

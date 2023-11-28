@@ -48,9 +48,17 @@ namespace PersistentServerClient {
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
     static readonly grpc::Marshaller<global::PersistentServerClient.ClientBasicDTO> __Marshaller_persistentserver_ClientBasicDTO = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::PersistentServerClient.ClientBasicDTO.Parser));
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-    static readonly grpc::Marshaller<global::PersistentServerClient.TotalBalance> __Marshaller_persistentserver_TotalBalance = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::PersistentServerClient.TotalBalance.Parser));
-    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
     static readonly grpc::Marshaller<global::PersistentServerClient.Client> __Marshaller_persistentserver_Client = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::PersistentServerClient.Client.Parser));
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    static readonly grpc::Marshaller<global::PersistentServerClient.ClientCreationDTO> __Marshaller_persistentserver_ClientCreationDTO = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::PersistentServerClient.ClientCreationDTO.Parser));
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    static readonly grpc::Marshaller<global::PersistentServerClient.AdministratorBasicDTO> __Marshaller_persistentserver_AdministratorBasicDTO = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::PersistentServerClient.AdministratorBasicDTO.Parser));
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    static readonly grpc::Marshaller<global::PersistentServerClient.Clients> __Marshaller_persistentserver_Clients = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::PersistentServerClient.Clients.Parser));
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    static readonly grpc::Marshaller<global::PersistentServerClient.GrpcResult> __Marshaller_persistentserver_GrpcResult = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::PersistentServerClient.GrpcResult.Parser));
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    static readonly grpc::Marshaller<global::PersistentServerClient.ClientUpdateDTO> __Marshaller_persistentserver_ClientUpdateDTO = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::PersistentServerClient.ClientUpdateDTO.Parser));
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
     static readonly grpc::Marshaller<global::PersistentServerClient.AccountBasicDTO> __Marshaller_persistentserver_AccountBasicDTO = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::PersistentServerClient.AccountBasicDTO.Parser));
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
@@ -58,19 +66,27 @@ namespace PersistentServerClient {
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
     static readonly grpc::Marshaller<global::PersistentServerClient.GrpcAccounts> __Marshaller_persistentserver_GrpcAccounts = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::PersistentServerClient.GrpcAccounts.Parser));
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    static readonly grpc::Marshaller<global::PersistentServerClient.AccountCreationDTO> __Marshaller_persistentserver_AccountCreationDTO = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::PersistentServerClient.AccountCreationDTO.Parser));
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    static readonly grpc::Marshaller<global::PersistentServerClient.AccountUpdateDTO> __Marshaller_persistentserver_AccountUpdateDTO = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::PersistentServerClient.AccountUpdateDTO.Parser));
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
     static readonly grpc::Marshaller<global::PersistentServerClient.CurrencyBasicDTO> __Marshaller_persistentserver_CurrencyBasicDTO = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::PersistentServerClient.CurrencyBasicDTO.Parser));
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
     static readonly grpc::Marshaller<global::PersistentServerClient.GrpcCurrency> __Marshaller_persistentserver_GrpcCurrency = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::PersistentServerClient.GrpcCurrency.Parser));
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
     static readonly grpc::Marshaller<global::PersistentServerClient.GrpcCurrencies> __Marshaller_persistentserver_GrpcCurrencies = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::PersistentServerClient.GrpcCurrencies.Parser));
-
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-    static readonly grpc::Method<global::PersistentServerClient.ClientBasicDTO, global::PersistentServerClient.TotalBalance> __Method_GetTotalBalance = new grpc::Method<global::PersistentServerClient.ClientBasicDTO, global::PersistentServerClient.TotalBalance>(
-        grpc::MethodType.Unary,
-        __ServiceName,
-        "GetTotalBalance",
-        __Marshaller_persistentserver_ClientBasicDTO,
-        __Marshaller_persistentserver_TotalBalance);
+    static readonly grpc::Marshaller<global::PersistentServerClient.CurrencyUpdateDTO> __Marshaller_persistentserver_CurrencyUpdateDTO = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::PersistentServerClient.CurrencyUpdateDTO.Parser));
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    static readonly grpc::Marshaller<global::PersistentServerClient.GrpcAdministrator> __Marshaller_persistentserver_GrpcAdministrator = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::PersistentServerClient.GrpcAdministrator.Parser));
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    static readonly grpc::Marshaller<global::PersistentServerClient.MoneyTransferBasicDTO> __Marshaller_persistentserver_MoneyTransferBasicDTO = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::PersistentServerClient.MoneyTransferBasicDTO.Parser));
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    static readonly grpc::Marshaller<global::PersistentServerClient.GrpcMoneyTransfer> __Marshaller_persistentserver_GrpcMoneyTransfer = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::PersistentServerClient.GrpcMoneyTransfer.Parser));
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    static readonly grpc::Marshaller<global::PersistentServerClient.GrpcMoneyTransfers> __Marshaller_persistentserver_GrpcMoneyTransfers = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::PersistentServerClient.GrpcMoneyTransfers.Parser));
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    static readonly grpc::Marshaller<global::PersistentServerClient.CreateMoneyTransferDTO> __Marshaller_persistentserver_CreateMoneyTransferDTO = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::PersistentServerClient.CreateMoneyTransferDTO.Parser));
 
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
     static readonly grpc::Method<global::PersistentServerClient.ClientBasicDTO, global::PersistentServerClient.Client> __Method_GetClientById = new grpc::Method<global::PersistentServerClient.ClientBasicDTO, global::PersistentServerClient.Client>(
@@ -78,6 +94,38 @@ namespace PersistentServerClient {
         __ServiceName,
         "GetClientById",
         __Marshaller_persistentserver_ClientBasicDTO,
+        __Marshaller_persistentserver_Client);
+
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    static readonly grpc::Method<global::PersistentServerClient.ClientCreationDTO, global::PersistentServerClient.Client> __Method_CreateClient = new grpc::Method<global::PersistentServerClient.ClientCreationDTO, global::PersistentServerClient.Client>(
+        grpc::MethodType.Unary,
+        __ServiceName,
+        "CreateClient",
+        __Marshaller_persistentserver_ClientCreationDTO,
+        __Marshaller_persistentserver_Client);
+
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    static readonly grpc::Method<global::PersistentServerClient.AdministratorBasicDTO, global::PersistentServerClient.Clients> __Method_GetClients = new grpc::Method<global::PersistentServerClient.AdministratorBasicDTO, global::PersistentServerClient.Clients>(
+        grpc::MethodType.Unary,
+        __ServiceName,
+        "GetClients",
+        __Marshaller_persistentserver_AdministratorBasicDTO,
+        __Marshaller_persistentserver_Clients);
+
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    static readonly grpc::Method<global::PersistentServerClient.ClientBasicDTO, global::PersistentServerClient.GrpcResult> __Method_DeleteClient = new grpc::Method<global::PersistentServerClient.ClientBasicDTO, global::PersistentServerClient.GrpcResult>(
+        grpc::MethodType.Unary,
+        __ServiceName,
+        "DeleteClient",
+        __Marshaller_persistentserver_ClientBasicDTO,
+        __Marshaller_persistentserver_GrpcResult);
+
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    static readonly grpc::Method<global::PersistentServerClient.ClientUpdateDTO, global::PersistentServerClient.Client> __Method_UpdateClient = new grpc::Method<global::PersistentServerClient.ClientUpdateDTO, global::PersistentServerClient.Client>(
+        grpc::MethodType.Unary,
+        __ServiceName,
+        "UpdateClient",
+        __Marshaller_persistentserver_ClientUpdateDTO,
         __Marshaller_persistentserver_Client);
 
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
@@ -97,6 +145,30 @@ namespace PersistentServerClient {
         __Marshaller_persistentserver_GrpcAccounts);
 
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    static readonly grpc::Method<global::PersistentServerClient.AccountCreationDTO, global::PersistentServerClient.GrpcAccount> __Method_CreateAccount = new grpc::Method<global::PersistentServerClient.AccountCreationDTO, global::PersistentServerClient.GrpcAccount>(
+        grpc::MethodType.Unary,
+        __ServiceName,
+        "CreateAccount",
+        __Marshaller_persistentserver_AccountCreationDTO,
+        __Marshaller_persistentserver_GrpcAccount);
+
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    static readonly grpc::Method<global::PersistentServerClient.AccountUpdateDTO, global::PersistentServerClient.GrpcAccount> __Method_UpdateAccount = new grpc::Method<global::PersistentServerClient.AccountUpdateDTO, global::PersistentServerClient.GrpcAccount>(
+        grpc::MethodType.Unary,
+        __ServiceName,
+        "UpdateAccount",
+        __Marshaller_persistentserver_AccountUpdateDTO,
+        __Marshaller_persistentserver_GrpcAccount);
+
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    static readonly grpc::Method<global::PersistentServerClient.AccountBasicDTO, global::PersistentServerClient.GrpcResult> __Method_DeleteAccount = new grpc::Method<global::PersistentServerClient.AccountBasicDTO, global::PersistentServerClient.GrpcResult>(
+        grpc::MethodType.Unary,
+        __ServiceName,
+        "DeleteAccount",
+        __Marshaller_persistentserver_AccountBasicDTO,
+        __Marshaller_persistentserver_GrpcResult);
+
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
     static readonly grpc::Method<global::PersistentServerClient.CurrencyBasicDTO, global::PersistentServerClient.GrpcCurrency> __Method_GetCurrencyById = new grpc::Method<global::PersistentServerClient.CurrencyBasicDTO, global::PersistentServerClient.GrpcCurrency>(
         grpc::MethodType.Unary,
         __ServiceName,
@@ -111,6 +183,46 @@ namespace PersistentServerClient {
         "GetCurrencies",
         __Marshaller_persistentserver_AccountBasicDTO,
         __Marshaller_persistentserver_GrpcCurrencies);
+
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    static readonly grpc::Method<global::PersistentServerClient.CurrencyUpdateDTO, global::PersistentServerClient.GrpcCurrency> __Method_UpdateCurrency = new grpc::Method<global::PersistentServerClient.CurrencyUpdateDTO, global::PersistentServerClient.GrpcCurrency>(
+        grpc::MethodType.Unary,
+        __ServiceName,
+        "UpdateCurrency",
+        __Marshaller_persistentserver_CurrencyUpdateDTO,
+        __Marshaller_persistentserver_GrpcCurrency);
+
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    static readonly grpc::Method<global::PersistentServerClient.AdministratorBasicDTO, global::PersistentServerClient.GrpcAdministrator> __Method_GetAdministratorByID = new grpc::Method<global::PersistentServerClient.AdministratorBasicDTO, global::PersistentServerClient.GrpcAdministrator>(
+        grpc::MethodType.Unary,
+        __ServiceName,
+        "GetAdministratorByID",
+        __Marshaller_persistentserver_AdministratorBasicDTO,
+        __Marshaller_persistentserver_GrpcAdministrator);
+
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    static readonly grpc::Method<global::PersistentServerClient.MoneyTransferBasicDTO, global::PersistentServerClient.GrpcMoneyTransfer> __Method_GetMoneyTransferById = new grpc::Method<global::PersistentServerClient.MoneyTransferBasicDTO, global::PersistentServerClient.GrpcMoneyTransfer>(
+        grpc::MethodType.Unary,
+        __ServiceName,
+        "GetMoneyTransferById",
+        __Marshaller_persistentserver_MoneyTransferBasicDTO,
+        __Marshaller_persistentserver_GrpcMoneyTransfer);
+
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    static readonly grpc::Method<global::PersistentServerClient.AccountBasicDTO, global::PersistentServerClient.GrpcMoneyTransfers> __Method_GetMoneyTransfers = new grpc::Method<global::PersistentServerClient.AccountBasicDTO, global::PersistentServerClient.GrpcMoneyTransfers>(
+        grpc::MethodType.Unary,
+        __ServiceName,
+        "GetMoneyTransfers",
+        __Marshaller_persistentserver_AccountBasicDTO,
+        __Marshaller_persistentserver_GrpcMoneyTransfers);
+
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    static readonly grpc::Method<global::PersistentServerClient.CreateMoneyTransferDTO, global::PersistentServerClient.GrpcMoneyTransfer> __Method_MakeMoneyTransfer = new grpc::Method<global::PersistentServerClient.CreateMoneyTransferDTO, global::PersistentServerClient.GrpcMoneyTransfer>(
+        grpc::MethodType.Unary,
+        __ServiceName,
+        "MakeMoneyTransfer",
+        __Marshaller_persistentserver_CreateMoneyTransferDTO,
+        __Marshaller_persistentserver_GrpcMoneyTransfer);
 
     /// <summary>Service descriptor</summary>
     public static global::Google.Protobuf.Reflection.ServiceDescriptor Descriptor
@@ -146,26 +258,6 @@ namespace PersistentServerClient {
       }
 
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-      public virtual global::PersistentServerClient.TotalBalance GetTotalBalance(global::PersistentServerClient.ClientBasicDTO request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
-      {
-        return GetTotalBalance(request, new grpc::CallOptions(headers, deadline, cancellationToken));
-      }
-      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-      public virtual global::PersistentServerClient.TotalBalance GetTotalBalance(global::PersistentServerClient.ClientBasicDTO request, grpc::CallOptions options)
-      {
-        return CallInvoker.BlockingUnaryCall(__Method_GetTotalBalance, null, options, request);
-      }
-      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-      public virtual grpc::AsyncUnaryCall<global::PersistentServerClient.TotalBalance> GetTotalBalanceAsync(global::PersistentServerClient.ClientBasicDTO request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
-      {
-        return GetTotalBalanceAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
-      }
-      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-      public virtual grpc::AsyncUnaryCall<global::PersistentServerClient.TotalBalance> GetTotalBalanceAsync(global::PersistentServerClient.ClientBasicDTO request, grpc::CallOptions options)
-      {
-        return CallInvoker.AsyncUnaryCall(__Method_GetTotalBalance, null, options, request);
-      }
-      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
       public virtual global::PersistentServerClient.Client GetClientById(global::PersistentServerClient.ClientBasicDTO request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
       {
         return GetClientById(request, new grpc::CallOptions(headers, deadline, cancellationToken));
@@ -184,6 +276,86 @@ namespace PersistentServerClient {
       public virtual grpc::AsyncUnaryCall<global::PersistentServerClient.Client> GetClientByIdAsync(global::PersistentServerClient.ClientBasicDTO request, grpc::CallOptions options)
       {
         return CallInvoker.AsyncUnaryCall(__Method_GetClientById, null, options, request);
+      }
+      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+      public virtual global::PersistentServerClient.Client CreateClient(global::PersistentServerClient.ClientCreationDTO request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      {
+        return CreateClient(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+      }
+      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+      public virtual global::PersistentServerClient.Client CreateClient(global::PersistentServerClient.ClientCreationDTO request, grpc::CallOptions options)
+      {
+        return CallInvoker.BlockingUnaryCall(__Method_CreateClient, null, options, request);
+      }
+      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+      public virtual grpc::AsyncUnaryCall<global::PersistentServerClient.Client> CreateClientAsync(global::PersistentServerClient.ClientCreationDTO request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      {
+        return CreateClientAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+      }
+      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+      public virtual grpc::AsyncUnaryCall<global::PersistentServerClient.Client> CreateClientAsync(global::PersistentServerClient.ClientCreationDTO request, grpc::CallOptions options)
+      {
+        return CallInvoker.AsyncUnaryCall(__Method_CreateClient, null, options, request);
+      }
+      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+      public virtual global::PersistentServerClient.Clients GetClients(global::PersistentServerClient.AdministratorBasicDTO request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      {
+        return GetClients(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+      }
+      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+      public virtual global::PersistentServerClient.Clients GetClients(global::PersistentServerClient.AdministratorBasicDTO request, grpc::CallOptions options)
+      {
+        return CallInvoker.BlockingUnaryCall(__Method_GetClients, null, options, request);
+      }
+      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+      public virtual grpc::AsyncUnaryCall<global::PersistentServerClient.Clients> GetClientsAsync(global::PersistentServerClient.AdministratorBasicDTO request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      {
+        return GetClientsAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+      }
+      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+      public virtual grpc::AsyncUnaryCall<global::PersistentServerClient.Clients> GetClientsAsync(global::PersistentServerClient.AdministratorBasicDTO request, grpc::CallOptions options)
+      {
+        return CallInvoker.AsyncUnaryCall(__Method_GetClients, null, options, request);
+      }
+      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+      public virtual global::PersistentServerClient.GrpcResult DeleteClient(global::PersistentServerClient.ClientBasicDTO request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      {
+        return DeleteClient(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+      }
+      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+      public virtual global::PersistentServerClient.GrpcResult DeleteClient(global::PersistentServerClient.ClientBasicDTO request, grpc::CallOptions options)
+      {
+        return CallInvoker.BlockingUnaryCall(__Method_DeleteClient, null, options, request);
+      }
+      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+      public virtual grpc::AsyncUnaryCall<global::PersistentServerClient.GrpcResult> DeleteClientAsync(global::PersistentServerClient.ClientBasicDTO request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      {
+        return DeleteClientAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+      }
+      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+      public virtual grpc::AsyncUnaryCall<global::PersistentServerClient.GrpcResult> DeleteClientAsync(global::PersistentServerClient.ClientBasicDTO request, grpc::CallOptions options)
+      {
+        return CallInvoker.AsyncUnaryCall(__Method_DeleteClient, null, options, request);
+      }
+      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+      public virtual global::PersistentServerClient.Client UpdateClient(global::PersistentServerClient.ClientUpdateDTO request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      {
+        return UpdateClient(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+      }
+      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+      public virtual global::PersistentServerClient.Client UpdateClient(global::PersistentServerClient.ClientUpdateDTO request, grpc::CallOptions options)
+      {
+        return CallInvoker.BlockingUnaryCall(__Method_UpdateClient, null, options, request);
+      }
+      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+      public virtual grpc::AsyncUnaryCall<global::PersistentServerClient.Client> UpdateClientAsync(global::PersistentServerClient.ClientUpdateDTO request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      {
+        return UpdateClientAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+      }
+      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+      public virtual grpc::AsyncUnaryCall<global::PersistentServerClient.Client> UpdateClientAsync(global::PersistentServerClient.ClientUpdateDTO request, grpc::CallOptions options)
+      {
+        return CallInvoker.AsyncUnaryCall(__Method_UpdateClient, null, options, request);
       }
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
       public virtual global::PersistentServerClient.GrpcAccount GetAccountById(global::PersistentServerClient.AccountBasicDTO request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
@@ -226,6 +398,66 @@ namespace PersistentServerClient {
         return CallInvoker.AsyncUnaryCall(__Method_GetClientAccounts, null, options, request);
       }
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+      public virtual global::PersistentServerClient.GrpcAccount CreateAccount(global::PersistentServerClient.AccountCreationDTO request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      {
+        return CreateAccount(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+      }
+      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+      public virtual global::PersistentServerClient.GrpcAccount CreateAccount(global::PersistentServerClient.AccountCreationDTO request, grpc::CallOptions options)
+      {
+        return CallInvoker.BlockingUnaryCall(__Method_CreateAccount, null, options, request);
+      }
+      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+      public virtual grpc::AsyncUnaryCall<global::PersistentServerClient.GrpcAccount> CreateAccountAsync(global::PersistentServerClient.AccountCreationDTO request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      {
+        return CreateAccountAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+      }
+      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+      public virtual grpc::AsyncUnaryCall<global::PersistentServerClient.GrpcAccount> CreateAccountAsync(global::PersistentServerClient.AccountCreationDTO request, grpc::CallOptions options)
+      {
+        return CallInvoker.AsyncUnaryCall(__Method_CreateAccount, null, options, request);
+      }
+      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+      public virtual global::PersistentServerClient.GrpcAccount UpdateAccount(global::PersistentServerClient.AccountUpdateDTO request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      {
+        return UpdateAccount(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+      }
+      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+      public virtual global::PersistentServerClient.GrpcAccount UpdateAccount(global::PersistentServerClient.AccountUpdateDTO request, grpc::CallOptions options)
+      {
+        return CallInvoker.BlockingUnaryCall(__Method_UpdateAccount, null, options, request);
+      }
+      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+      public virtual grpc::AsyncUnaryCall<global::PersistentServerClient.GrpcAccount> UpdateAccountAsync(global::PersistentServerClient.AccountUpdateDTO request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      {
+        return UpdateAccountAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+      }
+      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+      public virtual grpc::AsyncUnaryCall<global::PersistentServerClient.GrpcAccount> UpdateAccountAsync(global::PersistentServerClient.AccountUpdateDTO request, grpc::CallOptions options)
+      {
+        return CallInvoker.AsyncUnaryCall(__Method_UpdateAccount, null, options, request);
+      }
+      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+      public virtual global::PersistentServerClient.GrpcResult DeleteAccount(global::PersistentServerClient.AccountBasicDTO request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      {
+        return DeleteAccount(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+      }
+      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+      public virtual global::PersistentServerClient.GrpcResult DeleteAccount(global::PersistentServerClient.AccountBasicDTO request, grpc::CallOptions options)
+      {
+        return CallInvoker.BlockingUnaryCall(__Method_DeleteAccount, null, options, request);
+      }
+      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+      public virtual grpc::AsyncUnaryCall<global::PersistentServerClient.GrpcResult> DeleteAccountAsync(global::PersistentServerClient.AccountBasicDTO request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      {
+        return DeleteAccountAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+      }
+      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+      public virtual grpc::AsyncUnaryCall<global::PersistentServerClient.GrpcResult> DeleteAccountAsync(global::PersistentServerClient.AccountBasicDTO request, grpc::CallOptions options)
+      {
+        return CallInvoker.AsyncUnaryCall(__Method_DeleteAccount, null, options, request);
+      }
+      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
       public virtual global::PersistentServerClient.GrpcCurrency GetCurrencyById(global::PersistentServerClient.CurrencyBasicDTO request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
       {
         return GetCurrencyById(request, new grpc::CallOptions(headers, deadline, cancellationToken));
@@ -264,6 +496,106 @@ namespace PersistentServerClient {
       public virtual grpc::AsyncUnaryCall<global::PersistentServerClient.GrpcCurrencies> GetCurrenciesAsync(global::PersistentServerClient.AccountBasicDTO request, grpc::CallOptions options)
       {
         return CallInvoker.AsyncUnaryCall(__Method_GetCurrencies, null, options, request);
+      }
+      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+      public virtual global::PersistentServerClient.GrpcCurrency UpdateCurrency(global::PersistentServerClient.CurrencyUpdateDTO request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      {
+        return UpdateCurrency(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+      }
+      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+      public virtual global::PersistentServerClient.GrpcCurrency UpdateCurrency(global::PersistentServerClient.CurrencyUpdateDTO request, grpc::CallOptions options)
+      {
+        return CallInvoker.BlockingUnaryCall(__Method_UpdateCurrency, null, options, request);
+      }
+      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+      public virtual grpc::AsyncUnaryCall<global::PersistentServerClient.GrpcCurrency> UpdateCurrencyAsync(global::PersistentServerClient.CurrencyUpdateDTO request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      {
+        return UpdateCurrencyAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+      }
+      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+      public virtual grpc::AsyncUnaryCall<global::PersistentServerClient.GrpcCurrency> UpdateCurrencyAsync(global::PersistentServerClient.CurrencyUpdateDTO request, grpc::CallOptions options)
+      {
+        return CallInvoker.AsyncUnaryCall(__Method_UpdateCurrency, null, options, request);
+      }
+      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+      public virtual global::PersistentServerClient.GrpcAdministrator GetAdministratorByID(global::PersistentServerClient.AdministratorBasicDTO request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      {
+        return GetAdministratorByID(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+      }
+      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+      public virtual global::PersistentServerClient.GrpcAdministrator GetAdministratorByID(global::PersistentServerClient.AdministratorBasicDTO request, grpc::CallOptions options)
+      {
+        return CallInvoker.BlockingUnaryCall(__Method_GetAdministratorByID, null, options, request);
+      }
+      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+      public virtual grpc::AsyncUnaryCall<global::PersistentServerClient.GrpcAdministrator> GetAdministratorByIDAsync(global::PersistentServerClient.AdministratorBasicDTO request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      {
+        return GetAdministratorByIDAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+      }
+      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+      public virtual grpc::AsyncUnaryCall<global::PersistentServerClient.GrpcAdministrator> GetAdministratorByIDAsync(global::PersistentServerClient.AdministratorBasicDTO request, grpc::CallOptions options)
+      {
+        return CallInvoker.AsyncUnaryCall(__Method_GetAdministratorByID, null, options, request);
+      }
+      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+      public virtual global::PersistentServerClient.GrpcMoneyTransfer GetMoneyTransferById(global::PersistentServerClient.MoneyTransferBasicDTO request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      {
+        return GetMoneyTransferById(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+      }
+      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+      public virtual global::PersistentServerClient.GrpcMoneyTransfer GetMoneyTransferById(global::PersistentServerClient.MoneyTransferBasicDTO request, grpc::CallOptions options)
+      {
+        return CallInvoker.BlockingUnaryCall(__Method_GetMoneyTransferById, null, options, request);
+      }
+      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+      public virtual grpc::AsyncUnaryCall<global::PersistentServerClient.GrpcMoneyTransfer> GetMoneyTransferByIdAsync(global::PersistentServerClient.MoneyTransferBasicDTO request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      {
+        return GetMoneyTransferByIdAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+      }
+      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+      public virtual grpc::AsyncUnaryCall<global::PersistentServerClient.GrpcMoneyTransfer> GetMoneyTransferByIdAsync(global::PersistentServerClient.MoneyTransferBasicDTO request, grpc::CallOptions options)
+      {
+        return CallInvoker.AsyncUnaryCall(__Method_GetMoneyTransferById, null, options, request);
+      }
+      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+      public virtual global::PersistentServerClient.GrpcMoneyTransfers GetMoneyTransfers(global::PersistentServerClient.AccountBasicDTO request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      {
+        return GetMoneyTransfers(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+      }
+      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+      public virtual global::PersistentServerClient.GrpcMoneyTransfers GetMoneyTransfers(global::PersistentServerClient.AccountBasicDTO request, grpc::CallOptions options)
+      {
+        return CallInvoker.BlockingUnaryCall(__Method_GetMoneyTransfers, null, options, request);
+      }
+      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+      public virtual grpc::AsyncUnaryCall<global::PersistentServerClient.GrpcMoneyTransfers> GetMoneyTransfersAsync(global::PersistentServerClient.AccountBasicDTO request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      {
+        return GetMoneyTransfersAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+      }
+      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+      public virtual grpc::AsyncUnaryCall<global::PersistentServerClient.GrpcMoneyTransfers> GetMoneyTransfersAsync(global::PersistentServerClient.AccountBasicDTO request, grpc::CallOptions options)
+      {
+        return CallInvoker.AsyncUnaryCall(__Method_GetMoneyTransfers, null, options, request);
+      }
+      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+      public virtual global::PersistentServerClient.GrpcMoneyTransfer MakeMoneyTransfer(global::PersistentServerClient.CreateMoneyTransferDTO request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      {
+        return MakeMoneyTransfer(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+      }
+      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+      public virtual global::PersistentServerClient.GrpcMoneyTransfer MakeMoneyTransfer(global::PersistentServerClient.CreateMoneyTransferDTO request, grpc::CallOptions options)
+      {
+        return CallInvoker.BlockingUnaryCall(__Method_MakeMoneyTransfer, null, options, request);
+      }
+      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+      public virtual grpc::AsyncUnaryCall<global::PersistentServerClient.GrpcMoneyTransfer> MakeMoneyTransferAsync(global::PersistentServerClient.CreateMoneyTransferDTO request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      {
+        return MakeMoneyTransferAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+      }
+      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+      public virtual grpc::AsyncUnaryCall<global::PersistentServerClient.GrpcMoneyTransfer> MakeMoneyTransferAsync(global::PersistentServerClient.CreateMoneyTransferDTO request, grpc::CallOptions options)
+      {
+        return CallInvoker.AsyncUnaryCall(__Method_MakeMoneyTransfer, null, options, request);
       }
       /// <summary>Creates a new instance of client from given <c>ClientBaseConfiguration</c>.</summary>
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
