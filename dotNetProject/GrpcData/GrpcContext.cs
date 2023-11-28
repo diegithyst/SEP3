@@ -1,6 +1,7 @@
 ﻿using Domain.DTOs;
 using Grpc.Net.Client;
 using PersistentServerClient;
+using ClientCreationDTO = PersistentServerClient.ClientCreationDTO;
 
 namespace FileData
 {

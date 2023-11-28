@@ -5,19 +5,19 @@ namespace FileData.DAOs;
 
 public class AccountGRPCDao : IAccountDao
 {
-    private readonly PersistentServerClient.PersistentServer.PersistentServerClient psc;
+    private GrpcContext context;
     public AccountGRPCDao(GrpcContext grpcContext)
     {
-        psc = grpcContext.Psc;
+        context = grpcContext;
     }
 
 
     public Task<Account> CreateAsync(Account account)
     {
         long id = 1;
-        if (_context.Accounts.Any())
+        if (context.Psc.Accounts.Any())
         {
-            id = _context.Accounts.Max(a => a.id);
+            id = context.Accounts.Max(a => a.id);
             id++;
         }
 
