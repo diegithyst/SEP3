@@ -12,4 +12,5 @@ public interface IClientService
     Task DeleteAsync(long id);
     
     Task UpdateAsync();
+    public Task RegisterAsync(ClientCreationDTO dto);
 }

@@ -1,4 +1,6 @@
+using System.Text;
 using System.Text.Json;
+using Domain.DTOs;
 using Domain.Model;
 using HttpClients.ClientInterfaces;
 
@@ -57,5 +59,17 @@ public class ClientHttpClient : IClientService
     public Task UpdateAsync()
     {
         throw new NotImplementedException();
+    }
+
+    public async Task RegisterAsync(ClientCreationDTO dto)
+    {
+        string userAsJson = JsonSerializer.Serialize(dto);
+        StringContent content = new(userAsJson, Encoding.UTF8, "application/json");
+        HttpResponseMessage responseMessage = await client.PostAsync("https://localhost:7017/Auth/register", content);
+        string responseContent = await responseMessage.Content.ReadAsStringAsync();
+        if (!responseMessage.IsSuccessStatusCode)
+        {
+            throw new Exception();
+        }
     }
 }

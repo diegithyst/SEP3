@@ -1,10 +1,10 @@
-@page "/Register"
+@page "/RegisterClient"
 @using HttpClients.ClientInterfaces
 @using Domain.DTOs
-@inject IAuthService authService
+@inject IClientService clientService
 @inject NavigationManager nav
 
-<h3>Register</h3>
+<h3>RegisterClient</h3>
 
 @code {
     private string username;
@@ -22,7 +22,7 @@
         error = "";
         try
         {
-            await authService.RegisterAsync(new ClientCreationDTO(firstname, lastname, username, password, country, identityDocument, birthday, planType));
+            await clientService.RegisterAsync(new ClientCreationDTO(firstname, lastname, username, password, country, identityDocument, birthday, planType));
             nav.NavigateTo("/Login");
         }
         catch (Exception e)

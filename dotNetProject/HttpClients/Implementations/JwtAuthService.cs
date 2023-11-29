@@ -11,8 +11,30 @@ public class JwtAuthService : IAuthService
     private readonly HttpClient client = new();
     public static string? Jwt { get; private set; } = "";
     public Action<ClaimsPrincipal> OnAuthStateChanged { get; set; } = null!;
-    
-    public async Task LoginAsync(string username, string password)
+
+    public async Task LoginAdminAsync(string username, string password)
+    {
+        ClientLoginDTO clientLoginDto = new()
+        {
+            Username = username,
+            Password = password
+        };
+
+        string adminAsJson = JsonSerializer.Serialize(clientLoginDto);
+        StringContent content = new(adminAsJson, Encoding.UTF8, "application/json");
+        HttpResponseMessage response = await client.PostAsync("https:://localhost:7017/Auth/loginAdmin", content);
+
+        string responseContent = await response.Content.ReadAsStringAsync();
+        if (!response.IsSuccessStatusCode)
+        {
+            throw new Exception(responseContent);
+        }
+
+        ClaimsPrincipal principal = CreateClaimsPrincipal();
+        OnAuthStateChanged.Invoke(principal);
+    }
+
+    public async Task LoginClientAsync(string username, string password)
     {
         ClientLoginDTO clientLoginDto = new()
         {
@@ -40,18 +62,6 @@ public class JwtAuthService : IAuthService
         ClaimsPrincipal principal = new();
         OnAuthStateChanged.Invoke(principal);
         return Task.CompletedTask;
-    }
-
-    public async Task RegisterAsync(ClientCreationDTO dto)
-    {
-        string userAsJson = JsonSerializer.Serialize(dto);
-        StringContent content = new(userAsJson, Encoding.UTF8, "application/json");
-        HttpResponseMessage responseMessage = await client.PostAsync("https://localhost:7017/Auth/register", content);
-        string responseContent = await responseMessage.Content.ReadAsStringAsync();
-        if (!responseMessage.IsSuccessStatusCode)
-        {
-            throw new Exception();
-        }
     }
 
     public Task<ClaimsPrincipal> GetAuthAsync()

@@ -1,8 +1,8 @@
-@page "/Login"
+@page "/AdministratorLogin"
 @using HttpClients.ClientInterfaces
 @inject IAuthService authService
 @inject NavigationManager nav
-<h3>Login</h3>
+<h3>AdministratorLogin</h3>
 
 @code {
     private string username;
@@ -13,7 +13,7 @@
     {
         try
         {
-            await authService.LoginClientAsync(username, password);
+            await authService.LoginAdminAsync(username, password);
             nav.NavigateTo("/");
         }
         catch (Exception e)
@@ -21,5 +21,4 @@
             error = $"Error: {e.Message}";
         }
     }
-
 }
