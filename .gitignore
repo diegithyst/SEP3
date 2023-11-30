@@ -12,6 +12,8 @@ dotNetProject/Application/bin/*
 dotNetProject/Application/obj/*
 dotNetProject/BlazorWASM/bin/*
 dotNetProject/BlazorWASM/obj/*
+dotNetProject/GrpcData/bin/*
+dotNetProject/GrpcData/obj/*
 dotNetProject/FileData/bin/*
 dotNetProject/FileData/obj/*
 dotNetProject/HttpClients/bin/*

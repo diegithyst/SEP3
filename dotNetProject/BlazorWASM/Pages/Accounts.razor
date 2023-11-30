@@ -2,8 +2,27 @@
 @using Domain.Model
 @using HttpClients.ClientInterfaces
 @inject IAccountService accountService
-<h3>Accounts</h3>
+@inject NavigationManager nav
 
+<h3>Accounts</h3>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Account ID</th>
+            <th>Account Name</th>
+            
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in accounts)
+        {
+            <tr>
+                <td>@item.id</td>
+                <td @onclick="@(() => nav.NavigateTo($"/ViewAccount/{id:int}"))">@item.name </td>
+            </tr>
+        }
+    </tbody>
+</table>
 @code {
 
     [CascadingParameter]
