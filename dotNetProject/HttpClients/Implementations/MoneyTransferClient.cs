@@ -1,4 +1,5 @@
 using System.Net.Http.Json;
+using System.Text.Json;
 using Domain.DTOs;
 using Domain.Model;
 using HttpClients.ClientInterfaces;
@@ -24,13 +25,22 @@ public class MoneyTransferClient : IMoneyTransferService
         }
     }
 
-    public Task<ICollection<MoneyTransfer>> GetListByAccountIdAsync()
+    public async Task<ICollection<MoneyTransfer>> GetListByAccountIdAsync(long id)
     {
-        throw new NotImplementedException();
-    }
+        HttpResponseMessage message = await client.GetAsync($"/TransferMoney/{id}");
+        string content = await message.Content.ReadAsStringAsync();
+        if (!message.IsSuccessStatusCode)
+        {
+            throw new Exception(content);
+        }
 
-    public Task<MoneyTransfer> GetByIdAsync()
-    {
-        throw new NotImplementedException();
+        ICollection<MoneyTransfer> moneyTransfers = JsonSerializer.Deserialize<ICollection<MoneyTransfer>>(content,
+            new JsonSerializerOptions
+            {
+                PropertyNameCaseInsensitive = true
+            })!;
+
+        return moneyTransfers;
     }
+    
 }

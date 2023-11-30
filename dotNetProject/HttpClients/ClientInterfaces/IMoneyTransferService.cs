@@ -7,7 +7,5 @@ public interface IMoneyTransferService
 {
     Task CreateAsync(MoneyTransferCreationDto dto);
 
-    Task<ICollection<MoneyTransfer>> GetListByAccountIdAsync();
-
-    Task<MoneyTransfer> GetByIdAsync();
+    Task<ICollection<MoneyTransfer>> GetListByAccountIdAsync(long id);
 }

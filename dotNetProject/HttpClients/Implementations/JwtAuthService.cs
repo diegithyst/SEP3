@@ -22,7 +22,7 @@ public class JwtAuthService : IAuthService
 
         string adminAsJson = JsonSerializer.Serialize(clientLoginDto);
         StringContent content = new(adminAsJson, Encoding.UTF8, "application/json");
-        HttpResponseMessage response = await client.PostAsync("https:://localhost:7017/Auth/loginAdmin", content);
+        HttpResponseMessage response = await client.PostAsync("http:://localhost:5066/Auth/loginAdmin", content);
 
         string responseContent = await response.Content.ReadAsStringAsync();
         if (!response.IsSuccessStatusCode)
@@ -44,7 +44,7 @@ public class JwtAuthService : IAuthService
 
         string clientAsJson = JsonSerializer.Serialize(clientLoginDto);
         StringContent content = new(clientAsJson, Encoding.UTF8, "application/json");
-        HttpResponseMessage response = await client.PostAsync("https:://localhost:7017/Auth/login", content);
+        HttpResponseMessage response = await client.PostAsync("http:://localhost:5066/Auth/login", content);
 
         string responseContent = await response.Content.ReadAsStringAsync();
         if (!response.IsSuccessStatusCode)
