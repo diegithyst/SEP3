@@ -11,6 +11,6 @@ public interface IClientService
     Task<Client> GetByIdAsync(long id);
 
     Task DeleteAsync(long id);
-    
     Task UpdateAsync(ClientUpdateDTO updateDto);
+    public Task RegisterAsync(ClientCreationDTO dto);
 }

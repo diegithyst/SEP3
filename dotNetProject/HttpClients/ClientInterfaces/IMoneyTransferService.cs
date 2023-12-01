@@ -9,5 +9,6 @@ public interface IMoneyTransferService
     Task<IEnumerable<MoneyTransfer?>?> GetBySearchAsync(long? receiverAccount, long? senderAccount);
     Task<IEnumerable<MoneyTransfer?>?> GetAsync();
     Task<MoneyTransfer?> GetByIdAsync(long id);
-
+    
+    Task<ICollection<MoneyTransfer>> GetListByAccountIdAsync(long id);
 }

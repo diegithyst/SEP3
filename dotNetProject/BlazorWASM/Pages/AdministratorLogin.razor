@@ -1,0 +1,24 @@
+@page "/AdministratorLogin"
+@using HttpClients.ClientInterfaces
+@inject IAuthService authService
+@inject NavigationManager nav
+<h3>AdministratorLogin</h3>
+
+@code {
+    private string username;
+    private string password;
+    private string error;
+
+    private async Task LoginAsync()
+    {
+        try
+        {
+            await authService.LoginAdminAsync(username, password);
+            nav.NavigateTo("/");
+        }
+        catch (Exception e)
+        {
+            error = $"Error: {e.Message}";
+        }
+    }
+}

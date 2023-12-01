@@ -31,7 +31,7 @@
     {
         try
         {
-            await authService.LoginAsync(username, password);
+            await authService.LoginClientAsync(username, password);
             nav.NavigateTo("/");
         }
         catch (Exception e)

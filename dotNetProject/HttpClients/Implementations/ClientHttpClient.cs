@@ -81,4 +81,16 @@ public class ClientHttpClient : IClientService
         }
 
     }
+
+    public async Task RegisterAsync(ClientCreationDTO dto)
+    {
+        string userAsJson = JsonSerializer.Serialize(dto);
+        StringContent content = new(userAsJson, Encoding.UTF8, "application/json");
+        HttpResponseMessage responseMessage = await client.PostAsync("https://localhost:7017/Auth/register", content);
+        string responseContent = await responseMessage.Content.ReadAsStringAsync();
+        if (!responseMessage.IsSuccessStatusCode)
+        {
+            throw new Exception();
+        }
+    }
 }

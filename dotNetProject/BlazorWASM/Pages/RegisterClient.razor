@@ -1,10 +1,10 @@
-@page "/Register"
+@page "/RegisterClient"
 @using HttpClients.ClientInterfaces
 @using Domain.DTOs
 @inject IClientService clientService
 @inject NavigationManager nav
 
-<h3>Register</h3>
+<h3>RegisterClient</h3>
 
 <div class="card">
  <div class="form-group field">
@@ -92,7 +92,7 @@
         error = "";
         try
         {
-            await clientService.CreateAsync(new ClientCreationDTO(firstname, lastname, username, password, country, identityDocument, birthday, planType));
+            await clientService.RegisterAsync(new ClientCreationDTO(firstname, lastname, username, password, country, identityDocument, birthday, planType));
             nav.NavigateTo("/Login");
         }
         catch (Exception e)

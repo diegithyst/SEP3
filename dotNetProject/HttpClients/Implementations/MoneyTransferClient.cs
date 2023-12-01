@@ -24,7 +24,7 @@ public class MoneyTransferClient : IMoneyTransferService
             throw new Exception(content);
         }
     }
-
+    
     public async Task<IEnumerable<MoneyTransfer?>?> GetBySearchAsync(long? receiverAccount, long? senderAccount)
     {
         string query = ConstructQuery(receiverAccount, senderAccount);
@@ -87,7 +87,26 @@ public class MoneyTransferClient : IMoneyTransferService
             query += string.IsNullOrEmpty(query) ? "?" : "&";
             query += $"accountNumberSender={senderAccount}";
         }
-        
+
         return query;
     }
+
+    public async Task<ICollection<MoneyTransfer>> GetListByAccountIdAsync(long id)
+    {
+        HttpResponseMessage message = await client.GetAsync($"/TransferMoney/{id}");
+        string content = await message.Content.ReadAsStringAsync();
+        if (!message.IsSuccessStatusCode)
+        {
+            throw new Exception(content);
+        }
+
+        ICollection<MoneyTransfer> moneyTransfers = JsonSerializer.Deserialize<ICollection<MoneyTransfer>>(content,
+            new JsonSerializerOptions
+            {
+                PropertyNameCaseInsensitive = true
+            })!;
+
+        return moneyTransfers;
+    }
+    
 }
