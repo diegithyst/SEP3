@@ -11,7 +11,7 @@
     [CascadingParameter]
     private Task<AuthenticationState> AuthState { get; set; } = null!;
     [Parameter]
-    private bool loan { get; set; }
+    public bool loan { get; set; }
     
     private string name;
     private string mainCurrency;
