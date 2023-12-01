@@ -67,7 +67,7 @@
                 <td>@item.accountNumberRecipient</td>
                 <td>@item.id</td>
                 <td>@item.value</td>
-                <td><button @onclick="revertTransaction(@item.id)">Revert</button></td>
+                <td><button @onclick="@(()=> revertTransaction(item.id))">Revert</button></td>
             </tr>
         }
         </tbody>
@@ -80,6 +80,8 @@
 
     [Parameter]
     public long id { get; set; }
+
+    public long transactionId { get; set; }
 
     private string[] planList = new[] { "Default", "Bronze", "Silver", "Gold" };
     private string currentPlan;
