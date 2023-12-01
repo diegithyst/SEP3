@@ -62,4 +62,20 @@ public class ClientsController : ControllerBase
             return StatusCode(500, e.Message);
         }
     }
+    
+    [HttpPatch]
+    public async Task<ActionResult> UpdateAsync([FromBody] ClientUpdateDTO clientUpdate)
+    {
+        try
+        {
+            await _clientLogic.UpdateAsync(clientUpdate);
+            return Ok();
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            return StatusCode(500, e.Message);
+        }
+    }
+
 }

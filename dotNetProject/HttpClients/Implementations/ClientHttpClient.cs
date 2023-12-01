@@ -79,6 +79,5 @@ public class ClientHttpClient : IClientService
             string content = await response.Content.ReadAsStringAsync();
             throw new Exception(content);
         }
-
     }
 }
