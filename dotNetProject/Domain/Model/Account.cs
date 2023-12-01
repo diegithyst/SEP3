@@ -10,5 +10,8 @@ public class Account
     public bool loan { get; set; }
     public long ownerId { get; set; }
 
-    public CurrencyList Currencies { get; set; }
+    public ICurrency Euro { get; set; }
+    public ICurrency Pound { get; set; }
+
+    public ICurrency Krone { get; set; }
 }

@@ -126,7 +126,7 @@
     private async void revertTransaction(long id)
     {
         MoneyTransfer? transfer = await MoneyTransferService.GetByIdAsync(id);
-        MoneyTransferCreationDto dto = new MoneyTransferCreationDto(transfer!.accountNumberSender, transfer.accountNumberRecipient, transfer.currency, transfer.value);
+        MoneyTransferCreationDto dto = new MoneyTransferCreationDto(transfer!.accountNumberSender, transfer.accountNumberRecipient, transfer.currency.name, transfer.value);
         await MoneyTransferService.CreateAsync(dto);
     }
 

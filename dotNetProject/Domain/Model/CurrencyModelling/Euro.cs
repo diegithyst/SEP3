@@ -4,7 +4,6 @@ public class Euro:ICurrency
 {
     public string name { get; set; } = "Euro";
     public double balance { get; set; } = 0;
-    public long id { get; set; }
     public long acountId { get; set; }
 
     public Euro convertToEuro()
@@ -19,12 +18,7 @@ public class Euro:ICurrency
             balance = 0.86667023 * balance
         };
     }
-
-    public Krone ConvertToKrone()
-    {
-        throw new NotImplementedException();
-    }
-
+    
     public Krone convertToKrone()
     {
         return new Krone
