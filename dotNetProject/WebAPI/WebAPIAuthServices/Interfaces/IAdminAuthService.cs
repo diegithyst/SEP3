@@ -1,3 +1,5 @@
+using Domain.Model;
+
 namespace WebAPI.WebAPIAuthServices;
 
 public interface IAdminAuthService

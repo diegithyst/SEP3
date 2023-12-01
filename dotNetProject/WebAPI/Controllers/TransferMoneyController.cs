@@ -1,3 +1,5 @@
+using Application.LogicInterfaces;
+using Domain.DTOs;
 using Domain.Model;
 using Microsoft.AspNetCore.Mvc;
 
@@ -15,7 +17,7 @@ public class TransferMoneyController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<ActionResult<MoneyTransfer>> CreateAsync(MoneyTransferDto dto)
+    public async Task<ActionResult<MoneyTransfer>> CreateAsync(MoneyTransferCreationDto dto)
     {
         try
         {

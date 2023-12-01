@@ -45,7 +45,7 @@ public class AuthController : ControllerBase
             new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
             new Claim(JwtRegisteredClaimNames.Iat, DateTime.UtcNow.ToString()),
             new Claim(ClaimTypes.Name, admin.username),
-            new Claim("Domian", admin.Domian.ToString()),
+            new Claim("Domian", admin.emailDomain.ToString()),
         };
         return claims.ToList();
     }
@@ -74,7 +74,7 @@ public class AuthController : ControllerBase
     
     private string GenerateJwtAdmin(Administrator admin)
     {
-        List<Claim> claims = GenerateClaimsClient(admin);
+        List<Claim> claims = GenerateClaimsAdmin(admin);
     
         SymmetricSecurityKey key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["Jwt:Key"]));
         SigningCredentials signIn = new SigningCredentials(key, SecurityAlgorithms.HmacSha512);
@@ -121,7 +121,6 @@ public class AuthController : ControllerBase
         }
         catch (Exception e)
         {
-            Console.WriteLine(e.Message);
             return BadRequest(e.Message);
         }
     }

@@ -37,6 +37,11 @@ public class MoneyTransferLogic : IMoneyTransferLogic
     {
         return _moneyTransferDao.GetBySearchAsync(dto);
     }
+    
+    public Task<IEnumerable<MoneyTransfer?>?> GetByAccountIdAsync(long id)
+        {
+            return _moneyTransferDao.GetByAccountIdAsync(id);
+        }
 
     public Task<MoneyTransfer?> GetByIdAsync(long id)
     {
