@@ -19,8 +19,9 @@
     private string MainCurrency = "";
     private bool Loan;
     private string name;
-    private CurrencyList currencies;
-    
+    private ICurrency _euro;
+    private ICurrency _pound;
+    private ICurrency _krone;
     private string msg = "";
 
     protected override async Task OnInitializedAsync()
@@ -31,7 +32,9 @@
             MainCurrency = account.mainCurrency;
             Loan = account.loan;
             name = account.name;
-            currencies = account.Currencies;
+            _euro = account.Euro;
+            _pound = account.Pound;
+            _krone = account.Krone;
         }
         catch (Exception e)
         {

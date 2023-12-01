@@ -26,7 +26,7 @@ public class AccountLogic : IAccountLogic
         {
             throw new Exception($"No client was found with the id {dto.ownerId}!");
         }
-        Account account = new Account { mainCurrency = dto.mainCurrency, loan = dto.loan, ownerId = dto.ownerId, Currencies = new CurrencyList()};
+        Account account = new Account { mainCurrency = dto.mainCurrency, loan = dto.loan, ownerId = dto.ownerId, Euro = new Euro(),Pound = new Pound(),Krone = new Krone()};
         Account created = await _accountDao.CreateAsync(account);
         return created;
     }

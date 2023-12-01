@@ -8,6 +8,7 @@ namespace Application.Logic;
 public class MoneyTransferLogic : IMoneyTransferLogic
 {
     private IMoneyTransferDao _moneyTransferDao;
+    private IAccountDao _accountDao;
 
     public MoneyTransferLogic(IMoneyTransferDao _moneyTransferDao)
     {
@@ -22,8 +23,27 @@ public class MoneyTransferLogic : IMoneyTransferLogic
             accountNumberRecipient = dto.ReceiverAccountNumber,
             accountNumberSender = dto.SenderAccountNumber,
             value = dto.Value,
-            currency = dto.Currency;
+            currency = CurrencyMaker.MakeCurrency(dto.Currency)
         };
+        Account accountRecipient = await _accountDao.GetByIdAsync(transfer.accountNumberRecipient);
+        Account accountSender = await _accountDao.GetByIdAsync(transfer.accountNumberSender);
+        if (transfer.currency.name.Equals("Euro"))
+        {
+            accountSender.Euro.balance =- transfer.value;
+            accountRecipient.Euro.balance =+ transfer.value;
+        }
+        if (transfer.currency.name.Equals("Pound"))
+        {
+            accountSender.Pound.balance =- transfer.value;
+            accountRecipient.Pound.balance =+ transfer.value;
+        }
+        if (transfer.currency.name.Equals("Krone"))
+        {
+            accountSender.Pound.balance =- transfer.value;
+            accountRecipient.Pound.balance =+ transfer.value;
+        }
+        _accountDao.Update(accountSender);
+        _accountDao.Update(accountRecipient);
         MoneyTransfer created = await _moneyTransferDao.CreateAsync(transfer);
         return created;
     }

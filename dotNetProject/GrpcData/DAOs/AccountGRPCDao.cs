@@ -30,7 +30,7 @@ public class AccountGRPCDao : IAccountDao
         return Task.FromResult(account);
     }
 
-    public Task<IEnumerable<Account>> GetByOwnerIdAsync(long ownerId)
+    public async Task<IEnumerable<Account>> GetByOwnerIdAsync(long ownerId)
     {
         List<Account> ownerAccounts = new List<Account>();
         PersistentServerClient.GrpcAccounts call = psc.GetClientAccounts(new PersistentServerClient.ClientBasicDTO { ClientId = ownerId });
@@ -39,7 +39,7 @@ public class AccountGRPCDao : IAccountDao
             ownerAccounts.Add(new Account { id = ga.AccountId, ownerId = ga.ClientId, Currencies = ga., loan = ga.Loan, mainCurrency = ga.MainCurrency });
         }
 
-        return Task.FromResult(ownerAccounts.AsEnumerable());
+        return await Task.FromResult(ownerAccounts.AsEnumerable());
     }
 
     public Task<Account> GetByIdAsync(long id)
