@@ -8,5 +8,6 @@ public interface IAccountDao
     Task<IEnumerable<Account>> GetByOwnerIdAsync(long ownerId);
     Task<Account> GetByIdAsync(long id);
     Task TransferMoneyAsync(double amountToTranfer, int accountIdentifier);
+    Task UpdateBalanceAsync(Account account);
 
 }
