@@ -1,6 +1,7 @@
 package org.via.sep3.persistentserver.model;
 
 import jakarta.persistence.*;
+import org.checkerframework.checker.units.qual.K;
 import org.via.sep3.persistentserver.proto.GrpcAccount;
 
 import java.util.ArrayList;
@@ -17,19 +18,23 @@ public class Account {
     private Boolean loan;
 
     private String name;
+    private Double euro;
+    private Double krone;
+    private Double pound;
     @ManyToOne
     @JoinColumn(name = "client_id")
     private Client owner;
-    @OneToMany(mappedBy = "account", cascade = CascadeType.ALL,orphanRemoval = true)
-    private List<Currency> currencies = new ArrayList<>();
     @OneToMany(mappedBy = "account", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<MoneyTransfer> moneyTransfers = new ArrayList<>();
-    public Account(Long accountViewId, String mainCurrency, Boolean loan, Client owner, String name) {
+    public Account(Long accountViewId, String mainCurrency, Double euro, Double krone, Double pound, Boolean loan, Client owner, String name) {
         this.accountViewId = accountViewId;
         this.mainCurrency = mainCurrency;
         this.loan = loan;
         this.owner = owner;
         this.name = name;
+        this.euro = euro;
+        this.krone = krone;
+        this.pound = pound;
     }
 
     public Account() {
@@ -53,6 +58,30 @@ public class Account {
 
     public void setMainCurrency(String mainCurrency) {
         this.mainCurrency = mainCurrency;
+    }
+
+    public Double getEuro() {
+        return euro;
+    }
+
+    public void setEuro(Double euro) {
+        this.euro = euro;
+    }
+
+    public Double getKrone() {
+        return krone;
+    }
+
+    public void setKrone(Double krone) {
+        this.krone = krone;
+    }
+
+    public Double getPound() {
+        return pound;
+    }
+
+    public void setPound(Double pound) {
+        this.pound = pound;
     }
 
     public Boolean getLoan() {
@@ -82,15 +111,15 @@ public class Account {
         return GrpcAccount.newBuilder().setAccountId(getId())
                 .setAccountViewId(getAccountViewId())
                 .setMainCurrency(getMainCurrency())
+                .setEuro(getEuro())
+                .setKrone(getKrone())
+                .setPound(getPound())
                 .setLoan(getLoan())
                 .setName(getName())
                 .setClientId(getOwner().getId()).build();
 
     }
 
-    public List<Currency> getCurrencies() {
-        return currencies;
-    }
 
     public List<MoneyTransfer> getMoneyTransfers() {
         return moneyTransfers;
@@ -101,8 +130,10 @@ public class Account {
         return "Account{" +
                 "identifier=" + id +
                 ", mainCurrency='" + mainCurrency + '\'' +
+                ", euro='" + euro +
+                ", krone='" + krone +
+                ", pound='" + pound +
                 ", loan=" + loan +
-                ", currencies=" + currencies +
                 ", ownerId='" + owner.getId() + '\'' +
                 ", name=" + name +
                 '}';

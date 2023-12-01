@@ -7,9 +7,10 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.via.sep3.persistentserver.model.Account;
 import org.via.sep3.persistentserver.model.Administrator;
-import org.via.sep3.persistentserver.model.Currency;
 import org.via.sep3.persistentserver.model.MoneyTransfer;
 import org.via.sep3.persistentserver.proto.*;
+
+import java.util.List;
 
 public class PersistentServerImpl extends PersistentServerGrpc.PersistentServerImplBase {
     private SessionFactory sf;
@@ -60,36 +61,6 @@ public class PersistentServerImpl extends PersistentServerGrpc.PersistentServerI
     }
 
     @Override
-    public void getCurrencyById(CurrencyBasicDTO request, StreamObserver<GrpcCurrency> responseObserver) {
-        try(Session s = sf.openSession()){
-            Currency c = s.get(Currency.class,request.getCurrencyId());
-            if(c != null){
-                responseObserver.onNext(c.getProtoCurrency());
-                responseObserver.onCompleted();
-            }else {
-                responseObserver.onError(Status.NOT_FOUND.asException());
-            }
-        }
-    }
-
-    @Override
-    public void getCurrencies(AccountBasicDTO request, StreamObserver<GrpcCurrencies> responseObserver) {
-        try(Session s = sf.openSession()){
-            Account a = s.get(Account.class,request.getAccountId());
-            if(a != null){
-                GrpcCurrencies.Builder gas = GrpcCurrencies.newBuilder();
-                for(Currency c : a.getCurrencies()){
-                    gas.addCurrencies(c.getProtoCurrency());
-                }
-                responseObserver.onNext(gas.build());
-                responseObserver.onCompleted();
-            }else {
-                responseObserver.onError(Status.NOT_FOUND.asException());
-            }
-        }
-    }
-
-    @Override
     public void createClient(ClientCreationDTO request, StreamObserver<Client> responseObserver) {
         try(Session s = sf.openSession()){
             Transaction t = s.beginTransaction();
@@ -117,9 +88,13 @@ public class PersistentServerImpl extends PersistentServerGrpc.PersistentServerI
             a.setAccountViewId(request.getAccountViewId());
             a.setOwner( s.get(org.via.sep3.persistentserver.model.Client.class,request.getClientId()));
             a.setMainCurrency(request.getMainCurrency());
+            a.setEuro(request.getEuro());
+            a.setKrone(request.getKrone());
+            a.setPound(request.getPound());
             a.setName(request.getName());
+            a.setLoan(request.getLoan());
             s.persist(a);
-            s.persist(new Currency(request.getMainCurrency(),0.00,a));
+
             t.commit();
             responseObserver.onNext(a.getProtoAccount());
             responseObserver.onCompleted();
@@ -140,19 +115,16 @@ public class PersistentServerImpl extends PersistentServerGrpc.PersistentServerI
     }
 
     @Override
-    public void getClients(AdministratorBasicDTO request, StreamObserver<Clients> responseObserver) {
+    public void getClients(Empty request, StreamObserver<GrpcClients> responseObserver) {
         try(Session s = sf.openSession()){
-            Administrator a = s.get(Administrator.class,request.getAdministratorId());
-            if(a != null){
-                Clients.Builder gas = Clients.newBuilder();
-                for(org.via.sep3.persistentserver.model.Client c : a.getClients()){
-                    gas.addClients(c.getProtoClient());
-                }
-                responseObserver.onNext(gas.build());
-                responseObserver.onCompleted();
-            }else {
-                responseObserver.onError(Status.NOT_FOUND.asException());
-            }
+           List<org.via.sep3.persistentserver.model.Client> clients = s.createQuery("from Client", org.via.sep3.persistentserver.model.Client.class)
+                   .getResultList();
+            GrpcClients.Builder gas = GrpcClients.newBuilder();
+           for(org.via.sep3.persistentserver.model.Client cl : clients){
+               gas.addClients(cl.getProtoClient());
+           }
+           responseObserver.onNext(gas.build());
+           responseObserver.onCompleted();
         }
     }
     @Override
@@ -223,6 +195,9 @@ public class PersistentServerImpl extends PersistentServerGrpc.PersistentServerI
             org.via.sep3.persistentserver.model.Account a = s.get(org.via.sep3.persistentserver.model.Account.class,request.getAccountId());
             if(a != null){
                 a.setMainCurrency(request.getMainCurrency());
+                a.setEuro(request.getEuro());
+                a.setKrone(request.getKrone());
+                a.setPound(request.getPound());
                 a.setName(request.getName());
                 responseObserver.onNext(a.getProtoAccount());
                 responseObserver.onCompleted();
@@ -238,21 +213,6 @@ public class PersistentServerImpl extends PersistentServerGrpc.PersistentServerI
             s.remove(s.getReference(org.via.sep3.persistentserver.model.Account.class,request.getAccountId()));
             responseObserver.onNext(GrpcResult.newBuilder().setSuccess(true).build());
             responseObserver.onCompleted();
-        }
-    }
-
-    @Override
-    public void updateCurrency(CurrencyUpdateDTO request, StreamObserver<GrpcCurrency> responseObserver) {
-        try(Session s = sf.openSession()){
-            Currency c = s.get(Currency.class,request.getCurrencyId());
-            if(c != null){
-                c.setName(request.getName());
-                c.setBalance(request.getBalance());
-                responseObserver.onNext(c.getProtoCurrency());
-                responseObserver.onCompleted();
-            }else {
-                responseObserver.onError(Status.NOT_FOUND.asException());
-            }
         }
     }
 

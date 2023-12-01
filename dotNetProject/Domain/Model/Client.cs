@@ -7,7 +7,7 @@ public class Client
     public string lastname { get; set; }
 
     public string username { get; set; }
-
+    public string password { get; set; }
     public string country { get; set; }
     public string identityDocument { get; set; }
     public string birthday { get; set; }

@@ -71,7 +71,7 @@ public class Main {
         final StandardServiceRegistry registry = new StandardServiceRegistryBuilder().loadProperties(new File("src/main/config/hibernate.properties")).build();
         try {
             SessionFactory sf = new MetadataSources(registry)
-                            .addAnnotatedClasses(Client.class, Account.class, Currency.class, Administrator.class, MoneyTransfer.class)
+                            .addAnnotatedClasses(Client.class, Account.class, Administrator.class, MoneyTransfer.class)
                             .buildMetadata()
                             .buildSessionFactory();
             try(Session s = sf.openSession()){
@@ -88,10 +88,8 @@ public class Main {
                 if (s.createQuery("from Account", Account.class).stream().count()<1){
                     Transaction t = s.beginTransaction();
                     MyLogger.getInstance().log("***psinit","db is empty so put some bootstrap data into it. ");
-                    Account account = new Account("Euro",false, s.get(Client.class,1),"main");
+                    Account account = new Account(100L,"Euro",100.0,100.0,100.0,false, s.get(Client.class,1),"main");
                     s.persist(account);
-                    s.persist(new Currency("Euro",5000.00,account));
-                    s.persist(new Currency("Dkk",52000.00,account));
                     t.commit();
                 } else {
                     for(Account a:s.createQuery("from Account", Account.class).list()){

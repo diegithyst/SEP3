@@ -11,7 +11,7 @@ package persistentserver;
 service PersistentServer{
   rpc GetClientById(ClientBasicDTO) returns (Client){}
   rpc CreateClient(ClientCreationDTO) returns (Client){}
-  rpc GetClients(AdministratorBasicDTO) returns (Clients){}
+  rpc GetClients(Empty) returns (GrpcClients){}
   rpc DeleteClient(ClientBasicDTO) returns(GrpcResult){}
   rpc UpdateClient(ClientUpdateDTO) returns(Client){}
 
@@ -21,17 +21,14 @@ service PersistentServer{
   rpc UpdateAccount(AccountUpdateDTO) returns(GrpcAccount){}
   rpc DeleteAccount(AccountBasicDTO) returns (GrpcResult){}
 
-  rpc GetCurrencyById(CurrencyBasicDTO) returns (GrpcCurrency){}
-  rpc GetCurrencies(AccountBasicDTO) returns (GrpcCurrencies){}
-  rpc UpdateCurrency(CurrencyUpdateDTO) returns (GrpcCurrency){}
-
-
   rpc GetAdministratorByID(AdministratorBasicDTO) returns (GrpcAdministrator){}
 
   rpc GetMoneyTransferById(MoneyTransferBasicDTO) returns (GrpcMoneyTransfer){}
   rpc GetMoneyTransfers(AccountBasicDTO) returns (GrpcMoneyTransfers){}
   rpc MakeMoneyTransfer(CreateMoneyTransferDTO) returns (GrpcMoneyTransfer){}
 
+}
+message Empty{
 
 }
 message GrpcResult{
@@ -73,7 +70,7 @@ message Client{
   string planType = 9;
 }
 
-message Clients{
+message GrpcClients{
   repeated Client clients = 1;
 }
 
@@ -88,6 +85,10 @@ message GrpcAccount{
   int64 clientId = 4;
   string name = 5;
   int64 accountViewId = 6;
+  double euro = 7;
+  double krone = 8;
+  double pound = 9;
+
 }
 message GrpcAccounts{
   repeated GrpcAccount accounts = 1;
@@ -98,12 +99,20 @@ message AccountUpdateDTO{
   bool loan = 3;
   int64 clientId = 4;
   string name = 5;
+  int64 accountViewId = 6;
+  double euro = 7;
+  double krone = 8;
+  double pound = 9;
 }
 message AccountCreationDTO{
   string mainCurrency = 1;
   int64 clientId = 2;
   string name = 3;
   int64 accountViewId = 4;
+  bool loan = 5;
+  double euro = 6;
+  double krone = 7;
+  double pound = 8;
 }
 message CurrencyBasicDTO{
   int64 currencyId = 1;
@@ -113,15 +122,6 @@ message GrpcCurrency{
   string name = 2;
   double balance = 3;
   int64 accountId = 4;
-}
-message CurrencyUpdateDTO{
-  int64 currencyId = 1;
-  string name = 2;
-  double balance = 3;
-  int64 accountId = 4;
-}
-message GrpcCurrencies{
-  repeated GrpcCurrency currencies = 1;
 }
 message AdministratorBasicDTO{
   int64 administratorId = 1;

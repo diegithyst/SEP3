@@ -52,7 +52,7 @@ public class ClientsController : ControllerBase
     {
         try
         {
-            SearchClientParametersDto parameters = new(id, null);
+            AdministratorBasicDTO parameters = new(id, null);
             IEnumerable<Client> clients = await _clientLogic.GetAsync(parameters);
             return Ok(clients);
         }

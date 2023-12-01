@@ -7,11 +7,10 @@ namespace Application.Logic;
 
 public class AccountLogic : IAccountLogic
 {
-    private readonly IAccountDao _accountDao;
-    private readonly IClientDao _clientDao;
+    private readonly IGrpcAccountServices _accountDao;
+    private readonly IGrpcClientServices _clientDao;
 
-    
-    public AccountLogic(IAccountDao accountDao, IClientDao clientDao)
+    public AccountLogic(IGrpcAccountServices accountDao, IGrpcClientServices clientDao)
     {
         _accountDao = accountDao;
         _clientDao = clientDao;
@@ -21,7 +20,7 @@ public class AccountLogic : IAccountLogic
     {
         //This needs updating depending whether the dto has loan true or false
         //Loan true has only one currency and also a value of loan taken, so this needs to be pushed into the currencies entity
-        Client? existing = await _clientDao.GetByIdAsync(dto.ownerId);
+        Client? existing = await _clientDao.GetById(dto.ownerId);
         if (existing == null)
         {
             throw new Exception($"No client was found with the id {dto.ownerId}!");
@@ -33,16 +32,16 @@ public class AccountLogic : IAccountLogic
 
     public Task<IEnumerable<Account?>> GetByOwnerIdAsync(long ownerId)
     {
-        return _accountDao.GetByOwnerIdAsync(ownerId);
+        return _accountDao.GetByOwnerId(ownerId);
     }
 
     public Task<Account?> GetByIdAsync(long id)
     {
-        if (_accountDao.GetByIdAsync(id) == null)
+        if (_accountDao.GetById(id) == null)
         {
             throw new Exception("there is no account with that id");
         }
-        return _accountDao.GetByIdAsync(id);
+        return _accountDao.GetById(id);
     }
 
     public async Task UpdateBalanceAsync(Account account, double amount, string currency)

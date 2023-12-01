@@ -7,9 +7,9 @@ namespace Application.Logic;
 
 public class ClientLogic : IClientLogic
 {
-    private readonly IClientDao _clientDao;
+    private readonly IGrpcClientServices _clientDao;
 
-    public ClientLogic(IClientDao clientDao)
+    public ClientLogic(IGrpcClientServices clientDao)
     {
         _clientDao = clientDao;
     }
@@ -17,7 +17,7 @@ public class ClientLogic : IClientLogic
 
     public async Task<Client> CreateAsync(ClientCreationDTO clientToCreate)
     {
-        IEnumerable<Client> existing = await _clientDao.GetAsync(new SearchClientParametersDto(null,clientToCreate.identityDocument));
+        IEnumerable<Client> existing = await _clientDao.GetClients(new AdministratorBasicDTO(null,clientToCreate.identityDocument));
 
         if (existing != null)
         {
@@ -38,20 +38,20 @@ public class ClientLogic : IClientLogic
             planType = clientToCreate.planType,
         };
 
-        Client created = await _clientDao.CreateAsync(toCreate);
+        Client created = await _clientDao.Create(toCreate);
 
         return created;
     }
 
-    public Task<IEnumerable<Client?>> GetAsync(SearchClientParametersDto searchClientParametersDto)
+    public Task<IEnumerable<Client?>> GetAsync(AdministratorBasicDTO searchClientParametersDto)
     {
-        return _clientDao.GetAsync(searchClientParametersDto);
+        return _clientDao.GetClients(searchClientParametersDto);
     }
 
 
     public Task<Client?> GetByIdAsync(long searchById)
     {
-        return _clientDao.GetByIdAsync(searchById);
+        return _clientDao.GetById(searchById);
     }
 
     public async Task UpdateAsync(ClientUpdateDTO updateDto)

@@ -13,11 +13,5 @@ namespace FileData
             channel = GrpcChannel.ForAddress("http://localhost:50051");
             Psc = new PersistentServer.PersistentServerClient(channel);
         }
-
-        public Client CreateClient(ClientCreationDTO dto)
-        {
-            Client createdClient = Psc.CreateClient(dto);
-            return createdClient;
-        }
     }
 }
