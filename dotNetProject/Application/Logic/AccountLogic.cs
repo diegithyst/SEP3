@@ -44,4 +44,22 @@ public class AccountLogic : IAccountLogic
         }
         return _accountDao.GetByIdAsync(id);
     }
+
+    public async Task UpdateBalanceAsync(Account account, double amount, string currency)
+    {
+        if (currency.Equals("Euro"))
+        {
+            account.Euro.balance += amount;
+        }
+        if (currency.Equals("Pound"))
+        {
+            account.Pound.balance += amount;
+        }
+        if (currency.Equals("Krone"))
+        {
+            account.Krone.balance += amount;
+        }
+
+        await _accountDao.UpdateBalanceAsync(account);
+    }
 }

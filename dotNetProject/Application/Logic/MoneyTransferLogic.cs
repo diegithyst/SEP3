@@ -9,10 +9,13 @@ public class MoneyTransferLogic : IMoneyTransferLogic
 {
     private IMoneyTransferDao _moneyTransferDao;
     private IAccountDao _accountDao;
+    private IAccountLogic _accountLogic;
 
-    public MoneyTransferLogic(IMoneyTransferDao _moneyTransferDao)
+    public MoneyTransferLogic(IMoneyTransferDao _moneyTransferDao, IAccountDao accountDao, IAccountLogic accountLogic)
     {
         this._moneyTransferDao = _moneyTransferDao;
+        this._accountDao = accountDao;
+        this._accountLogic = accountLogic;
     }
 
 
@@ -27,23 +30,9 @@ public class MoneyTransferLogic : IMoneyTransferLogic
         };
         Account accountRecipient = await _accountDao.GetByIdAsync(transfer.accountNumberRecipient);
         Account accountSender = await _accountDao.GetByIdAsync(transfer.accountNumberSender);
-        if (transfer.currency.name.Equals("Euro"))
-        {
-            accountSender.Euro.balance =- transfer.value;
-            accountRecipient.Euro.balance =+ transfer.value;
-        }
-        if (transfer.currency.name.Equals("Pound"))
-        {
-            accountSender.Pound.balance =- transfer.value;
-            accountRecipient.Pound.balance =+ transfer.value;
-        }
-        if (transfer.currency.name.Equals("Krone"))
-        {
-            accountSender.Pound.balance =- transfer.value;
-            accountRecipient.Pound.balance =+ transfer.value;
-        }
-        _accountDao.Update(accountSender);
-        _accountDao.Update(accountRecipient);
+        
+        _accountLogic.UpdateBalanceAsync(accountSender, -dto.Value, dto.Currency);
+        _accountLogic.UpdateBalanceAsync(accountRecipient, dto.Value, dto.Currency);
         MoneyTransfer created = await _moneyTransferDao.CreateAsync(transfer);
         return created;
     }

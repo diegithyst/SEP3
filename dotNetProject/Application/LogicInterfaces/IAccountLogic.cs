@@ -10,4 +10,5 @@ public interface IAccountLogic
     //Task TransferMoneyAsync(double amountToTranfer, int accountIdentifier);
     
     Task<Account?> GetByIdAsync(long id);
+    Task UpdateBalanceAsync(Account account, double amount, string currency);
 }
