@@ -79,7 +79,6 @@ public class ClientHttpClient : IClientService
             string content = await response.Content.ReadAsStringAsync();
             throw new Exception(content);
         }
-
     }
 
     public async Task RegisterAsync(ClientCreationDTO dto)

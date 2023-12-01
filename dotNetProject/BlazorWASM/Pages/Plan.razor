@@ -1,0 +1,88 @@
+@page "/Plan/{id:int}"
+@using Domain.Model
+@using HttpClients.ClientInterfaces
+@using Domain.DTOs
+@using System.Security.Claims
+@inject IClientService clientService
+@inject NavigationManager navMgr
+
+@if (client != null && loggedUsername.Equals(client.username))
+{
+    <text>Currently selected plan is </text>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Plan name</th>
+            <th>Description</th>
+            <th>Price</th>
+            <th>Buy</th>
+        </tr>
+        </thead>
+        <tbody>
+        @for (int i = 0; i < plans.Length; i++)
+        {
+            <tr>
+                <td>@plans[i]</td>
+                <td>@planDescriptions[i]</td>
+                <td>@prices[i]€/month</td>
+                <td>
+                    <button @onclick="buyPlan(@plans[i])">Buy @plans[i] plan</button>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+@if (!string.IsNullOrEmpty(msg))
+{
+    <label>@msg</label>
+}
+    
+}
+<text>You have no permission to enter this page</text>
+
+@code {
+
+    [Parameter]
+    public int Id { get; set; }
+    
+    [CascadingParameter]
+    public Task<AuthenticationState?> AuthState { get; set; }
+
+    private string msg = "";
+
+    private string[] plans = new[] { "Default", "Bronze", "Silver", "Gold" };
+
+    private string[] planDescriptions = new[]
+    {
+        $"You get free banking! {System.Environment.NewLine} You get no comission on regular transactions and free exchange of currencies. With no limit! {System.Environment.NewLine} Finally, you get 0,005 interest rate and 0,25 loan rate!",
+        $"You get all the benefits from the previous plan! {System.Environment.NewLine} Plus, you get 0,01 interest rate and 0,10 loan rate!",
+        $"You get all the benefits from the previous plan! {System.Environment.NewLine} Plus, you get 0,02 interest rate and 0,08 loan rate!",
+        $"You get all the benefits from the previous plan! {System.Environment.NewLine} Plus, you get 0,05 interest rate and 0,1 loan rate!"
+    };
+
+    private double[] prices = new[] { 0.0, 2.99, 4.99, 7.49 };
+
+    private Client? client { get; set; }
+    private string? loggedUsername { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        client = await clientService.GetByIdAsync(Id);
+        
+        AuthenticationState? authState = await AuthState;
+        ClaimsPrincipal? user = authState.User;
+        if (user.Identity != null)
+        {
+            loggedUsername = user.Identity.Name;
+        }
+    }
+
+
+    private async void buyPlan(string plan)
+    {
+        IPlan realPlan = PlanMaker.MakePlan(plan);
+        ClientUpdateDTO dto = new ClientUpdateDTO(client.firstname, client.lastname, client.username, client.password, client.country, client.identityDocument, client.birthday, plan, client.id);
+        navMgr.NavigateTo("/Accounts");
+    }
+
+}
