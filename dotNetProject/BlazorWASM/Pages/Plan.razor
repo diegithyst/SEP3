@@ -26,7 +26,7 @@
                 <td>@planDescriptions[i]</td>
                 <td>@prices[i]€/month</td>
                 <td>
-                    <button @onclick="buyPlan(@plans[i])">Buy @plans[i] plan</button>
+                    <button @onclick="@(() => buyPlan(@plans[i]))">Buy @plans[i] plan</button>
                 </td>
             </tr>
         }
