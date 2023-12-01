@@ -2,11 +2,12 @@ namespace Domain.Model;
 
 public class MoneyTransfer
 {
- private long accountNumberSender { get; set; }
+ public long accountNumberSender { get; set; }
  
- private long accountNumberRecipient { get; set; }
+ public long accountNumberRecipient { get; set; }
  
- private ICurrency currency { get; set; }
+ public Currency currency { get; set; }
  
- private double value { get; set; }
+ public double value { get; set; }
+ public long id { get; set; }
 }

@@ -10,6 +10,7 @@ public class AccountLogic : IAccountLogic
     private readonly IAccountDao _accountDao;
     private readonly IClientDao _clientDao;
 
+    
     public AccountLogic(IAccountDao accountDao, IClientDao clientDao)
     {
         _accountDao = accountDao;

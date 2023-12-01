@@ -45,4 +45,9 @@ public class ClientGRPCDao : IClientDao
         }
         return Task.FromResult(existing);
     }
+
+    public async Task UpdateAsync(Client client)
+    {
+        throw new NotImplementedException();
+    }
 }

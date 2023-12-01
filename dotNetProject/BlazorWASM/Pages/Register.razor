@@ -1,7 +1,7 @@
 @page "/Register"
 @using HttpClients.ClientInterfaces
 @using Domain.DTOs
-@inject IAuthService authService
+@inject IClientService clientService
 @inject NavigationManager nav
 
 <h3>Register</h3>
@@ -92,7 +92,7 @@
         error = "";
         try
         {
-            await authService.RegisterAsync(new ClientCreationDTO(firstname, lastname, username, password, country, identityDocument, birthday, planType));
+            await clientService.CreateAsync(new ClientCreationDTO(firstname, lastname, username, password, country, identityDocument, birthday, planType));
             nav.NavigateTo("/Login");
         }
         catch (Exception e)

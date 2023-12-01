@@ -1,4 +1,6 @@
+using System.Text;
 using System.Text.Json;
+using Domain.DTOs;
 using Domain.Model;
 using HttpClients.ClientInterfaces;
 
@@ -27,6 +29,18 @@ public class ClientHttpClient : IClientService
         })!;;
         return clients;
     }
+    
+    public async Task CreateAsync(ClientCreationDTO dto)
+    {
+        string userAsJson = JsonSerializer.Serialize(dto);
+        StringContent content = new(userAsJson, Encoding.UTF8, "application/json");
+        HttpResponseMessage responseMessage = await client.PostAsync("https://localhost:7017/Auth/register", content);
+        string responseContent = await responseMessage.Content.ReadAsStringAsync();
+        if (!responseMessage.IsSuccessStatusCode)
+        {
+            throw new Exception();
+        }
+    }
 
     public async Task<Client> GetByIdAsync(long id)
     {
@@ -54,8 +68,17 @@ public class ClientHttpClient : IClientService
         }
     }
 
-    public Task UpdateAsync()
+    public async Task UpdateAsync(ClientUpdateDTO updateDto)
     {
-        throw new NotImplementedException();
+        string dtoAsJson = JsonSerializer.Serialize(updateDto);
+        StringContent body = new StringContent(dtoAsJson, Encoding.UTF8, "application/json");
+
+        HttpResponseMessage response = await client.PatchAsync("/clients", body);
+        if (!response.IsSuccessStatusCode)
+        {
+            string content = await response.Content.ReadAsStringAsync();
+            throw new Exception(content);
+        }
+
     }
 }

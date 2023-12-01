@@ -1,0 +1,133 @@
+@page "/ClientAdminPage/{id:long}"
+@using Domain.Model
+@using HttpClients.ClientInterfaces
+@using System.Security.Claims
+@using Domain.DTOs
+@using HttpClients.Implementations
+@inject IClientService ClientSquared
+@inject NavigationManager navMgr;
+@inject IMoneyTransferService MoneyTransferService;
+
+
+<h3>Client @_client.id</h3>
+
+<label>First Name: </label>
+<input type="text" @bind="clientDTO.firstname"/>
+<label>Last Name: </label>
+<input type="text" @bind="clientDTO.lastname"/>
+<label>Birthday: </label>
+<input type="text" @bind="clientDTO.birthday"/>
+<label>Country: </label>
+<input type="text" @bind="clientDTO.country"/>
+<label>Username: </label>
+<input type="text" @bind="clientDTO.username"/>
+<label>Password: </label>
+<input type="text" @bind="clientDTO.password"/>
+<label>Identity Document: </label>
+<input type="text" @bind="clientDTO.identityDocument"/>
+<label>Plan Type: </label>
+<div class="row">
+    <span> Current plan: @currentPlan</span>
+</div>
+<div class="row">
+    <div class="mb-1">
+        <select class="mr-2" @bind="@clientDTO.planType">
+            @foreach (var plan in planList)
+            {
+                <option value="@plan">@plan</option>
+            }
+            <option></option>
+        </select>
+    </div>
+</div>
+
+<div class="button-row">
+    <button @onclick="UpdateAsync" class="acceptbtn">Update</button>
+</div>
+@if (!string.IsNullOrEmpty(msg))
+{
+    <label style="color: red">@msg</label>
+}
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Sender Id</th>
+            <th>Receiver Id</th>
+            <th>Transaction Id</th>
+            <th>Value</th>
+            <th>Revert</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var item in transactions!)
+        {
+            <tr>
+                <td>@item!.accountNumberSender</td>
+                <td>@item.accountNumberRecipient</td>
+                <td>@item.id</td>
+                <td>@item.value</td>
+                <td><button @onclick="revertTransaction(@item.id)">Revert</button></td>
+            </tr>
+        }
+        </tbody>
+    </table>
+
+
+@code {
+
+    string msg = "";
+
+    [Parameter]
+    public long id { get; set; }
+
+    private string[] planList = new[] { "Default", "Bronze", "Silver", "Gold" };
+    private string currentPlan;
+
+    [CascadingParameter]
+    public Task<AuthenticationState> AuthState { get; set; } = null!;
+
+    private Client _client;
+    private ClientUpdateDTO clientDTO;
+    private IEnumerable<MoneyTransfer?>? transactions;
+
+    protected override async Task OnInitializedAsync()
+    {
+        AuthenticationState authState = await AuthState;
+        ClaimsPrincipal admin_ = authState.User;
+    //TODO check that the logged user is an admin
+        _client = await ClientSquared.GetByIdAsync(id);
+        transactions = await MoneyTransferService.GetAsync();
+
+        currentPlan = _client.planType.getName();
+        clientDTO.firstname = _client.firstname;
+        clientDTO.lastname = _client.lastname;
+        clientDTO.username = _client.username;
+        clientDTO.country = _client.country;
+        clientDTO.identityDocument = _client.identityDocument;
+        clientDTO.birthday = _client.birthday;
+        clientDTO.planType = currentPlan;
+    }
+
+    private async void UpdateAsync()
+    {
+        try
+        {
+            await ClientSquared.UpdateAsync(clientDTO);
+            navMgr.NavigateTo("/AdminMainPage");
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            msg = e.Message;
+        }
+    }
+
+    private async void revertTransaction(long id)
+    {
+        MoneyTransfer? transfer = await MoneyTransferService.GetByIdAsync(id);
+        MoneyTransferCreationDto dto = new MoneyTransferCreationDto(transfer!.accountNumberSender, transfer.accountNumberRecipient, transfer.currency, transfer.value);
+        await MoneyTransferService.CreateAsync(dto);
+    }
+
+}
