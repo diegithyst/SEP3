@@ -1,4 +1,7 @@
-﻿@inherits LayoutComponentBase
+﻿@using HttpClients.ClientInterfaces
+@inherits LayoutComponentBase
+@inject NavigationManager navMgr
+@inject IAuthService authService
 
 <PageTitle>BlazorWASM</PageTitle>
 
@@ -9,7 +12,14 @@
 
     <main>
         <div class="top-row px-4">
-            <a href="https://docs.microsoft.com/aspnet/" target="_blank">About</a>
+            <AuthorizeView>
+                <Authorized>
+                    <button @onclick="Logout">Logout</button>
+                </Authorized>
+                <NotAuthorized>
+                    <button @onclick="Login">Login</button>
+                </NotAuthorized>
+            </AuthorizeView>
         </div>
 
         <article class="content px-4">
@@ -17,3 +27,17 @@
         </article>
     </main>
 </div>
+
+@code
+{
+    private void Login()
+    {
+        navMgr.NavigateTo("/Login");
+    }
+
+    private async void Logout()
+    {
+        await authService.LogoutAsync();
+        navMgr.NavigateTo("/");
+    }
+}
