@@ -11,4 +11,5 @@ public interface IMoneyTransferService
     Task<MoneyTransfer?> GetByIdAsync(long id);
     
     Task<ICollection<MoneyTransfer>> GetListByAccountIdAsync(long id);
+    
 }
