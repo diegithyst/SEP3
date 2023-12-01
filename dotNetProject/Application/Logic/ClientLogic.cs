@@ -79,4 +79,9 @@ public class ClientLogic : IClientLogic
         };
         await _clientDao.UpdateAsync(edited);
     }
+
+    public Task<Client?> GetByUsernameAsync(string username)
+    {
+        return _clientDao.GetByUsernameAsync(username);
+    }
 }

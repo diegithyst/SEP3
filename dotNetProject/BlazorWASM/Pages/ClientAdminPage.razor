@@ -34,7 +34,7 @@
         <select class="mr-2" @bind="@clientDTO.planType">
             @foreach (var plan in planList)
             {
-                <option value="@planList">@planList</option>
+                <option value="@plan">@plan</option>
             }
             <option></option>
         </select>
@@ -60,10 +60,10 @@
         </tr>
         </thead>
         <tbody>
-        @foreach (var item in transactions)
+        @foreach (var item in transactions!)
         {
             <tr>
-                <td>@item.accountNumberSender</td>
+                <td>@item!.accountNumberSender</td>
                 <td>@item.accountNumberRecipient</td>
                 <td>@item.id</td>
                 <td>@item.value</td>
@@ -125,10 +125,9 @@
 
     private async void revertTransaction(long id)
     {
-        IEnumerable<MoneyTransfer?>? transferList = await MoneyTransferService.GetBySearchAsync(null, null, id);
-        MoneyTransfer transfer = transferList.ElementAtOrDefault(0);
-        MoneyTransferCreationDto dto = new MoneyTransferCreationDto(transfer.accountNumberSender, transfer.accountNumberRecipient, transfer.currency, transfer.value);
-        MoneyTransferService.CreateAsync(transferList.ElementAtOrDefault(0))
+        MoneyTransfer? transfer = await MoneyTransferService.GetByIdAsync(id);
+        MoneyTransferCreationDto dto = new MoneyTransferCreationDto(transfer!.accountNumberSender, transfer.accountNumberRecipient, transfer.currency, transfer.value);
+        await MoneyTransferService.CreateAsync(dto);
     }
 
 }

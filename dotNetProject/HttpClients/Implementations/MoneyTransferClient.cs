@@ -25,9 +25,9 @@ public class MoneyTransferClient : IMoneyTransferService
         }
     }
 
-    public async Task<IEnumerable<MoneyTransfer?>?> GetBySearchAsync(long? receiverAccount, long? senderAccount, long? id)
+    public async Task<IEnumerable<MoneyTransfer?>?> GetBySearchAsync(long? receiverAccount, long? senderAccount)
     {
-        string query = ConstructQuery(receiverAccount, senderAccount, id);
+        string query = ConstructQuery(receiverAccount, senderAccount);
 
         HttpResponseMessage response = await client.GetAsync("/trasnfers" + query);
         string content = await response.Content.ReadAsStringAsync();
@@ -55,8 +55,26 @@ public class MoneyTransferClient : IMoneyTransferService
         IEnumerable<MoneyTransfer?>? transfers = JsonSerializer.Deserialize<IEnumerable<MoneyTransfer>>(content);
         return transfers;
     }
-    
-    private static string ConstructQuery(long? receiverAccount, long? senderAccount, long? id)
+
+    public async Task<MoneyTransfer?> GetByIdAsync(long id)
+    {
+        HttpResponseMessage response = await client.GetAsync($"/transfers/{id}");
+        string content = await response.Content.ReadAsStringAsync();
+        if (!response.IsSuccessStatusCode)
+        {
+            throw new Exception(content);
+        }
+
+        MoneyTransfer transfer = JsonSerializer.Deserialize<MoneyTransfer>(content,
+            new JsonSerializerOptions
+            {
+                PropertyNameCaseInsensitive = true
+            }
+        )!;
+        return transfer;
+    }
+
+    private static string ConstructQuery(long? receiverAccount, long? senderAccount)
     {
         string query = "";
         if (receiverAccount != null)
@@ -68,12 +86,6 @@ public class MoneyTransferClient : IMoneyTransferService
         {
             query += string.IsNullOrEmpty(query) ? "?" : "&";
             query += $"accountNumberSender={senderAccount}";
-        }
-
-        if (id != null)
-        {
-            query += string.IsNullOrEmpty(query) ? "?" : "&";
-            query += $"id={id}";
         }
         
         return query;

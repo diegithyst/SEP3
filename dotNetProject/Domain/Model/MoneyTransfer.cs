@@ -9,4 +9,5 @@ public class MoneyTransfer
  public Currency currency { get; set; }
  
  public double value { get; set; }
+ public long id { get; set; }
 }

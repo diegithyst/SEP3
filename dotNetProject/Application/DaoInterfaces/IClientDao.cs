@@ -10,4 +10,5 @@ public interface IClientDao
 
     Task<IEnumerable<Client>> GetAsync(SearchClientParametersDto searchParameters);
     Task UpdateAsync(Client client);
+    Task<Client> GetByUsernameAsync(string username);
 }
