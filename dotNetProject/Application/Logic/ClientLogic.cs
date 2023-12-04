@@ -49,11 +49,6 @@ public class ClientLogic : IClientLogic
     {
         return clientServices.GetClients();
     }
-    
-    public Task<IEnumerable<Client?>> GetBySearch(ClientBasicDTO dto)
-    {
-        return clientServices.GetBySearch(dto);
-    }
 
     public Task<Client?> GetByIdAsync(long searchById)
     {
@@ -68,25 +63,11 @@ public class ClientLogic : IClientLogic
         {
             throw new Exception($"The client with id: {updateDto.id} doesn't exist");
         }
-        
-        IPlan convertedFromString = PlanMaker.MakePlan(updateDto.planType);
-
-
-        Client edited = new Client
-        {
-            firstname = updateDto.firstname,
-            lastname = updateDto.lastname,
-            username = updateDto.username,
-            country = updateDto.country,
-            identityDocument = updateDto.identityDocument,
-            birthday = updateDto.birthday,
-            planType = convertedFromString
-        };
-        await clientServices.Update(edited);
+        await clientServices.Update(updateDto);
     }
 
     public Task<Client?> GetByUsernameAsync(string username)
     {
-        return clientServices.GetByUsernameAsync(username);
+        return clientServices.GetByUsername(username);
     }
 }
