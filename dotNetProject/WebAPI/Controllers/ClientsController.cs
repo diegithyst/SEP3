@@ -52,8 +52,8 @@ public class ClientsController : ControllerBase
     {
         try
         {
-            AdministratorBasicDTO parameters = new(id, null);
-            IEnumerable<Client> clients = await _clientLogic.GetAsync(parameters);
+            ClientBasicDTO parameters = new ClientBasicDTO{id = id, username = null, password = null};
+            IEnumerable<Client> clients = await _clientLogic.GetAll();
             return Ok(clients);
         }
         catch (Exception e)
