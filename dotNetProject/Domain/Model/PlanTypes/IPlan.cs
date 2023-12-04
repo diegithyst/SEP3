@@ -2,7 +2,7 @@ namespace Domain.Model;
 
 public interface IPlan
 {
-   String getName();
+   string getName();
 
    double getInterestRate();
 
