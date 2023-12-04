@@ -9,5 +9,5 @@ public interface IGrpcAccountServices
     Task<IEnumerable<Account>> GetByOwnerId(long ownerId);
     Task<Account> GetById(long id);
     Task TransferMoney(MoneyTransferCreationDto dto);
-
+    Task UpdateAccount(AccountUpdateDTO accountUpdateDTO);
 }

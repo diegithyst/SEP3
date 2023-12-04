@@ -1,0 +1,49 @@
+﻿@page "/ViewAccount/{id:int}"
+@using Domain.Model
+@using HttpClients.ClientInterfaces
+@inject IAccountService accountService
+
+<div>
+    <p>Id of the account: @id</p>
+    <br/>
+    <p>Name of the account: @name</p>
+    <br/>
+    <p>Currency of the account: @MainCurrency</p>
+    <br/>
+    <p>Loan of the account: @Loan</p>
+</div>
+
+@code {
+    [Parameter]
+    public int id { get; set; }
+    private string MainCurrency = "";
+    private bool Loan;
+    private string name;
+    private ICurrency _euro;
+    private ICurrency _pound;
+    private ICurrency _krone;
+    private string msg = "";
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            Account account = await accountService.GetAccountAsync(id);
+            MainCurrency = account.mainCurrency;
+            Loan = account.loan;
+            name = account.name;
+<<<<<<< HEAD
+            _euro = account.Euro;
+            _pound = account.Pound;
+            _krone = account.Krone;
+=======
+>>>>>>> 0e7e098 (Grpc services are working for now.)
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            msg = e.Message;
+        }
+    }
+
+}

@@ -8,13 +8,13 @@ namespace Application.Logic;
 public class MoneyTransferLogic : IMoneyTransferLogic
 {
     private IMoneyTransferDao _moneyTransferDao;
-    private IAccountDao _accountDao;
+    private IGrpcAccountServices _accountGrpcServices;
     private IAccountLogic _accountLogic;
 
-    public MoneyTransferLogic(IMoneyTransferDao _moneyTransferDao, IAccountDao accountDao, IAccountLogic accountLogic)
+    public MoneyTransferLogic(IMoneyTransferDao _moneyTransferDao, IGrpcAccountServices accountGrpcServices, IAccountLogic accountLogic)
     {
         this._moneyTransferDao = _moneyTransferDao;
-        this._accountDao = accountDao;
+        this._accountGrpcServices = accountGrpcServices;
         this._accountLogic = accountLogic;
     }
 
@@ -28,8 +28,8 @@ public class MoneyTransferLogic : IMoneyTransferLogic
             value = dto.Value,
             currency = CurrencyMaker.MakeCurrency(dto.Currency)
         };
-        Account accountRecipient = await _accountDao.GetByIdAsync(transfer.accountNumberRecipient);
-        Account accountSender = await _accountDao.GetByIdAsync(transfer.accountNumberSender);
+        Account accountRecipient = await _accountGrpcServices.GetById(transfer.accountNumberRecipient);
+        Account accountSender = await _accountGrpcServices.GetById(transfer.accountNumberSender);
         
         _accountLogic.UpdateBalanceAsync(accountSender, -dto.Value, dto.Currency);
         _accountLogic.UpdateBalanceAsync(accountRecipient, dto.Value, dto.Currency);
