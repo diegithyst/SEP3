@@ -14,7 +14,7 @@ public class ClientCreationDTO
     public string country { get; set; }
     public string identityDocument { get; set; }
     public string birthday { get; set; }
-    public IPlan planType { get; set; }
+    public string planType { get; set; }
 
     public ClientCreationDTO(string firstname,string lastname, string username, string password, string country, string identityDocument, string birthday, string planType)
     {
@@ -24,7 +24,7 @@ public class ClientCreationDTO
         this.country = country;
         this.identityDocument = identityDocument;
         this.birthday = birthday;
-        this.planType = PlanMaker.MakePlan(planType);
+        this.planType = planType;
     }
 
     public ClientCreationDTO()

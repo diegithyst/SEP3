@@ -11,7 +11,7 @@ public class ClientLogic : IClientLogic
 
     public ClientLogic(IGrpcClientServices clientServices)
     {
-        clientServices = clientServices;
+        this.clientServices = clientServices;
     }
 
 
@@ -19,14 +19,17 @@ public class ClientLogic : IClientLogic
     {
         IEnumerable<Client> existing = await clientServices.GetClients();
 
-        foreach (var client in existing)
+        if (existing != null)
         {
-            if (client.identityDocument.Equals(clientToCreate.identityDocument))
+            foreach (var client in existing)
             {
-                throw new Exception("There is already a client with this ID!");
+                if (client.identityDocument.Equals(clientToCreate.identityDocument))
+                {
+                    throw new Exception("There is already a client with this ID!");
+                }
             }
         }
-        
+
         //ValidateData(clientToCreate);
         //TODO what restrictions do we want?
         ClientCreationDTO toCreate = new ClientCreationDTO

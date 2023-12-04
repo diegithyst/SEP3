@@ -16,10 +16,9 @@ public class GrpcClientServices : IGrpcClientServices
     
     public Task<Client> Create(ClientCreationDTO dto)
     {
-        PersistentServerClient.Client grpcClient = psc.CreateClient(new PersistentServerClient.ClientCreationDTO { UserName = dto.username, FirstName = dto.firstname, LastName = dto.lastname, Password = dto.password, Country = dto.country, Birthday = dto.birthday, IdentityDocument = dto.identityDocument, PlanType = dto.planType.getName() });
-
-        IPlan newPlan = PlanMaker.MakePlan(grpcClient.PlanType);
-        return Task.FromResult(new Client { id = grpcClient.ClientId, firstname = grpcClient.FirstName,lastname = grpcClient.LastName,username = grpcClient.UserName, password = grpcClient.Password, country = grpcClient.Country, birthday = grpcClient.Birthday, identityDocument = grpcClient.IdentityDocument, planType = newPlan });
+        PersistentServerClient.Client grpcClient = psc.CreateClient(new PersistentServerClient.ClientCreationDTO { UserName = dto.username, FirstName = dto.firstname, LastName = dto.lastname, Password = dto.password, Country = dto.country, Birthday = dto.birthday, IdentityDocument = dto.identityDocument, PlanType = dto.planType });
+        
+        return Task.FromResult(new Client { id = grpcClient.ClientId, firstname = grpcClient.FirstName,lastname = grpcClient.LastName,username = grpcClient.UserName, password = grpcClient.Password, country = grpcClient.Country, birthday = grpcClient.Birthday, identityDocument = grpcClient.IdentityDocument, planType = new DefaultPlan() });
     }
 
     public Task<Client?> GetById(long id)
