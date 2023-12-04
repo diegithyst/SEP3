@@ -7,7 +7,9 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddScoped<IAccountService, AccountHttpClient>();
-
+builder.Services.AddScoped<IAuthService, JwtAuthService>();
+builder.Services.AddScoped<IClientService, ClientHttpClient>();
+builder.Services.AddScoped<IMoneyTransferService, MoneyTransferClient>();
 builder.Services.AddScoped(
     sp => 
         new HttpClient { 
