@@ -13,5 +13,4 @@ public class Client
     public string birthday { get; set; }
     public IPlan planType { get; set; }
     public long id { get; set; }
-    public string password { get; set; }
 }
