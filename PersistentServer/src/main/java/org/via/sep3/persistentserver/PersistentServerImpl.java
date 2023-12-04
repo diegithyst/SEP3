@@ -32,6 +32,19 @@ public class PersistentServerImpl extends PersistentServerGrpc.PersistentServerI
     }
 
     @Override
+    public void getClientByUsername(ClientUsernameDTO request, StreamObserver<Client> responseObserver) {
+        try(Session s = sf.openSession()){
+            org.via.sep3.persistentserver.model.Client c = s.get(org.via.sep3.persistentserver.model.Client.class,request.getUsername());
+            if(c != null){
+                responseObserver.onNext(c.getProtoClient());
+                responseObserver.onCompleted();
+            }else {
+                responseObserver.onError(Status.NOT_FOUND.asException());
+            }
+        }
+    }
+
+    @Override
     public void getAccountById(AccountBasicDTO request, StreamObserver<GrpcAccount> responseObserver) {
         try(Session s = sf.openSession()){
             org.via.sep3.persistentserver.model.Account a = s.get(org.via.sep3.persistentserver.model.Account.class,request.getAccountId());

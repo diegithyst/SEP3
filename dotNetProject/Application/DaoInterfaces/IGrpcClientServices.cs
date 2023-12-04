@@ -9,5 +9,7 @@ public interface IGrpcClientServices
     Task<Client?> GetById(long id);
 
     Task<IEnumerable<Client>> GetClients();
-    Task<IEnumerable<Client?>> GetBySearch();
+    Task<Client?> GetByUsername(string username);
+    Task Update(ClientUpdateDTO dto);
+
 }
