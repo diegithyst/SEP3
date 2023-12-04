@@ -34,7 +34,7 @@ public class ClientHttpClient : IClientService
     {
         string userAsJson = JsonSerializer.Serialize(dto);
         StringContent content = new(userAsJson, Encoding.UTF8, "application/json");
-        HttpResponseMessage responseMessage = await client.PostAsync("https://localhost:7017/Auth/register", content);
+        HttpResponseMessage responseMessage = await client.PostAsync("https://localhost:5066/Auth/register", content);
         string responseContent = await responseMessage.Content.ReadAsStringAsync();
         if (!responseMessage.IsSuccessStatusCode)
         {
@@ -85,7 +85,7 @@ public class ClientHttpClient : IClientService
     {
         string userAsJson = JsonSerializer.Serialize(dto);
         StringContent content = new(userAsJson, Encoding.UTF8, "application/json");
-        HttpResponseMessage responseMessage = await client.PostAsync("https://localhost:7017/Auth/register", content);
+        HttpResponseMessage responseMessage = await client.PostAsync("https://localhost:5066/Auth/register", content);
         string responseContent = await responseMessage.Content.ReadAsStringAsync();
         if (!responseMessage.IsSuccessStatusCode)
         {
