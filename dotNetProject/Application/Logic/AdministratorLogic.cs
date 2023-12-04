@@ -7,17 +7,17 @@ namespace Application.Logic;
 
 public class AdministratorLogic : IAdministratorLogic
 {
-    private readonly IAdministratorDao adminDao;
+    private readonly IAdministratorDao adminServices;
 
-    public AdministratorLogic(IAdministratorDao adminDao)
+    public AdministratorLogic(IAdministratorDao adminServices)
     {
-        this.adminDao = adminDao;
+        this.adminServices = adminServices;
     }
 
 
     public async Task<Administrator> CreateAsync(AdministratorCreationDTO adminToCreate)
     {
-        Administrator? existing = await adminDao.GetByUsernameAsync(adminToCreate.username);
+        Administrator? existing = await adminServices.GetByUsernameAsync(adminToCreate.username);
         if (existing != null)
         {
             throw new Exception("There is already an administrator with the same username");
@@ -29,17 +29,17 @@ public class AdministratorLogic : IAdministratorLogic
             password = adminToCreate.password,
             emailDomain = "admin"
         };
-        Administrator created = await adminDao.CreateAsync(toCreate);
+        Administrator created = await adminServices.CreateAsync(toCreate);
         return created;
     }
 
     public Task<Administrator?> GetByUsernameAsync(string username)
     {
-        return adminDao.GetByUsernameAsync(username);
+        return adminServices.GetByUsernameAsync(username);
     }
 
     public Task<Administrator?> GetByIdAsync(long id)
     {
-        return adminDao.GetByIdAsync(id);
+        return adminServices.GetByIdAsync(id);
     }
 }

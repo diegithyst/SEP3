@@ -7,23 +7,25 @@ namespace Application.Logic;
 
 public class ClientLogic : IClientLogic
 {
-    private readonly IGrpcClientServices _clientDao;
+    private readonly IGrpcClientServices clientServices;
 
-    public ClientLogic(IGrpcClientServices clientDao)
+    public ClientLogic(IGrpcClientServices clientServices)
     {
-        _clientDao = clientDao;
+        clientServices = clientServices;
     }
 
 
     public async Task<Client> CreateAsync(ClientCreationDTO clientToCreate)
     {
-        IEnumerable<Client> existing = await _clientDao.GetClients(new AdministratorBasicDTO(null,clientToCreate.identityDocument));
+        IEnumerable<Client> existing = await clientServices.GetClients();
 
-        if (existing != null)
+        foreach (var client in existing)
         {
-            throw new Exception("There is already a client with this ID!");
+            if (client.identityDocument.Equals(clientToCreate.identityDocument))
+            {
+                throw new Exception("There is already a client with this ID!");
+            }
         }
-
         
         //ValidateData(clientToCreate);
         //TODO what restrictions do we want?
@@ -38,25 +40,29 @@ public class ClientLogic : IClientLogic
             planType = clientToCreate.planType,
         };
 
-        Client created = await _clientDao.Create(toCreate);
+        Client created = await clientServices.Create(toCreate);
 
         return created;
     }
 
-    public Task<IEnumerable<Client?>> GetAsync(AdministratorBasicDTO searchClientParametersDto)
+    public Task<IEnumerable<Client?>> GetAll()
     {
-        return _clientDao.GetClients(searchClientParametersDto);
+        return clientServices.GetClients();
     }
-
+    
+    public Task<IEnumerable<Client?>> GetBySearch(ClientBasicDTO dto)
+    {
+        return clientServices.GetBySearch(dto);
+    }
 
     public Task<Client?> GetByIdAsync(long searchById)
     {
-        return _clientDao.GetById(searchById);
+        return clientServices.GetById(searchById);
     }
 
     public async Task UpdateAsync(ClientUpdateDTO updateDto)
     {
-        Client? toEdit = await _clientDao.GetByIdAsync(updateDto.id);
+        Client? toEdit = await clientServices.GetById(updateDto.id);
 
         if (toEdit == null)
         {
@@ -76,11 +82,11 @@ public class ClientLogic : IClientLogic
             birthday = updateDto.birthday,
             planType = convertedFromString
         };
-        await _clientDao.UpdateAsync(edited);
+        await clientServices.Update(edited);
     }
 
     public Task<Client?> GetByUsernameAsync(string username)
     {
-        return _clientDao.GetByUsernameAsync(username);
+        return clientServices.GetByUsernameAsync(username);
     }
 }

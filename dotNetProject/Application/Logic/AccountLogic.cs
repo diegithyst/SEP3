@@ -7,12 +7,12 @@ namespace Application.Logic;
 
 public class AccountLogic : IAccountLogic
 {
-    private readonly IGrpcAccountServices _accountDao;
+    private readonly IGrpcAccountServices accountServices;
     private readonly IGrpcClientServices _clientDao;
 
-    public AccountLogic(IGrpcAccountServices accountDao, IGrpcClientServices clientDao)
+    public AccountLogic(IGrpcAccountServices accountServices, IGrpcClientServices clientDao)
     {
-        _accountDao = accountDao;
+        accountServices = accountServices;
         _clientDao = clientDao;
     }
 
@@ -23,25 +23,24 @@ public class AccountLogic : IAccountLogic
         Client? existing = await _clientDao.GetById(dto.ownerId);
         if (existing == null)
         {
-            throw new Exception($"No client was found with the id {dto.ownerId}!");
+            throw new Exception($"no client was found with the id {dto.ownerId}!");
         }
-        Account account = new Account { mainCurrency = dto.mainCurrency, loan = dto.loan, ownerId = dto.ownerId, Euro = new Euro(),Pound = new Pound(),Krone = new Krone()};
-        Account created = await _accountDao.CreateAsync(account);
+        Account created = await accountServices.Create(dto);
         return created;
     }
 
     public Task<IEnumerable<Account?>> GetByOwnerIdAsync(long ownerId)
     {
-        return _accountDao.GetByOwnerId(ownerId);
+        return accountServices.GetByOwnerId(ownerId);
     }
 
     public Task<Account?> GetByIdAsync(long id)
     {
-        if (_accountDao.GetById(id) == null)
+        if (accountServices.GetById(id) == null)
         {
             throw new Exception("there is no account with that id");
         }
-        return _accountDao.GetById(id);
+        return accountServices.GetById(id);
     }
 
     public async Task UpdateBalanceAsync(Account account, double amount, string currency)
@@ -59,6 +58,6 @@ public class AccountLogic : IAccountLogic
             account.Krone.balance += amount;
         }
 
-        await _accountDao.UpdateBalanceAsync(account);
+        await accountServices.Update(account);
     }
 }

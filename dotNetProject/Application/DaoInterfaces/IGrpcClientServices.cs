@@ -9,4 +9,5 @@ public interface IGrpcClientServices
     Task<Client?> GetById(long id);
 
     Task<IEnumerable<Client>> GetClients();
+    Task<IEnumerable<Client?>> GetBySearch();
 }

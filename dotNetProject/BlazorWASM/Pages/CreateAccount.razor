@@ -1,6 +1,7 @@
 @page "/CreateAccount/{loan:bool}"
 @using HttpClients.ClientInterfaces
 @using Domain.DTOs
+@using Domain.Auth
 @inject IAccountService accountService
 <h3>CreateAccount</h3>
 
@@ -27,7 +28,7 @@
         {
             try
             {
-                await accountService.CreateAsync(new AccountCreationDTO(mainCurrency, loan, value, id, name));
+                await accountService.CreateAsync(new AccountCreationDTO(mainCurrency, true,value,id, ViewIdMaker.makeId(id), name));
             }
             catch (Exception e)
             {
@@ -38,7 +39,7 @@
         {
             try
             {
-                await accountService.CreateAsync(new AccountCreationDTO(mainCurrency, loan, id, name));
+                await accountService.CreateAsync(new AccountCreationDTO(mainCurrency, false,0 ,id,ViewIdMaker.makeId(id), name));
             }
             catch (Exception e)
             {

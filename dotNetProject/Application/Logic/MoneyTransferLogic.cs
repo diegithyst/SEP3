@@ -7,14 +7,14 @@ namespace Application.Logic;
 
 public class MoneyTransferLogic : IMoneyTransferLogic
 {
-    private IMoneyTransferDao _moneyTransferDao;
-    private IGrpcAccountServices _accountGrpcServices;
+    private IMoneyTransferDao moneyTransferServerice;
+    private IGrpcAccountServices accountServices;
     private IAccountLogic _accountLogic;
 
-    public MoneyTransferLogic(IMoneyTransferDao _moneyTransferDao, IGrpcAccountServices accountGrpcServices, IAccountLogic accountLogic)
+    public MoneyTransferLogic(IMoneyTransferDao moneyTransferServerice, IGrpcAccountServices accountDao, IAccountLogic accountLogic)
     {
-        this._moneyTransferDao = _moneyTransferDao;
-        this._accountGrpcServices = accountGrpcServices;
+        this.moneyTransferServerice = moneyTransferServerice;
+        this.accountServices = accountDao;
         this._accountLogic = accountLogic;
     }
 
@@ -28,32 +28,32 @@ public class MoneyTransferLogic : IMoneyTransferLogic
             value = dto.Value,
             currency = CurrencyMaker.MakeCurrency(dto.Currency)
         };
-        Account accountRecipient = await _accountGrpcServices.GetById(transfer.accountNumberRecipient);
-        Account accountSender = await _accountGrpcServices.GetById(transfer.accountNumberSender);
+        Account accountRecipient = await accountServices.GetById(transfer.accountNumberRecipient);
+        Account accountSender = await accountServices.GetById(transfer.accountNumberSender);
         
         _accountLogic.UpdateBalanceAsync(accountSender, -dto.Value, dto.Currency);
         _accountLogic.UpdateBalanceAsync(accountRecipient, dto.Value, dto.Currency);
-        MoneyTransfer created = await _moneyTransferDao.CreateAsync(transfer);
+        MoneyTransfer created = await moneyTransferServerice.CreateAsync(transfer);
         return created;
     }
 
     public Task<IEnumerable<MoneyTransfer?>> GetAsync()
     {
-        return _moneyTransferDao.GetAsync();
+        return moneyTransferServerice.GetAsync();
     }
 
     public Task<IEnumerable<MoneyTransfer?>?> GetBySearchAsync(SearchTransferParametersDto dto)
     {
-        return _moneyTransferDao.GetBySearchAsync(dto);
+        return moneyTransferServerice.GetBySearchAsync(dto);
     }
     
     public Task<IEnumerable<MoneyTransfer?>?> GetByAccountIdAsync(long id)
         {
-            return _moneyTransferDao.GetByAccountIdAsync(id);
+            return moneyTransferServerice.GetByAccountIdAsync(id);
         }
 
     public Task<MoneyTransfer?> GetByIdAsync(long id)
     {
-        return _moneyTransferDao.GetByIdAsync(id);
+        return moneyTransferServerice.GetByIdAsync(id);
     }
 }
