@@ -58,6 +58,12 @@ public class AccountLogic : IAccountLogic
             account.Krone.balance += amount;
         }
 
-        await accountServices.Update(account);
+        AccountUpdateDTO dto = new AccountUpdateDTO
+        {
+            name = account.name, mainCurrency = account.mainCurrency, euro = account.euro, krone = account.krone,
+            pound = account.pound
+        };
+
+        await accountServices.UpdateAccount(dto);
     }
 }
