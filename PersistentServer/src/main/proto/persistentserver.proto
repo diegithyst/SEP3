@@ -12,6 +12,7 @@ service PersistentServer{
   rpc GetClientById(ClientBasicDTO) returns (Client){}
   rpc CreateClient(ClientCreationDTO) returns (Client){}
   rpc GetClients(Empty) returns (GrpcClients){}
+  rpc GetClientByUsername(ClientUsernameDTO) returns (Client){}
   rpc DeleteClient(ClientBasicDTO) returns(GrpcResult){}
   rpc UpdateClient(ClientUpdateDTO) returns(Client){}
 
@@ -33,6 +34,9 @@ message Empty{
 }
 message GrpcResult{
   bool success = 1;
+}
+message ClientUsernameDTO{
+  string username = 1;
 }
 message ClientBasicDTO{
   int64 clientId = 1;

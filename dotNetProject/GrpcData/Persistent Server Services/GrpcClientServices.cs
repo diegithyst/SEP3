@@ -37,6 +37,21 @@ public class GrpcClientServices : IGrpcClientServices
         }
     }
 
+    public Task<Client?> GetByUsername(string username)
+    {
+        PersistentServerClient.Client grpcClient = psc.GetClientByUsername(new PersistentServerClient.ClientUsernameDTO { Username = username });
+        IPlan newPlan = PlanMaker.MakePlan(grpcClient.PlanType);
+        if (grpcClient == null)
+        {
+            return null;
+        }
+        else
+        {
+            return Task.FromResult(new Client { id = grpcClient.ClientId, firstname = grpcClient.FirstName, lastname = grpcClient.LastName, username = grpcClient.UserName, country = grpcClient.Country, birthday = grpcClient.Birthday, identityDocument = grpcClient.IdentityDocument, planType = newPlan });
+
+        }
+    }
+
     public Task<IEnumerable<Client>> GetClients()
     {
         List<Client> clients = new List<Client>();
@@ -48,5 +63,16 @@ public class GrpcClientServices : IGrpcClientServices
         }
 
         return Task.FromResult(clients.AsEnumerable());
+    }
+
+    public Task Update(ClientUpdateDTO dto)
+    {
+        
+        PersistentServerClient.Client gc = psc.UpdateClient(new PersistentServerClient.ClientUpdateDTO { FirstName = dto.firstname, LastName = dto.lastname, UserName = dto.username, Password = dto.password, Country = dto.country,Birthday = dto.birthday, IdentityDocument = dto.identityDocument, PlanType = dto.planType });
+        if (gc != null)
+        {
+            return Task.CompletedTask;
+        }
+        throw new Exception("Update  failed.");
     }
 }
