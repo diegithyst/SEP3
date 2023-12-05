@@ -140,16 +140,16 @@ message MoneyTransferBasicDTO{
 }
 message GrpcMoneyTransfer{
   int64 moneyTransferId = 1;
-  string sender = 2;
-  string receipt = 3;
+  int64 senderId = 2;
+  int64 recipientId = 3;
   string senderCurrency = 4;
   double amount = 5;
   double commission = 6;
   int64 accountId = 7;
 }
 message CreateMoneyTransferDTO{
-  string sender = 1;
-  string receipt = 2;
+  int64 senderId = 1;
+  int64 recipientId = 2;
   string senderCurrency = 3;
   double amount = 4;
   double commission = 5;

@@ -234,11 +234,11 @@ public class PersistentServerImpl extends PersistentServerGrpc.PersistentServerI
         try(Session s = sf.openSession()){
             Transaction t = s.beginTransaction();
             MoneyTransfer mt = new MoneyTransfer();
-            mt.setSender(request.getSender());
+            mt.setSenderId(request.getSenderId());
             mt.setSenderCurrency(request.getSenderCurrency());
             mt.setAmount(request.getAmount());
             mt.setCommission(request.getCommission());
-            mt.setRecipient(request.getReceipt());
+            mt.setRecipientId(request.getRecipientId());
             s.persist(mt);
             t.commit();
             responseObserver.onNext(mt.getProtoMoneyTransfer());

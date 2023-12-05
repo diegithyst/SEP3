@@ -67,7 +67,9 @@ public class GrpcAccountServices : IGrpcAccountServices
 
     public Task TransferMoney(MoneyTransferCreationDto dto)
     {
-        throw new NotImplementedException();
+        PersistentServerClient.GrpcMoneyTransfer gmt = psc.MakeMoneyTransfer(new PersistentServerClient.CreateMoneyTransferDTO { Sender = dto.SenderAccountNumber, SenderCurrency = dto.Currency, Amount = dto.Value, Commission = dto.Commission, Receipt = dto.Receipt });
+        MoneyTransfer created = new MoneyTransfer { Sender = gmt.SenderAccountNumber, SenderCurrency = gmt.Currency, Amount = gmt.Value, Commission = gmt.Commission, Receipt = gmt.Receipt };
+        return Task.FromResult(created);
     }
     public Task UpdateAccount(AccountUpdateDTO accountUpdateDTO)
     {
