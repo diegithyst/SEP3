@@ -37,6 +37,7 @@ public class ClientLogic : IClientLogic
             firstname = clientToCreate.firstname,
             lastname = clientToCreate.lastname,
             username = clientToCreate.username,
+            password = clientToCreate.password,
             country = clientToCreate.country,
             identityDocument = clientToCreate.identityDocument,
             birthday = clientToCreate.birthday,
