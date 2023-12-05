@@ -25,7 +25,7 @@ public class ClientLogic : IClientLogic
             {
                 if (client.identityDocument.Equals(clientToCreate.identityDocument))
                 {
-                    throw new Exception("There is already a client with this ID!");
+                    throw new Exception("There is already a client with this Identity Document!");
                 }
             }
         }
