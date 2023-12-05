@@ -12,6 +12,7 @@ import org.via.sep3.persistentserver.proto.*;
 
 import java.util.List;
 
+
 public class PersistentServerImpl extends PersistentServerGrpc.PersistentServerImplBase {
     private SessionFactory sf;
     public PersistentServerImpl(SessionFactory sf) {
@@ -30,6 +31,7 @@ public class PersistentServerImpl extends PersistentServerGrpc.PersistentServerI
             }
         }
     }
+
 
     @Override
     public void getClientByUsername(ClientUsernameDTO request, StreamObserver<Client> responseObserver) {
@@ -193,7 +195,8 @@ public class PersistentServerImpl extends PersistentServerGrpc.PersistentServerI
                 c.setCountry(request.getCountry());
                 c.setIdentityDocument(request.getIdentityDocument());
                 c.setPlanType(request.getPlanType());
-                s.flush();
+                s.clear();
+                s.merge(c);
                 responseObserver.onNext(c.getProtoClient());
                 responseObserver.onCompleted();
             }else {
