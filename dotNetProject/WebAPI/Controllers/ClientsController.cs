@@ -22,7 +22,7 @@ public class ClientsController : ControllerBase
         try
         {
             Client client = await _clientLogic.CreateAsync(dto);
-            return Created($"/clients/{client.identityDocument}", client);
+            return Created($"/clients/{client.id}", client);
         }
         catch (Exception e)
         {
