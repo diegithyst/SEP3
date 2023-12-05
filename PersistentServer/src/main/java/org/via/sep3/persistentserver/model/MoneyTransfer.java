@@ -9,17 +9,17 @@ public class MoneyTransfer {
     @Id
     @GeneratedValue
     private Long id;
-    private String sender;
-    private String recipient;
+    private Long senderId;
+    private Long recipientId;
     private String senderCurrency;
     private Double amount;
     private Double commission;
     @ManyToOne
     @JoinColumn(name = "account_id")
     private Account account;
-    public MoneyTransfer(String sender, String recipient, String senderCurrency, Double amount, Double commission, Account account) {
-        this.sender = sender;
-        this.recipient = recipient;
+    public MoneyTransfer(Long senderId, Long recipientId, String senderCurrency, Double amount, Double commission, Account account) {
+        this.senderId = senderId;
+        this.recipientId = recipientId;
         this.senderCurrency = senderCurrency;
         this.amount = amount;
         this.commission = commission;
@@ -31,20 +31,20 @@ public class MoneyTransfer {
         return id;
     }
 
-    public String getSender() {
-        return sender;
+    public Long getSenderId() {
+        return senderId;
     }
 
-    public void setSender(String sender) {
-        this.sender = sender;
+    public void setSenderId(Long senderId) {
+        this.senderId = senderId;
     }
 
-    public String getRecipient() {
-        return recipient;
+    public Long getRecipientId() {
+        return recipientId;
     }
 
-    public void setRecipient(String recipient) {
-        this.recipient = recipient;
+    public void setRecipientId(Long recipientId) {
+        this.recipientId = recipientId;
     }
 
     public String getSenderCurrency() {
@@ -81,8 +81,8 @@ public class MoneyTransfer {
 
     public GrpcMoneyTransfer getProtoMoneyTransfer(){
         return GrpcMoneyTransfer.newBuilder()
-                .setSender(getSender())
-                .setReceipt(getRecipient())
+                .setSenderId(getSenderId())
+                .setRecipientId(getRecipientId())
                 .setSenderCurrency(getSenderCurrency())
                 .setAmount(getAmount())
                 .setCommission(getCommission())
@@ -91,8 +91,8 @@ public class MoneyTransfer {
     @Override
     public String toString() {
         return "MoneyTransfer{" +
-                "sender='" + sender + '\'' +
-                ", recipient='" + recipient + '\'' +
+                "sender='" + senderId + '\'' +
+                ", recipient='" + recipientId + '\'' +
                 ", senderCurrency='" + senderCurrency + '\'' +
                 ", amount=" + amount +
                 ", commission=" + commission +
