@@ -17,6 +17,10 @@ public class GrpcAccountServices : IGrpcAccountServices
     {
         PersistentServerClient.GrpcAccount ga = psc.CreateAccount(new PersistentServerClient.AccountCreationDTO { AccountViewId = accountCreationDTO.accountViewId, ClientId = accountCreationDTO.ownerId, MainCurrency = accountCreationDTO.mainCurrency, Name = accountCreationDTO.name, Loan = accountCreationDTO.loan });
         Account created = new Account { ownerId = ga.ClientId, loan = ga.Loan, mainCurrency = ga.MainCurrency, name = ga.Name, accountViewId = ga.AccountViewId };
+        created.Euro = new Euro();
+        created.Krone = new Krone();
+        created.Pound = new Pound();
+
         created.Euro.balance = ga.Euro;
         created.Krone.balance = ga.Krone;
         created.Pound.balance = ga.Pound;
@@ -30,6 +34,10 @@ public class GrpcAccountServices : IGrpcAccountServices
         foreach (PersistentServerClient.GrpcAccount ga in call.Accounts)
         {
             Account created = new Account { ownerId = ga.ClientId, loan = ga.Loan, mainCurrency = ga.MainCurrency, name = ga.Name, accountViewId = ga.AccountViewId };
+            created.Euro = new Euro();
+            created.Krone = new Krone();
+            created.Pound = new Pound();
+            
             created.Euro.balance = ga.Euro;
             created.Krone.balance = ga.Krone;
             created.Pound.balance = ga.Pound;
@@ -45,6 +53,10 @@ public class GrpcAccountServices : IGrpcAccountServices
         if (ga != null)
         {
             Account created = new Account { ownerId = ga.ClientId, loan = ga.Loan, mainCurrency = ga.MainCurrency, name = ga.Name, accountViewId = ga.AccountViewId };
+            created.Euro = new Euro();
+            created.Krone = new Krone();
+            created.Pound = new Pound();
+
             created.Euro.balance = ga.Euro;
             created.Krone.balance = ga.Krone;
             created.Pound.balance = ga.Pound;
