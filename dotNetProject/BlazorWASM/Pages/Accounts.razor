@@ -18,7 +18,10 @@
         {
             <tr>
                 <td>@item.id</td>
-                <td @onclick="@(() => nav.NavigateTo($"/ViewAccount/{id:int}"))">@item.name </td>
+                <td @onclick="@(() => nav.NavigateTo($"/ViewAccount/{item.id:long}"))">@item.name </td>
+                <td>
+                    <button @onclick="@(() => nav.NavigateTo($"/Transfer/{item.id:long}"))">Transfer</button>
+                    </td>
             </tr>
         }
     </tbody>

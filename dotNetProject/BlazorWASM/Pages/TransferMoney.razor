@@ -1,4 +1,4 @@
-@page "/TransferMoney"
+@page "/TransferMoney{id:long}"
 @using HttpClients.ClientInterfaces
 @using Domain.DTOs
 @inject IMoneyTransferService mtService
@@ -47,8 +47,9 @@ function changed(){
 </script>
 
 @code {
-    private string accountNrSeder;
-
+    [Parameter]
+    public long id { get; set; }
+    
     private string _accountNrReceiver;
     private string _value;
     private string _currency;
@@ -60,7 +61,7 @@ function changed(){
         error = "";
         try
         {
-            await mtService.CreateAsync(new MoneyTransferCreationDto(long.Parse(accountNrSeder), long.Parse(_accountNrReceiver), _currency, double.Parse(_value)));
+            await mtService.CreateAsync(new MoneyTransferCreationDto(id, long.Parse(_accountNrReceiver), _currency, double.Parse(_value)));
         }
         catch (Exception e)
         {
