@@ -79,12 +79,12 @@ public class ClientsController : ControllerBase
         }
     }
 
-    [HttpPatch ("{id:long}")]
-    public async Task<ActionResult> UpdateAsync([FromRoute] long id, [FromBody] ClientUpdateDTO dto)
+    [HttpPatch]
+    public async Task<ActionResult> UpdateAsync( [FromBody] ClientUpdateDTO dto)
     {
         try
         {
-            await _clientLogic.UpdateAsync(dto, id);
+            await _clientLogic.UpdateAsync(dto);
             return Ok();
         }
         catch (Exception e)

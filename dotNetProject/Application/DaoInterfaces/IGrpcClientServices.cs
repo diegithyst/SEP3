@@ -10,6 +10,6 @@ public interface IGrpcClientServices
 
     Task<IEnumerable<Client>> GetClients();
     Task<Client?> GetByUsername(string username);
-    Task Update(ClientCreationDTO client);
+    Task Update(ClientUpdateDTO client);
 
 }

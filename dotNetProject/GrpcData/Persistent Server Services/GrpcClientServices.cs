@@ -71,8 +71,8 @@ public class GrpcClientServices : IGrpcClientServices
 
     public Task Update(ClientUpdateDTO client)
     {
-        
-        PersistentServerClient.Client gc = psc.UpdateClient(new PersistentServerClient.ClientUpdateDTO { FirstName = client.firstname, LastName = client.lastname, UserName = client.username, Password = client.password, Country = client.country,Birthday = client.birthday, IdentityDocument = client.identityDocument, PlanType = client.planType });
+        Console.WriteLine(client.id);
+        PersistentServerClient.Client gc = psc.UpdateClient(new PersistentServerClient.ClientUpdateDTO { FirstName = client.firstname, LastName = client.lastname, UserName = client.username, Password = client.password, Country = client.country,Birthday = client.birthday, IdentityDocument = client.identityDocument, PlanType = client.planType, ClientId = client.id});
         if (gc != null)
         {
             return Task.CompletedTask;
