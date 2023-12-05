@@ -60,13 +60,13 @@ public class ClientLogic : IClientLogic
         return clientServices.GetById(searchById);
     }
 
-    public async Task UpdateAsync(ClientUpdateDTO updateDto)
+    public async Task UpdateAsync(ClientUpdateDTO updateDto, long id)
     {
-        Client? toEdit = await clientServices.GetById(updateDto.id);
+        Client? toEdit = await clientServices.GetById(id);
 
         if (toEdit == null)
         {
-            throw new Exception($"The client with id: {updateDto.id} doesn't exist");
+            throw new Exception($"The client with id: {id} doesn't exist");
         }
 
         string firstnameToChange = updateDto.firstname ?? toEdit.firstname;
@@ -78,8 +78,9 @@ public class ClientLogic : IClientLogic
         string birthToCh = updateDto.birthday ?? toEdit.birthday;
         string planToChange = updateDto.planType ?? toEdit.planType.getName();
 
-        ClientUpdateDTO updated = new ClientUpdateDTO(firstnameToChange, lastnameToChange, usernameToChange, passwordToChange,
-            countryToChange, ident, birthToCh, planToChange, updateDto.id);
+        ClientCreationDTO updated = new ClientCreationDTO(firstnameToChange, lastnameToChange, usernameToChange,
+            passwordToChange, countryToChange, ident, birthToCh, planToChange);
+        
         await clientServices.Update(updated);
     }
 

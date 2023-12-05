@@ -10,6 +10,6 @@ public interface IClientLogic
     Task<IEnumerable<Client?>> GetAll();
     
     Task<Client?> GetByIdAsync(long id);
-    Task UpdateAsync(ClientUpdateDTO updateDto);
+    Task UpdateAsync(ClientUpdateDTO updateDto, long id);
     Task<Client?> GetByUsernameAsync(string username);
 }
