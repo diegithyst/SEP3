@@ -63,7 +63,7 @@ public class ClientsController : ControllerBase
         }
     }
 
-    [HttpGet("{id:int}")]
+    [HttpGet("{id:long}")]
     public async Task<ActionResult<Client>> GetByIdAsync([FromRoute] long id)
     {
         try
@@ -79,12 +79,12 @@ public class ClientsController : ControllerBase
         }
     }
 
-    [HttpPatch]
-    public async Task<ActionResult> UpdateAsync([FromBody] ClientUpdateDTO clientUpdate)
+    [HttpPatch ("{id:long}")]
+    public async Task<ActionResult> UpdateAsync([FromRoute] long id, [FromBody] ClientUpdateDTO dto)
     {
         try
         {
-            await _clientLogic.UpdateAsync(clientUpdate);
+            await _clientLogic.UpdateAsync(dto, id);
             return Ok();
         }
         catch (Exception e)
