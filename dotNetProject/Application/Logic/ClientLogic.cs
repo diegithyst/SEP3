@@ -54,6 +54,7 @@ public class ClientLogic : IClientLogic
         return clientServices.GetClients();
     }
 
+
     public Task<Client?> GetByIdAsync(long searchById)
     {
         return clientServices.GetById(searchById);
