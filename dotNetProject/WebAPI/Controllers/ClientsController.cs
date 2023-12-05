@@ -62,7 +62,23 @@ public class ClientsController : ControllerBase
             return StatusCode(500, e.Message);
         }
     }
-    
+
+    [HttpGet]
+    public async Task<ActionResult<Client>> GetByIdAsync([FromQuery] long id)
+    {
+        try
+        {
+            Client client = await _clientLogic.GetByIdAsync(id);
+            return Ok(client);
+
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            return StatusCode(500, e.Message);
+        }
+    }
+
     [HttpPatch]
     public async Task<ActionResult> UpdateAsync([FromBody] ClientUpdateDTO clientUpdate)
     {

@@ -14,8 +14,12 @@
         }
     </div>
     <div class="form-group field">
-        <label>Currency:</label>
-        <input type="text" @bind="_currency" @bind:event="oninput" />
+        <label for="currency">Currency:</label>
+        <select @bind="_currency" id="currency">
+            <option selected>Dansk Krone</option>
+            <option>Pound</option>
+            <option>Euro</option>
+        </select>
         @if (!string.IsNullOrEmpty(error))
         {
             <label>@error</label>
@@ -35,36 +39,18 @@
 </div>
 
 @code {
+    private string accountNrSeder;
+    
     private string _accountNrReceiver = "";
-    public string accountNrReceiver{get{ return _accountNrReceiver; }
-        set
-        {
-            _accountNrReceiver = value;
-            checkFields();
-        }
-    }
-    private string _currency = "";
-    public string currency{get{ return _currency; }
-        set
-        {
-            _currency = value;
-            checkFields();
-        }
-    }
-    private string _value = "";
-    public string value{get{ return _value; }
-        set
-        {
-            _value = value;
-            checkFields();
-        }
-    }
+    
+    private string _currency;
+    
     private string error = "";
     private bool disableState = true;
 
     protected void checkFields()
     {
-        disableState =  _accountNrReceiver?.Length == 0 || _currency?.Length == 0 || _value?.Length == 0;
+        disableState =  _accountNrReceiver?.Length == 0 && _value?.Length == 0;
     }
 
     protected async Task TransferMoni()
@@ -72,7 +58,7 @@
         error = "";
         try
         {
-            await mtService.CreateAsync(new MoneyTransferCreationDto(long.Parse(_accountNrReceiver), _currency, double.Parse(_value)));
+            await mtService.CreateAsync(new MoneyTransferCreationDto(long.Parse(accountNrSeder), long.Parse(_accountNrReceiver), _currency, double.Parse(_value)));
         }
         catch (Exception e)
         {

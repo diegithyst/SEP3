@@ -52,7 +52,7 @@ public class ClientLogic : IClientLogic
     
     public Task<IEnumerable<Client?>> GetBySearch(ClientBasicDTO dto)
     {
-        return clientServices.GetBySearch(dto);
+        return clientServices.GetBySearch();
     }
 
     public Task<Client?> GetByIdAsync(long searchById)
