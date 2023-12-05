@@ -145,6 +145,7 @@ message GrpcMoneyTransfer{
   string senderCurrency = 4;
   double amount = 5;
   double commission = 6;
+  int64 accountId = 7;
 }
 message CreateMoneyTransferDTO{
   string sender = 1;
@@ -152,6 +153,7 @@ message CreateMoneyTransferDTO{
   string senderCurrency = 3;
   double amount = 4;
   double commission = 5;
+  int64 accountId = 6;
 }
 message GrpcMoneyTransfers{
   repeated GrpcMoneyTransfer moneyTransfers = 1;

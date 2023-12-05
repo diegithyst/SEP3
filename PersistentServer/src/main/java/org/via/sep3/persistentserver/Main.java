@@ -60,9 +60,10 @@ public class Main {
         }
     }
 
-    public Main(SessionFactory sf){
+    public Main(SessionFactory sf) {
         this.sf = sf;
     }
+
     /**
      * Main launches the server from the command line.
      */
@@ -71,43 +72,52 @@ public class Main {
         final StandardServiceRegistry registry = new StandardServiceRegistryBuilder().loadProperties(new File("src/main/config/hibernate.properties")).build();
         try {
             SessionFactory sf = new MetadataSources(registry)
-                            .addAnnotatedClasses(Client.class, Account.class, Administrator.class, MoneyTransfer.class)
-                            .buildMetadata()
-                            .buildSessionFactory();
-            try(Session s = sf.openSession()){
-                if (s.createQuery("from Client", Client.class).stream().count()<1){
+                    .addAnnotatedClasses(Client.class, Account.class, Administrator.class, MoneyTransfer.class)
+                    .buildMetadata()
+                    .buildSessionFactory();
+            try (Session s = sf.openSession()) {
+                if (s.createQuery("from Client", Client.class).stream().count() < 1) {
                     Transaction t = s.beginTransaction();
-                    MyLogger.getInstance().log("***psinit","db is empty so put some bootstrap data into it. ");
-                    s.persist(new Client("Fredie","Freda","Makko","password","hungary","AAAAA","31042000","Premium"));
+                    MyLogger.getInstance().log("***psinit", "db is empty so put some bootstrap data into it. ");
+                    s.persist(new Client("Fredie", "Freda", "Makko", "password", "hungary", "AAAAA", "31042000", "Premium"));
                     t.commit();
                 } else {
-                    for(Client c:s.createQuery("from Client", Client.class).list()){
-                        MyLogger.getInstance().log("***psinit","db has a client: " +c);
+                    for (Client c : s.createQuery("from Client", Client.class).list()) {
+                        MyLogger.getInstance().log("***psinit", "db has a client: " + c);
                     }
                 }
-                if (s.createQuery("from Account", Account.class).stream().count()<1){
+                if (s.createQuery("from Account", Account.class).stream().count() < 1) {
                     Transaction t = s.beginTransaction();
-                    MyLogger.getInstance().log("***psinit","db is empty so put some bootstrap data into it. ");
-                    Account account = new Account(100L,"Euro",100.0,100.0,100.0,false, s.get(Client.class,1),"main");
+                    MyLogger.getInstance().log("***psinit", "db is empty so put some bootstrap data into it. ");
+                    Account account = new Account(100L, "Euro", 100.0, 100.0, 100.0, false, s.get(Client.class, 1), "main");
                     s.persist(account);
                     t.commit();
                 } else {
-                    for(Account a:s.createQuery("from Account", Account.class).list()){
-                        MyLogger.getInstance().log("***psinit","db has a Account: " +a);
+                    for (Account a : s.createQuery("from Account", Account.class).list()) {
+                        MyLogger.getInstance().log("***psinit", "db has a Account: " + a);
                     }
                 }
+                if (s.createQuery("from Administrator", Administrator.class).stream().count() < 1) {
+                    Transaction t = s.beginTransaction();
+                    MyLogger.getInstance().log("***psinit", "db is empty so put some bootstrap data into it. ");
+                    s.persist(new Administrator("Admin1", "AdminPassword"));
+                    t.commit();
+                } else {
+                    for (Administrator administrator : s.createQuery("from Administrator", Administrator.class).list()) {
+                        MyLogger.getInstance().log("***psinit", "db has a administrator: " + administrator);
+                    }
+                }
+                final Main server = new Main(sf);
+                server.start();
+                server.blockUntilShutdown();
             }
-            final Main server = new Main(sf);
-            server.start();
-            server.blockUntilShutdown();
-        }
+        } catch (Exception e) {
+                e.printStackTrace();
+                // The registry would be destroyed by the SessionFactory, but we
+                // had trouble building the SessionFactory so destroy it manually.
+                StandardServiceRegistryBuilder.destroy(registry);
+            }
 
-        catch (Exception e) {
-            e.printStackTrace();
-            // The registry would be destroyed by the SessionFactory, but we
-            // had trouble building the SessionFactory so destroy it manually.
-            StandardServiceRegistryBuilder.destroy(registry);
-        }
 
     }
 }

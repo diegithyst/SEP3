@@ -1,9 +1,6 @@
 package org.via.sep3.persistentserver.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import org.via.sep3.persistentserver.proto.GrpcMoneyTransfer;
 
 @Entity(name = "MoneyTransfer")
@@ -17,20 +14,21 @@ public class MoneyTransfer {
     private String senderCurrency;
     private Double amount;
     private Double commission;
-
-    public MoneyTransfer(String sender, String recipient, String senderCurrency, Double amount, Double commission) {
+    @ManyToOne
+    @JoinColumn(name = "account_id")
+    private Account account;
+    public MoneyTransfer(String sender, String recipient, String senderCurrency, Double amount, Double commission, Account account) {
         this.sender = sender;
         this.recipient = recipient;
         this.senderCurrency = senderCurrency;
         this.amount = amount;
         this.commission = commission;
+        this.account = account;
     }
-
+    public MoneyTransfer() {
+    }
     public Long getId() {
         return id;
-    }
-
-    public MoneyTransfer() {
     }
 
     public String getSender() {
@@ -72,6 +70,15 @@ public class MoneyTransfer {
     public void setCommission(Double commission) {
         this.commission = commission;
     }
+
+    public Account getAccount() {
+        return account;
+    }
+
+    public void setAccount(Account account) {
+        this.account = account;
+    }
+
     public GrpcMoneyTransfer getProtoMoneyTransfer(){
         return GrpcMoneyTransfer.newBuilder()
                 .setSender(getSender())

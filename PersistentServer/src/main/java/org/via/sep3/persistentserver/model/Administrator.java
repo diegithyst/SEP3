@@ -13,8 +13,6 @@ public class Administrator {
     private Long id;
     private String username;
     private String password;
-    @OneToMany(mappedBy = "admin", cascade = CascadeType.ALL,orphanRemoval = true)
-    private List<Client> clients;
 
     public Administrator(String username, String password) {
         this.username = username;
@@ -44,9 +42,6 @@ public class Administrator {
         this.password = password;
     }
 
-    public List<Client> getClients() {
-        return clients;
-    }
 
     public GrpcAdministrator getProtoAdministrator(){
         return GrpcAdministrator.newBuilder()
