@@ -63,8 +63,8 @@ public class ClientsController : ControllerBase
         }
     }
 
-    [HttpGet]
-    public async Task<ActionResult<Client>> GetByIdAsync([FromQuery] long id)
+    [HttpGet("{id:int}")]
+    public async Task<ActionResult<Client>> GetByIdAsync([FromRoute] long id)
     {
         try
         {

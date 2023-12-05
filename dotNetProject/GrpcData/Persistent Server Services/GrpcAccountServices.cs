@@ -65,12 +65,7 @@ public class GrpcAccountServices : IGrpcAccountServices
         throw new Exception("There is no account with that id");
     }
 
-    public Task TransferMoney(MoneyTransferCreationDto dto)
-    {
-        PersistentServerClient.GrpcMoneyTransfer gmt = psc.MakeMoneyTransfer(new PersistentServerClient.CreateMoneyTransferDTO { Sender = dto.SenderAccountNumber, SenderCurrency = dto.Currency, Amount = dto.Value, Commission = dto.Commission, Receipt = dto.Receipt });
-        MoneyTransfer created = new MoneyTransfer { Sender = gmt.SenderAccountNumber, SenderCurrency = gmt.Currency, Amount = gmt.Value, Commission = gmt.Commission, Receipt = gmt.Receipt };
-        return Task.FromResult(created);
-    }
+  
     public Task UpdateAccount(AccountUpdateDTO accountUpdateDTO)
     {
         PersistentServerClient.GrpcAccount ga = psc.UpdateAccount(new PersistentServerClient.AccountUpdateDTO { Name = accountUpdateDTO.name, MainCurrency = accountUpdateDTO.mainCurrency, Euro = accountUpdateDTO.euro, Krone = accountUpdateDTO.krone, Pound = accountUpdateDTO.pound });
@@ -78,5 +73,10 @@ public class GrpcAccountServices : IGrpcAccountServices
             return Task.CompletedTask;
         }
         throw new Exception("Update  failed.");
+    }
+
+    public Task TransferMoney(MoneyTransferCreationDto dto)
+    {
+        throw new NotImplementedException();
     }
 }
