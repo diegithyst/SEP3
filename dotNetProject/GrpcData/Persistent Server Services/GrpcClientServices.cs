@@ -51,6 +51,11 @@ public class GrpcClientServices : IGrpcClientServices
         }
     }
 
+    public Task Update(ClientCreationDTO client)
+    {
+        throw new NotImplementedException();
+    }
+
     public Task<IEnumerable<Client>> GetClients()
     {
         List<Client> clients = new List<Client>();
