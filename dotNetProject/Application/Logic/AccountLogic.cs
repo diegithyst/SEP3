@@ -60,8 +60,8 @@ public class AccountLogic : IAccountLogic
 
         AccountUpdateDTO dto = new AccountUpdateDTO
         {
-            name = account.name, mainCurrency = account.mainCurrency, euro = account.euro, krone = account.krone,
-            pound = account.pound
+            name = account.name, mainCurrency = account.mainCurrency, euro = account.Euro.balance, krone = account.Krone.balance,
+            pound = account.Pound.balance
         };
 
         await accountServices.UpdateAccount(dto);

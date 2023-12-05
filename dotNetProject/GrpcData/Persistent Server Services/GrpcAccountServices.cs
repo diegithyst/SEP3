@@ -16,7 +16,15 @@ public class GrpcAccountServices : IGrpcAccountServices
     public Task<Account> Create(AccountCreationDTO accountCreationDTO)
     {
         PersistentServerClient.GrpcAccount ga = psc.CreateAccount(new PersistentServerClient.AccountCreationDTO { AccountViewId = accountCreationDTO.accountViewId, ClientId = accountCreationDTO.ownerId, MainCurrency = accountCreationDTO.mainCurrency, Name = accountCreationDTO.name, Loan = accountCreationDTO.loan });
-        return Task.FromResult(new Account { ownerId = ga.ClientId, loan = ga.Loan, mainCurrency = ga.MainCurrency, euro = ga.Euro, krone = ga.Krone, pound = ga.Pound, name = ga.Name, accountViewId = ga.AccountViewId });
+        Account created = new Account { ownerId = ga.ClientId, loan = ga.Loan, mainCurrency = ga.MainCurrency, name = ga.Name, accountViewId = ga.AccountViewId };
+        created.Euro = new Euro();
+        created.Krone = new Krone();
+        created.Pound = new Pound();
+
+        created.Euro.balance = ga.Euro;
+        created.Krone.balance = ga.Krone;
+        created.Pound.balance = ga.Pound;
+        return Task.FromResult(created);
     }
 
     public Task<IEnumerable<Account>> GetByOwnerId(long ownerId)
@@ -25,7 +33,15 @@ public class GrpcAccountServices : IGrpcAccountServices
         PersistentServerClient.GrpcAccounts call = psc.GetClientAccounts(new PersistentServerClient.ClientBasicDTO { ClientId = ownerId });
         foreach (PersistentServerClient.GrpcAccount ga in call.Accounts)
         {
-            ownerAccounts.Add(new Account { id = ga.AccountId, ownerId = ga.ClientId, euro = ga.Euro, krone = ga.Krone, pound = ga.Pound, loan = ga.Loan, mainCurrency = ga.MainCurrency });
+            Account created = new Account { ownerId = ga.ClientId, loan = ga.Loan, mainCurrency = ga.MainCurrency, name = ga.Name, accountViewId = ga.AccountViewId };
+            created.Euro = new Euro();
+            created.Krone = new Krone();
+            created.Pound = new Pound();
+            
+            created.Euro.balance = ga.Euro;
+            created.Krone.balance = ga.Krone;
+            created.Pound.balance = ga.Pound;
+            ownerAccounts.Add(created);
         }
 
         return Task.FromResult(ownerAccounts.AsEnumerable());
@@ -36,7 +52,15 @@ public class GrpcAccountServices : IGrpcAccountServices
         PersistentServerClient.GrpcAccount ga = psc.GetAccountById(new PersistentServerClient.AccountBasicDTO { AccountId = id });
         if (ga != null)
         {
-            return Task.FromResult(new Account { id = ga.AccountId, ownerId = ga.ClientId, euro = ga.Euro, krone = ga.Krone, pound = ga.Pound, loan = ga.Loan, mainCurrency = ga.MainCurrency });
+            Account created = new Account { ownerId = ga.ClientId, loan = ga.Loan, mainCurrency = ga.MainCurrency, name = ga.Name, accountViewId = ga.AccountViewId };
+            created.Euro = new Euro();
+            created.Krone = new Krone();
+            created.Pound = new Pound();
+
+            created.Euro.balance = ga.Euro;
+            created.Krone.balance = ga.Krone;
+            created.Pound.balance = ga.Pound;
+            return Task.FromResult(created);
         }
         throw new Exception("There is no account with that id");
     }
