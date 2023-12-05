@@ -64,10 +64,10 @@ public class GrpcClientServices : IGrpcClientServices
         return Task.FromResult(clients.AsEnumerable());
     }
 
-    public Task Update(ClientUpdateDTO dto)
+    public Task Update(ClientUpdateDTO client)
     {
         
-        PersistentServerClient.Client gc = psc.UpdateClient(new PersistentServerClient.ClientUpdateDTO { FirstName = dto.firstname, LastName = dto.lastname, UserName = dto.username, Password = dto.password, Country = dto.country,Birthday = dto.birthday, IdentityDocument = dto.identityDocument, PlanType = dto.planType });
+        PersistentServerClient.Client gc = psc.UpdateClient(new PersistentServerClient.ClientUpdateDTO { FirstName = client.firstname, LastName = client.lastname, UserName = client.username, Password = client.password, Country = client.country,Birthday = client.birthday, IdentityDocument = client.identityDocument, PlanType = client.planType });
         if (gc != null)
         {
             return Task.CompletedTask;

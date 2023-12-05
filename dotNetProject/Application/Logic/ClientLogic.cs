@@ -68,7 +68,19 @@ public class ClientLogic : IClientLogic
         {
             throw new Exception($"The client with id: {updateDto.id} doesn't exist");
         }
-        await clientServices.Update(updateDto);
+
+        string firstnameToChange = updateDto.firstname ?? toEdit.firstname;
+        string lastnameToChange = updateDto.lastname ?? toEdit.lastname;
+        string usernameToChange = updateDto.username ?? toEdit.username;
+        string passwordToChange = updateDto.password ?? toEdit.password;
+        string countryToChange = updateDto.country ?? toEdit.country;
+        string ident = updateDto.identityDocument ?? toEdit.identityDocument;
+        string birthToCh = updateDto.birthday ?? toEdit.birthday;
+        string planToChange = updateDto.planType ?? toEdit.planType.getName();
+
+        ClientUpdateDTO updated = new ClientUpdateDTO(firstnameToChange, lastnameToChange, usernameToChange, passwordToChange,
+            countryToChange, ident, birthToCh, planToChange, updateDto.id);
+        await clientServices.Update(updated);
     }
 
     public Task<Client?> GetByUsernameAsync(string username)

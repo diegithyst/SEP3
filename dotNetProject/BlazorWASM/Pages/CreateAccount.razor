@@ -28,7 +28,7 @@
         {
             try
             {
-                await accountService.CreateAsync(new AccountCreationDTO(mainCurrency, true,value,id, ViewIdMaker.makeId(id), name));
+                await accountService.CreateAsync(new AccountCreationDTO(mainCurrency, true,value,id, name));
             }
             catch (Exception e)
             {
@@ -39,7 +39,7 @@
         {
             try
             {
-                await accountService.CreateAsync(new AccountCreationDTO(mainCurrency, false,0 ,id,ViewIdMaker.makeId(id), name));
+                await accountService.CreateAsync(new AccountCreationDTO(mainCurrency, false,0 ,id, name));
             }
             catch (Exception e)
             {
