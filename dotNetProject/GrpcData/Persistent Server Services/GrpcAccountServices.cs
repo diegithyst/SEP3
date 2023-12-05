@@ -15,7 +15,7 @@ public class GrpcAccountServices : IGrpcAccountServices
 
     public Task<Account> Create(AccountCreationDTO accountCreationDTO)
     {
-        PersistentServerClient.GrpcAccount ga = psc.CreateAccount(new PersistentServerClient.AccountCreationDTO { AccountViewId = accountCreationDTO.accountViewId, ClientId = accountCreationDTO.ownerId, MainCurrency = accountCreationDTO.mainCurrency, Name = accountCreationDTO.name, Loan = accountCreationDTO.loan });
+        PersistentServerClient.GrpcAccount ga = psc.CreateAccount(new PersistentServerClient.AccountCreationDTO { AccountViewId = accountCreationDTO.accountViewId, ClientId = accountCreationDTO.ownerId, MainCurrency = accountCreationDTO.mainCurrency, Name = accountCreationDTO.name, Loan = accountCreationDTO.loan});
         Account created = new Account { ownerId = ga.ClientId, loan = ga.Loan, mainCurrency = ga.MainCurrency, name = ga.Name, accountViewId = ga.AccountViewId };
         created.Euro = new Euro();
         created.Krone = new Krone();
@@ -24,6 +24,9 @@ public class GrpcAccountServices : IGrpcAccountServices
         created.Euro.balance = ga.Euro;
         created.Krone.balance = ga.Krone;
         created.Pound.balance = ga.Pound;
+        created.Euro.accountId = ga.AccountId;
+        created.Krone.accountId = ga.AccountId;
+        created.Pound.accountId = ga.AccountId;
         return Task.FromResult(created);
     }
 
@@ -41,6 +44,9 @@ public class GrpcAccountServices : IGrpcAccountServices
             created.Euro.balance = ga.Euro;
             created.Krone.balance = ga.Krone;
             created.Pound.balance = ga.Pound;
+            created.Euro.accountId = ga.AccountId;
+            created.Krone.accountId = ga.AccountId;
+            created.Pound.accountId = ga.AccountId;
             ownerAccounts.Add(created);
         }
 
@@ -60,6 +66,9 @@ public class GrpcAccountServices : IGrpcAccountServices
             created.Euro.balance = ga.Euro;
             created.Krone.balance = ga.Krone;
             created.Pound.balance = ga.Pound;
+            created.Euro.accountId = ga.AccountId;
+            created.Krone.accountId = ga.AccountId;
+            created.Pound.accountId = ga.AccountId;
             return Task.FromResult(created);
         }
         throw new Exception("There is no account with that id");

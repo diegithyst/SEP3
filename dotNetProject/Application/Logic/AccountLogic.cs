@@ -12,7 +12,7 @@ public class AccountLogic : IAccountLogic
 
     public AccountLogic(IGrpcAccountServices accountServices, IGrpcClientServices clientDao)
     {
-        accountServices = accountServices;
+        this.accountServices = accountServices;
         _clientDao = clientDao;
     }
 

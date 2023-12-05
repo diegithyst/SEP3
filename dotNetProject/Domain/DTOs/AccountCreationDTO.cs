@@ -13,6 +13,10 @@ public class AccountCreationDTO
 
     public long accountViewId { get; set; }
 
+    public AccountCreationDTO()
+    {
+    }
+
 
     public AccountCreationDTO(string mainCurrency, bool loan, double value, long ownerId, string name)
     {

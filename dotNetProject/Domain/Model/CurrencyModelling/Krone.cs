@@ -4,7 +4,7 @@ public class Krone:ICurrency
 {
     public string name { get; set; } = "Krone";
     public double balance { get; set; } = 0;
-    public long acountId { get; set; }
+    public long accountId { get; set; }
 
     public Euro convertToEuro()
     {
