@@ -12,7 +12,7 @@ service PersistentServer{
   rpc GetClientById(ClientBasicDTO) returns (Client){}
   rpc CreateClient(ClientCreationDTO) returns (Client){}
   rpc GetClients(Empty) returns (GrpcClients){}
-  rpc GetClientByUsername(ClientUsernameDTO) returns (Client){}
+  
   rpc DeleteClient(ClientBasicDTO) returns(GrpcResult){}
   rpc UpdateClient(ClientUpdateDTO) returns(Client){}
 
@@ -22,12 +22,13 @@ service PersistentServer{
   rpc UpdateAccount(AccountUpdateDTO) returns(GrpcAccount){}
   rpc DeleteAccount(AccountBasicDTO) returns (GrpcResult){}
 
-  rpc GetAdministratorByID(AdministratorBasicDTO) returns (GrpcAdministrator){}
+  rpc GetClientByUsername(ClientUsernameDTO) returns (Client){}
+  
+  rpc GetAdminByUsername(AdministratorUsernameDTO) returns (GrpcAdministrator){}
 
   rpc GetMoneyTransferById(MoneyTransferBasicDTO) returns (GrpcMoneyTransfer){}
   rpc GetMoneyTransfers(AccountBasicDTO) returns (GrpcMoneyTransfers){}
   rpc MakeMoneyTransfer(CreateMoneyTransferDTO) returns (GrpcMoneyTransfer){}
-
 }
 message Empty{
 
@@ -38,6 +39,11 @@ message GrpcResult{
 message ClientUsernameDTO{
   string username = 1;
 }
+
+message AdministratorUsernameDTO{
+  string username = 1;
+}
+
 message ClientBasicDTO{
   int64 clientId = 1;
 }
@@ -72,6 +78,12 @@ message Client{
   string identityDocument = 7;
   string birthday = 8;
   string planType = 9;
+}
+
+message GrpcAdministrator{
+  string domain = 1;
+  string username = 2;
+  string password = 3;
 }
 
 message GrpcClients{
@@ -120,11 +132,7 @@ message AccountCreationDTO{
 message AdministratorBasicDTO{
   int64 administratorId = 1;
 }
-message GrpcAdministrator{
-  int64 administratorId = 1;
-  string username = 2;
-  string password = 3;
-}
+
 message MoneyTransferBasicDTO{
   int64 moneyTransferId = 1;
 }
