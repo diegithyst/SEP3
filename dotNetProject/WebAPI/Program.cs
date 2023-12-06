@@ -3,13 +3,14 @@ using Application.DaoInterfaces;
 using Application.Logic;
 using Application.LogicInterfaces;
 using Domain.Auth;
-using Domain.Model;
 using FileData;
 using FileData.DAOs;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+
 using WebAPI.WebAPIAuthServices;
 using FileData.Persistent_Server_Services;
+
 
 var builder = WebApplication.CreateBuilder(args);
 

@@ -1,8 +1,6 @@
-using System.Security.Cryptography;
 using Application.DaoInterfaces;
 using Domain.Model;
-using PersistentServerClient;
-using Client = Domain.Model.Client;
+using Domain.DTOs;
 
 namespace FileData.DAOs;
 
@@ -11,32 +9,23 @@ public class GrpcAdministratorServices : IAdministratorServices
 {
     private readonly PersistentServerClient.PersistentServer.PersistentServerClient psc;
 
-    public GrpcAdministratorServices(PersistentServer.PersistentServerClient psc)
+    public GrpcAdministratorServices(GrpcContext context)
     {
-        this.psc = psc;
+        psc = context.Psc;
     }
-
-    public Task<Administrator> CreateAsync(Administrator administrator)
-    {
-        throw new NotImplementedException();
-    }
-
+    
     public Task<Administrator?> GetByUsernameAsync(string username)
     {
-        PersistentServerClient.GrpcAdministrator grpcAdmin = psc.GetAdministratorByUsername(new PersistentServerClient.AdministratorBasicDTO() { Username = username,Password = password,EmailDomain = emaildomain });
-        if (grpcAdmin == null)
+        PersistentServerClient.GrpcAdministrator grpcAdministrator =
+            psc.GetAdminByUsername(new PersistentServerClient.AdministratorUsernameDTO{Username = username});
+        if (grpcAdministrator == null)
         {
             return null;
         }
         else
         {
-            return Task.FromResult(new Administrator { username = grpcAdmin.username,emailDomain = grpcAdmin.emailDomain,password = grpcAdmin.password});
-
+            return Task.FromResult(new Administrator
+                { username = grpcAdministrator.Username, password = grpcAdministrator.Username, emailDomain = grpcAdministrator.Domain});
         }
-    }
-
-    public Task<Administrator?> GetByIdAsync(long id)
-    {
-        throw new NotImplementedException();
     }
 }
