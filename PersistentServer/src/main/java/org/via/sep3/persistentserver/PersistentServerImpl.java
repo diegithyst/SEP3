@@ -152,12 +152,8 @@ public class PersistentServerImpl extends PersistentServerGrpc.PersistentServerI
                     .setParameter("username",request.getUsername())
                     .getSingleResultOrNull();
             if (administrator != null){
-                if (administrator.getPassword().equals(request.getPassword())) {
                     responseObserver.onNext(administrator.getProtoAdministrator());
                     responseObserver.onCompleted();
-                } else {
-                    responseObserver.onError(Status.PERMISSION_DENIED.asException());
-                }
             }else{
                 responseObserver.onError(Status.NOT_FOUND.asException());
             }

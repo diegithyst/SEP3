@@ -31,9 +31,9 @@ public class AccountLogic : IAccountLogic
             mainCurrency = dto.mainCurrency,
             loan = dto.loan,
             ownerId = dto.ownerId,
-            Euro = CurrencyMaker.MakeCurrencyWithValue("Euro", dto.mainCurrency.Equals("Euro") && dto.loan ? dto.value : 0),
-            Krone = CurrencyMaker.MakeCurrencyWithValue("Krone", dto.mainCurrency.Equals("Krone") && dto.loan ? dto.value : 0),
-            Pound = CurrencyMaker.MakeCurrencyWithValue("Pound", dto.mainCurrency.Equals("Pound") && dto.loan ? dto.value : 0)
+            Euro = CurrencyMaker.MakeCurrencyWithValue("Euro", dto.mainCurrency.ToLower().Equals("euro") && dto.loan ? dto.value : 0),
+            Krone = CurrencyMaker.MakeCurrencyWithValue("Krone", dto.mainCurrency.ToLower().Equals("krone") && dto.loan ? dto.value : 0),
+            Pound = CurrencyMaker.MakeCurrencyWithValue("Pound", dto.mainCurrency.ToLower().Equals("pound") && dto.loan ? dto.value : 0)
         };
         Account created = await accountServices.Create(account);
         return created;
