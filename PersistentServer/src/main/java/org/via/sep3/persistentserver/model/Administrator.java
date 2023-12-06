@@ -6,10 +6,12 @@ import org.via.sep3.persistentserver.proto.GrpcAdministrator;
 import java.util.List;
 
 @Entity(name = "Administrator")
-@Table(name = "administrator")
+@Table(name = "administrator",
+        uniqueConstraints = @UniqueConstraint(name = "uk_administrator_username",columnNames = {"username"}))
 public class Administrator {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "administratoridseq")
+    @SequenceGenerator(allocationSize = 1, name = "administratoridseq")
     private Long id;
     private String username;
     private String password;

@@ -18,73 +18,39 @@ public class AccountLogic : IAccountLogic
 
     public async Task<Account> CreateAsync(AccountCreationDTO dto)
     {
-        
+        //This needs updating depending whether the dto has loan true or false
+        //Loan true has only one currency and also a value of loan taken, so this needs to be pushed into the currencies entity
         Client? existing = await _clientDao.GetById(dto.ownerId);
         if (existing == null)
         {
             throw new Exception($"no client was found with the id {dto.ownerId}!");
         }
-
-        if (dto.loan)
+        Account account = new Account
         {
-            Account created = new Account();
-            created.mainCurrency = dto.mainCurrency;
-            created.loan = dto.loan;
-            created.name = dto.name;
-            created.ownerId = dto.ownerId;
-            created.Euro = new Euro();
-            created.Krone = new Krone();
-            created.Pound = new Pound();
-            switch (dto.mainCurrency.ToLower())
-            {
-                case "krone":
-                    created.Krone.balance = dto.value;
-                    created.Pound.balance = 0;
-                    created.Euro.balance = 0;
-                    break;
-                case "pound":
-                    created.Krone.balance = 0;
-                    created.Pound.balance = dto.value;
-                    created.Euro.balance = 0;
-                    break;
-                case "euro":
-                    created.Krone.balance = 0;
-                    created.Pound.balance = 0;
-                    created.Euro.balance = dto.value;
-                    break;
-                
-            }
-            return await accountServices.Create(created);
-        }
-        else
-        {
-            Account created = new Account();
-            created.mainCurrency = dto.mainCurrency;
-            created.loan = dto.loan;
-            created.name = dto.name;
-            created.ownerId = dto.ownerId;
-            created.Euro = new Euro();
-            created.Krone = new Krone();
-            created.Pound = new Pound();
-            created.Krone.balance = 0;
-            created.Pound.balance = 0;
-            created.Euro.balance = 0;
-            return await accountServices.Create(created);
-        }
+            name = dto.name,
+            mainCurrency = dto.mainCurrency,
+            loan = dto.loan,
+            ownerId = dto.ownerId,
+            Euro = CurrencyMaker.MakeCurrencyWithValue("Euro", dto.mainCurrency.Equals("Euro") && dto.loan ? dto.value : 0),
+            Krone = CurrencyMaker.MakeCurrencyWithValue("Krone", dto.mainCurrency.Equals("Krone") && dto.loan ? dto.value : 0),
+            Pound = CurrencyMaker.MakeCurrencyWithValue("Pound", dto.mainCurrency.Equals("Pound") && dto.loan ? dto.value : 0)
+        };
+        Account created = await accountServices.Create(account);
+        return created;
     }
 
-    public async Task<IEnumerable<Account?>> GetByOwnerIdAsync(long ownerId)
+    public Task<IEnumerable<Account?>> GetByOwnerIdAsync(long ownerId)
     {
-        return await accountServices.GetByOwnerId(ownerId);
+        return accountServices.GetByOwnerId(ownerId);
     }
 
-    public async Task<Account?> GetByIdAsync(long id)
+    public Task<Account?> GetByIdAsync(long id)
     {
         if (accountServices.GetById(id) == null)
         {
             throw new Exception("there is no account with that id");
         }
-        return await accountServices.GetById(id);
+        return accountServices.GetById(id);
     }
 
     public async Task UpdateBalanceAsync(Account account, double amount, string currency)
@@ -104,7 +70,7 @@ public class AccountLogic : IAccountLogic
 
         AccountUpdateDTO dto = new AccountUpdateDTO
         {
-            name = account.name, mainCurrency = account.mainCurrency, euro = account.Euro.balance, krone = account.Krone.balance,
+             id = account.id,clientId = account.ownerId,name = account.name, mainCurrency = account.mainCurrency, euro = account.Euro.balance, krone = account.Krone.balance,
             pound = account.Pound.balance
         };
 

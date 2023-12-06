@@ -36,13 +36,28 @@ public class PersistentServerImpl extends PersistentServerGrpc.PersistentServerI
     @Override
     public void getClientByUsername(ClientUsernameDTO request, StreamObserver<Client> responseObserver) {
         try(Session s = sf.openSession()){
-
-            org.via.sep3.persistentserver.model.Client c = (org.via.sep3.persistentserver.model.Client) s.createQuery("FROM Client WHERE userName = :username")
-                .setParameter("username", request.getUsername()).uniqueResult();
-            if(c != null){
-                responseObserver.onNext(c.getProtoClient());
+            org.via.sep3.persistentserver.model.Client client = s.createQuery("from Client c where c.username=:username", org.via.sep3.persistentserver.model.Client.class)
+                    .setParameter("username",request.getUsername())
+                    .getSingleResultOrNull();
+            if (client != null){
+                responseObserver.onNext(client.getProtoClient());
                 responseObserver.onCompleted();
-            }else {
+            }else{
+                responseObserver.onError(Status.NOT_FOUND.asException());
+            }
+        }
+    }
+
+    @Override
+    public void getClientByIdentityDocument(ClientIdentityDocumentDTO request, StreamObserver<Client> responseObserver) {
+        try(Session s = sf.openSession()){
+            org.via.sep3.persistentserver.model.Client client = s.createQuery("from Client c where c.identityDocument=:identityDocument", org.via.sep3.persistentserver.model.Client.class)
+                    .setParameter("identityDocument",request.getIdentityDocument())
+                    .getSingleResultOrNull();
+            if (client != null){
+                responseObserver.onNext(client.getProtoClient());
+                responseObserver.onCompleted();
+            }else{
                 responseObserver.onError(Status.NOT_FOUND.asException());
             }
         }
@@ -131,6 +146,25 @@ public class PersistentServerImpl extends PersistentServerGrpc.PersistentServerI
     }
 
     @Override
+    public void authenticateAdministrator(GrpcAuthenticateAdministrator request, StreamObserver<GrpcAdministrator> responseObserver) {
+        try(Session s = sf.openSession()){
+            Administrator administrator = s.createQuery("from Administrator a where a.username=:username", Administrator.class)
+                    .setParameter("username",request.getUsername())
+                    .getSingleResultOrNull();
+            if (administrator != null){
+                if (administrator.getPassword().equals(request.getPassword())) {
+                    responseObserver.onNext(administrator.getProtoAdministrator());
+                    responseObserver.onCompleted();
+                } else {
+                    responseObserver.onError(Status.PERMISSION_DENIED.asException());
+                }
+            }else{
+                responseObserver.onError(Status.NOT_FOUND.asException());
+            }
+        }
+    }
+
+    @Override
     public void getClients(Empty request, StreamObserver<GrpcClients> responseObserver) {
         try(Session s = sf.openSession()){
            List<org.via.sep3.persistentserver.model.Client> clients = s.createQuery("from Client", org.via.sep3.persistentserver.model.Client.class)
@@ -165,6 +199,9 @@ public class PersistentServerImpl extends PersistentServerGrpc.PersistentServerI
                 for(MoneyTransfer m : a.getMoneyTransfers()){
                     gas.addMoneyTransfers(m.getProtoMoneyTransfer());
                 }
+                for(MoneyTransfer m : a.getReceivedMoneyTransfers()){
+                    gas.addMoneyTransfers(m.getProtoMoneyTransfer());
+                }
                 responseObserver.onNext(gas.build());
                 responseObserver.onCompleted();
             }else {
@@ -176,7 +213,9 @@ public class PersistentServerImpl extends PersistentServerGrpc.PersistentServerI
     @Override
     public void deleteClient(ClientBasicDTO request, StreamObserver<GrpcResult> responseObserver) {
         try(Session s = sf.openSession()){
+            Transaction t = s.beginTransaction();
              s.remove(s.getReference(org.via.sep3.persistentserver.model.Client.class,request.getClientId()));
+             t.commit();
              responseObserver.onNext(GrpcResult.newBuilder().setSuccess(true).build());
              responseObserver.onCompleted();
         }
@@ -229,7 +268,9 @@ public class PersistentServerImpl extends PersistentServerGrpc.PersistentServerI
     @Override
     public void deleteAccount(AccountBasicDTO request, StreamObserver<GrpcResult> responseObserver) {
         try(Session s = sf.openSession()){
+            Transaction t = s.beginTransaction();
             s.remove(s.getReference(org.via.sep3.persistentserver.model.Account.class,request.getAccountId()));
+            t.commit();
             responseObserver.onNext(GrpcResult.newBuilder().setSuccess(true).build());
             responseObserver.onCompleted();
         }
@@ -242,8 +283,8 @@ public class PersistentServerImpl extends PersistentServerGrpc.PersistentServerI
             MoneyTransfer mt = new MoneyTransfer();
             mt.setSenderCurrency(request.getSenderCurrency());
             mt.setAmount(request.getAmount());
-            mt.setRecipientId(request.getRecipientId());
-            mt.setSenderId(s.get(org.via.sep3.persistentserver.model.Account.class,request.getSenderId()));
+            mt.setRecipient(s.get(org.via.sep3.persistentserver.model.Account.class,request.getRecipientId()));
+            mt.setSender(s.get(org.via.sep3.persistentserver.model.Account.class,request.getSenderId()));
             s.persist(mt);
             t.commit();
             responseObserver.onNext(mt.getProtoMoneyTransfer());

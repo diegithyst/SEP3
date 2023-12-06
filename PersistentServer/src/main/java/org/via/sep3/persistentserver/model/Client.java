@@ -7,10 +7,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity(name = "Client")
-@Table(name = "client")
+@Table(name = "client",
+uniqueConstraints = @UniqueConstraint(name = "uk_client_username",columnNames = {"username"}))
 public class Client {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "clientidseq")
+    @SequenceGenerator(allocationSize = 1, name = "clientidseq")
     private Long id;
     private String userName;
     private String firstName;

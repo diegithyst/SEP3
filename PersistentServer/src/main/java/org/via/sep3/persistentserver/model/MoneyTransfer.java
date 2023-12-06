@@ -7,19 +7,22 @@ import org.via.sep3.persistentserver.proto.GrpcMoneyTransfer;
 @Table(name = "moneyTransfer")
 public class MoneyTransfer {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "moneytransferidseq")
+    @SequenceGenerator(allocationSize = 1, name = "moneytransferidseq")
     private Long id;
-    private Long recipientId;
+    @ManyToOne
+    @JoinColumn(name = "recipient_id")
+    private Account recipient;
     private String senderCurrency;
     private Double amount;
     @ManyToOne
-    @JoinColumn(name = "account_id")
-    private Account senderId;
-    public MoneyTransfer(Long recipientId, String senderCurrency, Double amount, Account senderId) {
-        this.recipientId = recipientId;
+    @JoinColumn(name = "sender_id")
+    private Account sender;
+    public MoneyTransfer(Account recipient, String senderCurrency, Double amount, Account sender) {
+        this.recipient = recipient;
         this.senderCurrency = senderCurrency;
         this.amount = amount;
-        this.senderId = senderId;
+        this.sender = sender;
     }
     public MoneyTransfer() {
     }
@@ -27,12 +30,12 @@ public class MoneyTransfer {
         return id;
     }
 
-    public Long getRecipientId() {
-        return recipientId;
+    public Account getRecipient() {
+        return recipient;
     }
 
-    public void setRecipientId(Long recipientId) {
-        this.recipientId = recipientId;
+    public void setRecipient(Account recipient) {
+        this.recipient = recipient;
     }
 
     public String getSenderCurrency() {
@@ -51,17 +54,18 @@ public class MoneyTransfer {
         this.amount = amount;
     }
 
-    public Account getSenderId() {
-        return senderId;
+    public Account getSender() {
+        return sender;
     }
 
-    public void setSenderId(Account senderId) {
-        this.senderId = senderId;
+    public void setSender(Account sender) {
+        this.sender = sender;
     }
 
     public GrpcMoneyTransfer getProtoMoneyTransfer(){
-        return GrpcMoneyTransfer.newBuilder()
-                .setRecipientId(getRecipientId())
+        return GrpcMoneyTransfer.newBuilder().setMoneyTransferId(getId())
+                .setSenderId(sender.getId())
+                .setRecipientId(getRecipient().getId())
                 .setSenderCurrency(getSenderCurrency())
                 .setAmount(getAmount())
                 .build();
@@ -69,8 +73,8 @@ public class MoneyTransfer {
     @Override
     public String toString() {
         return "MoneyTransfer{" +
-                "sender='" + senderId + '\'' +
-                ", recipient='" + recipientId + '\'' +
+                "sender='" + sender.getId() + '\'' +
+                ", recipient='" + recipient.getId() + '\'' +
                 ", senderCurrency='" + senderCurrency + '\'' +
                 ", amount=" + amount +
                 '}';

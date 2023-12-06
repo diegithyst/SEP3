@@ -9,6 +9,7 @@ using FileData.DAOs;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using WebAPI.WebAPIAuthServices;;
+using FileData.Persistent_Server_Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,6 +24,8 @@ builder.Services.AddScoped<IGrpcClientServices, GrpcClientServices>();
 builder.Services.AddScoped<IClientLogic, ClientLogic>();
 builder.Services.AddScoped<IGrpcAccountServices, GrpcAccountServices>();
 builder.Services.AddScoped<IAccountLogic, AccountLogic>();
+builder.Services.AddScoped<IGrpcMoneyTransferServices, GrpcMoneyTransferServices>();
+builder.Services.AddScoped<IMoneyTransferLogic, MoneyTransferLogic>();
 builder.Services.AddScoped<IAdministratorServices, GrpcAdministratorServices>();
 builder.Services.AddScoped<IAdministratorLogic, AdministratorLogic>();
 builder.Services.AddScoped<IClientAuthService, ClientAuthService>();
@@ -43,8 +46,6 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
 });
 
 AuthorizationPolicies.AddPolicies(builder.Services);
-
-var app = builder.Build();
 
 app.UseCors(x => x
     .AllowAnyMethod()

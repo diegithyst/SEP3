@@ -13,10 +13,10 @@ public class GrpcAccountServices : IGrpcAccountServices
     }
 
 
-    public Task<Account> Create(Account accountCreationDTO)
+    public Task<Account> Create(Account account)
     {
-        PersistentServerClient.GrpcAccount ga = psc.CreateAccount(new PersistentServerClient.AccountCreationDTO {ClientId = accountCreationDTO.ownerId, MainCurrency = accountCreationDTO.mainCurrency, Name = accountCreationDTO.name, Loan = accountCreationDTO.loan, Euro = accountCreationDTO.Euro.balance, Krone = accountCreationDTO.Krone.balance, Pound = accountCreationDTO.Pound.balance});
-        Account created = new Account { id = ga.AccountId, ownerId = ga.ClientId, loan = ga.Loan, mainCurrency = ga.MainCurrency, name = ga.Name};
+        PersistentServerClient.GrpcAccount ga = psc.CreateAccount(new PersistentServerClient.AccountCreationDTO { ClientId = account.ownerId, MainCurrency = account.mainCurrency, Name = account.name, Loan = account.loan, Euro = account.Euro.balance, Krone = account.Krone.balance, Pound = account.Pound.balance });
+        Account created = new Account { id = ga.AccountId, ownerId = ga.ClientId, loan = ga.Loan, mainCurrency = ga.MainCurrency, name = ga.Name };
         created.Euro = new Euro();
         created.Krone = new Krone();
         created.Pound = new Pound();
@@ -36,7 +36,7 @@ public class GrpcAccountServices : IGrpcAccountServices
         PersistentServerClient.GrpcAccounts call = psc.GetClientAccounts(new PersistentServerClient.ClientBasicDTO { ClientId = ownerId });
         foreach (PersistentServerClient.GrpcAccount ga in call.Accounts)
         {
-            Account created = new Account {id = ga.AccountId, ownerId = ga.ClientId, loan = ga.Loan, mainCurrency = ga.MainCurrency, name = ga.Name };
+            Account created = new Account { id = ga.AccountId, ownerId = ga.ClientId, loan = ga.Loan, mainCurrency = ga.MainCurrency, name = ga.Name };
             created.Euro = new Euro();
             created.Krone = new Krone();
             created.Pound = new Pound();
@@ -58,7 +58,7 @@ public class GrpcAccountServices : IGrpcAccountServices
         PersistentServerClient.GrpcAccount ga = psc.GetAccountById(new PersistentServerClient.AccountBasicDTO { AccountId = id });
         if (ga != null)
         {
-            Account created = new Account { id= ga.AccountId, ownerId = ga.ClientId, loan = ga.Loan, mainCurrency = ga.MainCurrency, name = ga.Name };
+            Account created = new Account { id = ga.AccountId, ownerId = ga.ClientId, loan = ga.Loan, mainCurrency = ga.MainCurrency, name = ga.Name };
             created.Euro = new Euro();
             created.Krone = new Krone();
             created.Pound = new Pound();
@@ -77,41 +77,11 @@ public class GrpcAccountServices : IGrpcAccountServices
   
     public Task UpdateAccount(AccountUpdateDTO accountUpdateDTO)
     {
-        PersistentServerClient.GrpcAccount ga = psc.UpdateAccount(new PersistentServerClient.AccountUpdateDTO { Name = accountUpdateDTO.name, MainCurrency = accountUpdateDTO.mainCurrency, Euro = accountUpdateDTO.euro, Krone = accountUpdateDTO.krone, Pound = accountUpdateDTO.pound });
+        PersistentServerClient.GrpcAccount ga = psc.UpdateAccount(new PersistentServerClient.AccountUpdateDTO { AccountId = accountUpdateDTO.id, ClientId = accountUpdateDTO.clientId , Name = accountUpdateDTO.name, MainCurrency = accountUpdateDTO.mainCurrency, Euro = accountUpdateDTO.euro, Krone = accountUpdateDTO.krone, Pound = accountUpdateDTO.pound });
         if (ga != null){
             return Task.CompletedTask;
         }
         throw new Exception("Update  failed.");
     }
 
-    public Task TransferMoney(MoneyTransferCreationDto dto)
-    {
-        PersistentServerClient.GrpcMoneyTransfer gmt = psc.MakeMoneyTransfer(new PersistentServerClient.CreateMoneyTransferDTO { SenderId = dto.SenderAccountNumber, RecipientId = dto.ReceiverAccountNumber, SenderCurrency = dto.SenderCurrency, Amount = dto.Amount });
-        MoneyTransfer created = new MoneyTransfer { accountNumberSender = gmt.SenderId, accountNumberRecipient = gmt.RecipientId, currency = gmt.SenderCurrency, amount = gmt.Amount };
-        return Task.FromResult(created);
-    }
-    public Task GetMoneyTransferById(long id)
-    {
-        PersistentServerClient.GrpcMoneyTransfer gmt = psc.GetMoneyTransferById(new PersistentServerClient.MoneyTransferBasicDTO { MoneyTransferId = id });
-        if (gmt == null)
-        {
-            return null;
-        }
-        else
-        {
-            return Task.FromResult(new MoneyTransfer { id = gmt.MoneyTransferId, accountNumberSender = gmt.SenderId , accountNumberRecipient = gmt.RecipientId, amount = gmt.Amount, currency = gmt.SenderCurrency });
-
-        }
-    }
-    public Task<IEnumerable<MoneyTransfer>> GetMoneyTransfers(long accountId)
-    {
-        List<MoneyTransfer> moneyTransfers = new List<MoneyTransfer>();
-        PersistentServerClient.GrpcMoneyTransfers call = psc.GetMoneyTransfers(new PersistentServerClient.AccountBasicDTO { AccountId = accountId });
-        foreach (PersistentServerClient.GrpcMoneyTransfer grpcMoneyTransfer in call.MoneyTransfers)
-        {
-            moneyTransfers.Add(new MoneyTransfer { accountNumberSender = grpcMoneyTransfer.SenderId, accountNumberRecipient = grpcMoneyTransfer.RecipientId, currency = grpcMoneyTransfer.SenderCurrency, amount = grpcMoneyTransfer.Amount });
-        }
-
-        return Task.FromResult(moneyTransfers.AsEnumerable());
-    }
 }

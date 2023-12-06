@@ -1,4 +1,4 @@
-using System.Runtime.CompilerServices;
+
 
 namespace Domain.Model;
 
@@ -9,7 +9,7 @@ public class Account
     public string mainCurrency { get; set; }
     public bool loan { get; set; }
     public long ownerId { get; set; }
-    public long accountViewId { get; set; }
+
 
     public ICurrency Euro { get; set; }
     public ICurrency Pound { get; set; }

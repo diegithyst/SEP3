@@ -13,6 +13,7 @@ service PersistentServer{
   rpc CreateClient(ClientCreationDTO) returns (Client){}
   rpc GetClients(Empty) returns (GrpcClients){}
   rpc GetClientByUsername(ClientUsernameDTO) returns (Client){}
+  rpc GetClientByIdentityDocument(ClientIdentityDocumentDTO) returns (Client){}
   rpc DeleteClient(ClientBasicDTO) returns(GrpcResult){}
   rpc UpdateClient(ClientUpdateDTO) returns(Client){}
 
@@ -23,6 +24,7 @@ service PersistentServer{
   rpc DeleteAccount(AccountBasicDTO) returns (GrpcResult){}
 
   rpc GetAdministratorByID(AdministratorBasicDTO) returns (GrpcAdministrator){}
+  rpc AuthenticateAdministrator(GrpcAuthenticateAdministrator) returns (GrpcAdministrator){}
 
   rpc GetMoneyTransferById(MoneyTransferBasicDTO) returns (GrpcMoneyTransfer){}
   rpc GetMoneyTransfers(AccountBasicDTO) returns (GrpcMoneyTransfers){}
@@ -34,6 +36,9 @@ message Empty{
 }
 message GrpcResult{
   bool success = 1;
+}
+message ClientIdentityDocumentDTO{
+  string identityDocument = 1;
 }
 message ClientUsernameDTO{
   string username = 1;
@@ -88,10 +93,9 @@ message GrpcAccount{
   bool loan = 3;
   int64 clientId = 4;
   string name = 5;
-  int64 accountViewId = 6;
-  double euro = 7;
-  double krone = 8;
-  double pound = 9;
+  double euro = 6;
+  double krone = 7;
+  double pound = 8;
 
 }
 message GrpcAccounts{
@@ -103,10 +107,9 @@ message AccountUpdateDTO{
   bool loan = 3;
   int64 clientId = 4;
   string name = 5;
-  int64 accountViewId = 6;
-  double euro = 7;
-  double krone = 8;
-  double pound = 9;
+  double euro = 6;
+  double krone = 7;
+  double pound = 8;
 }
 message AccountCreationDTO{
   string mainCurrency = 1;
@@ -123,7 +126,10 @@ message AdministratorBasicDTO{
 message GrpcAdministrator{
   int64 administratorId = 1;
   string username = 2;
-  string password = 3;
+}
+message GrpcAuthenticateAdministrator{
+  string username = 1;
+  string password = 2;
 }
 message MoneyTransferBasicDTO{
   int64 moneyTransferId = 1;

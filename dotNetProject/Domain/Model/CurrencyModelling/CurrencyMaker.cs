@@ -16,4 +16,10 @@ public class CurrencyMaker
 
         return new Euro();
     }
+    public static ICurrency MakeCurrencyWithValue(string currencyString, double value)
+    {
+        ICurrency currency = MakeCurrency(currencyString);
+        currency.balance = value;
+        return currency;
+    }
 }

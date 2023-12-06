@@ -7,13 +7,13 @@ namespace Application.Logic;
 
 public class MoneyTransferLogic : IMoneyTransferLogic
 {
-    private IMoneyTransferDao moneyTransferServerice;
+    private IGrpcMoneyTransferServices moneyTransferServices;
     private IGrpcAccountServices accountServices;
     private IAccountLogic _accountLogic;
 
-    public MoneyTransferLogic(IMoneyTransferDao moneyTransferServerice, IGrpcAccountServices accountDao, IAccountLogic accountLogic)
+    public MoneyTransferLogic(IGrpcMoneyTransferServices moneyTransferServerices, IGrpcAccountServices accountDao, IAccountLogic accountLogic)
     {
-        this.moneyTransferServerice = moneyTransferServerice;
+        this.moneyTransferServices = moneyTransferServerices;
         this.accountServices = accountDao;
         this._accountLogic = accountLogic;
     }
@@ -21,39 +21,29 @@ public class MoneyTransferLogic : IMoneyTransferLogic
 
     public async Task<MoneyTransfer> CreateAsync(MoneyTransferCreationDto dto)
     {
-        MoneyTransfer transfer = new MoneyTransfer
+        MoneyTransferCreationDto transfer = new MoneyTransferCreationDto
         {
-            accountNumberRecipient = dto.ReceiverAccountNumber,
-            accountNumberSender = dto.SenderAccountNumber,
-            amount = dto.Amount,
-            currency = dto.SenderCurrency
+            SenderAccountNumber = dto.SenderAccountNumber,
+            ReceiverAccountNumber = dto.ReceiverAccountNumber,
+            SenderCurrency = dto.SenderCurrency,
+            Amount = dto.Amount
         };
-        Account accountRecipient = await accountServices.GetById(transfer.accountNumberRecipient);
-        Account accountSender = await accountServices.GetById(transfer.accountNumberSender);
+        Account accountRecipient = await accountServices.GetById(transfer.ReceiverAccountNumber);
+        Account accountSender = await accountServices.GetById(transfer.SenderAccountNumber);
         
-        _accountLogic.UpdateBalanceAsync(accountSender, -dto.Amount, dto.SenderCurrency);
-        _accountLogic.UpdateBalanceAsync(accountRecipient, dto.Amount, dto.SenderCurrency);
-        MoneyTransfer created = await moneyTransferServerice.CreateAsync(transfer);
+        await _accountLogic.UpdateBalanceAsync(accountSender, -dto.Amount, dto.SenderCurrency);
+        await _accountLogic.UpdateBalanceAsync(accountRecipient, dto.Amount, dto.SenderCurrency);
+        MoneyTransfer created = await moneyTransferServices.TransferMoney(transfer);
         return created;
     }
 
-    public Task<IEnumerable<MoneyTransfer?>> GetAsync()
-    {
-        return moneyTransferServerice.GetAsync();
-    }
-
-    public Task<IEnumerable<MoneyTransfer?>?> GetBySearchAsync(SearchTransferParametersDto dto)
-    {
-        return moneyTransferServerice.GetBySearchAsync(dto);
-    }
-    
-    public Task<IEnumerable<MoneyTransfer?>?> GetByAccountIdAsync(long id)
+    public Task<IEnumerable<MoneyTransfer>> GetByAccountIdAsync(long accountId)
         {
-            return moneyTransferServerice.GetByAccountIdAsync(id);
-        }
+        return moneyTransferServices.GetMoneyTransfers(accountId);
+    }
 
     public Task<MoneyTransfer?> GetByIdAsync(long id)
     {
-        return moneyTransferServerice.GetByIdAsync(id);
+        return moneyTransferServices.GetMoneyTransferById(id);
     }
 }

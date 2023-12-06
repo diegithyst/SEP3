@@ -1,8 +1,10 @@
+h2/*
 .idea/*
 PersistentServer/.idea/*
 PersistentServer/target/*
 PersistentServer/database/*
 PersistentServer/ps.log
+PersistentServer/ps.log.lck
 .vs/*
 dotNetProject/WebAPI/bin/*
 dotNetProject/WebAPI/obj/*

@@ -9,6 +9,8 @@ namespace Domain.DTOs
     public class AccountUpdateDTO
     {
         public string name { get; set; }
+        public long id { get; set; }
+        public long clientId { get; set;}
         public string mainCurrency { get; set; }
         public double euro { get; set; }
         public double krone { get; set; }

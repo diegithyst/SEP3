@@ -14,4 +14,7 @@ public class MoneyTransferCreationDto
         this.SenderCurrency = currency;
         this.Amount = value;
     }
+    public MoneyTransferCreationDto()
+    {
+    }
 }
