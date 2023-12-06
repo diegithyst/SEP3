@@ -23,7 +23,7 @@ public class GrpcAdministratorServices : IAdministratorServices
 
     public Task<Administrator?> GetByUsernameAsync(string username)
     {
-        PersistentServerClient.Admin grpcAdmin = psc.GetAdministratorByUsername(new PersistentServerClient.AdministratorBasicDTO() { Username = username,Password = password,EmailDomain = emaildomain });
+        PersistentServerClient.GrpcAdministrator grpcAdmin = psc.GetAdministratorByUsername(new PersistentServerClient.AdministratorBasicDTO() { Username = username,Password = password,EmailDomain = emaildomain });
         if (grpcAdmin == null)
         {
             return null;
