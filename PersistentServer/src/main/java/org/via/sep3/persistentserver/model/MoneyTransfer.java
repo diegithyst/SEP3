@@ -9,34 +9,22 @@ public class MoneyTransfer {
     @Id
     @GeneratedValue
     private Long id;
-    private Long senderId;
     private Long recipientId;
     private String senderCurrency;
     private Double amount;
-    private Double commission;
     @ManyToOne
     @JoinColumn(name = "account_id")
-    private Account account;
-    public MoneyTransfer(Long senderId, Long recipientId, String senderCurrency, Double amount, Double commission, Account account) {
-        this.senderId = senderId;
+    private Account senderId;
+    public MoneyTransfer(Long recipientId, String senderCurrency, Double amount, Account senderId) {
         this.recipientId = recipientId;
         this.senderCurrency = senderCurrency;
         this.amount = amount;
-        this.commission = commission;
-        this.account = account;
+        this.senderId = senderId;
     }
     public MoneyTransfer() {
     }
     public Long getId() {
         return id;
-    }
-
-    public Long getSenderId() {
-        return senderId;
-    }
-
-    public void setSenderId(Long senderId) {
-        this.senderId = senderId;
     }
 
     public Long getRecipientId() {
@@ -63,29 +51,19 @@ public class MoneyTransfer {
         this.amount = amount;
     }
 
-    public Double getCommission() {
-        return commission;
+    public Account getSenderId() {
+        return senderId;
     }
 
-    public void setCommission(Double commission) {
-        this.commission = commission;
-    }
-
-    public Account getAccount() {
-        return account;
-    }
-
-    public void setAccount(Account account) {
-        this.account = account;
+    public void setSenderId(Account senderId) {
+        this.senderId = senderId;
     }
 
     public GrpcMoneyTransfer getProtoMoneyTransfer(){
         return GrpcMoneyTransfer.newBuilder()
-                .setSenderId(getSenderId())
                 .setRecipientId(getRecipientId())
                 .setSenderCurrency(getSenderCurrency())
                 .setAmount(getAmount())
-                .setCommission(getCommission())
                 .build();
     }
     @Override
@@ -95,7 +73,6 @@ public class MoneyTransfer {
                 ", recipient='" + recipientId + '\'' +
                 ", senderCurrency='" + senderCurrency + '\'' +
                 ", amount=" + amount +
-                ", commission=" + commission +
                 '}';
     }
 }

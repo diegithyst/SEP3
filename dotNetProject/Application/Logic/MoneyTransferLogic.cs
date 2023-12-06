@@ -25,14 +25,14 @@ public class MoneyTransferLogic : IMoneyTransferLogic
         {
             accountNumberRecipient = dto.ReceiverAccountNumber,
             accountNumberSender = dto.SenderAccountNumber,
-            value = dto.Value,
-            currency = CurrencyMaker.MakeCurrency(dto.Currency)
+            amount = dto.Amount,
+            currency = dto.SenderCurrency
         };
         Account accountRecipient = await accountServices.GetById(transfer.accountNumberRecipient);
         Account accountSender = await accountServices.GetById(transfer.accountNumberSender);
         
-        _accountLogic.UpdateBalanceAsync(accountSender, -dto.Value, dto.Currency);
-        _accountLogic.UpdateBalanceAsync(accountRecipient, dto.Value, dto.Currency);
+        _accountLogic.UpdateBalanceAsync(accountSender, -dto.Amount, dto.SenderCurrency);
+        _accountLogic.UpdateBalanceAsync(accountRecipient, dto.Amount, dto.SenderCurrency);
         MoneyTransfer created = await moneyTransferServerice.CreateAsync(transfer);
         return created;
     }

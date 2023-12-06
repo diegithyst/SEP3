@@ -24,7 +24,7 @@ public class Account {
     @ManyToOne
     @JoinColumn(name = "client_id")
     private Client owner;
-    @OneToMany(mappedBy = "account", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "senderId", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<MoneyTransfer> moneyTransfers = new ArrayList<>();
     public Account(Long accountViewId, String mainCurrency, Double euro, Double krone, Double pound, Boolean loan, Client owner, String name) {
         this.accountViewId = accountViewId;

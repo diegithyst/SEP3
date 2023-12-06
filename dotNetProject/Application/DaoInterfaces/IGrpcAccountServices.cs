@@ -10,4 +10,6 @@ public interface IGrpcAccountServices
     Task<Account> GetById(long id);
     Task TransferMoney(MoneyTransferCreationDto dto);
     Task UpdateAccount(AccountUpdateDTO accountUpdateDTO);
+    Task GetMoneyTransferById(long id);
+    Task<IEnumerable<MoneyTransfer>> GetMoneyTransfers(long accountId);
 }

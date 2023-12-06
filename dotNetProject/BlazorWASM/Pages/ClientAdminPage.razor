@@ -67,7 +67,7 @@
                 <td>@item!.accountNumberSender</td>
                 <td>@item.accountNumberRecipient</td>
                 <td>@item.id</td>
-                <td>@item.value</td>
+                <td>@item.amount</td>
                 <td><button @onclick="@(()=> revertTransaction(item.id))">Revert</button></td>
             </tr>
         }
@@ -129,7 +129,7 @@
     private async void revertTransaction(long id)
     {
         MoneyTransfer? transfer = await MoneyTransferService.GetByIdAsync(id);
-        MoneyTransferCreationDto dto = new MoneyTransferCreationDto(transfer!.accountNumberSender, transfer.accountNumberRecipient, transfer.currency.name, transfer.value);
+        MoneyTransferCreationDto dto = new MoneyTransferCreationDto(transfer!.accountNumberSender, transfer.accountNumberRecipient, transfer.currency, transfer.amount);
         await MoneyTransferService.CreateAsync(dto);
     }
 

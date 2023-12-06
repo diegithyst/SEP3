@@ -34,7 +34,7 @@ public class MyLogger {
       throw new UncheckedIOException(e);
     }
     rootLogger.setLevel(Level.INFO);
-    Logger.getLogger("org.hibernate.SQL").setLevel(Level.FINE);
+    Logger.getLogger("org.hibernate").setLevel(Level.FINE);
     Logger.getLogger("org.hibernate.persister.entity.AbstractEntityPersister").setLevel(Level.FINE);
   }
 }

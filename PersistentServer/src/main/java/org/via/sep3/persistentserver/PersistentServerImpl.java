@@ -187,6 +187,7 @@ public class PersistentServerImpl extends PersistentServerGrpc.PersistentServerI
         try(Session s = sf.openSession()){
             org.via.sep3.persistentserver.model.Client c = s.get(org.via.sep3.persistentserver.model.Client.class,request.getClientId());
             if(c != null){
+                Transaction t = s.beginTransaction();
                 c.setUserName(request.getUserName());
                 c.setFirstName(request.getFirstName());
                 c.setLastName(request.getLastName());
@@ -195,8 +196,7 @@ public class PersistentServerImpl extends PersistentServerGrpc.PersistentServerI
                 c.setCountry(request.getCountry());
                 c.setIdentityDocument(request.getIdentityDocument());
                 c.setPlanType(request.getPlanType());
-                s.clear();
-                s.merge(c);
+                t.commit();
                 responseObserver.onNext(c.getProtoClient());
                 responseObserver.onCompleted();
             }else {
@@ -210,11 +210,13 @@ public class PersistentServerImpl extends PersistentServerGrpc.PersistentServerI
         try(Session s = sf.openSession()){
             org.via.sep3.persistentserver.model.Account a = s.get(org.via.sep3.persistentserver.model.Account.class,request.getAccountId());
             if(a != null){
+                Transaction t = s.beginTransaction();
                 a.setMainCurrency(request.getMainCurrency());
                 a.setEuro(request.getEuro());
                 a.setKrone(request.getKrone());
                 a.setPound(request.getPound());
                 a.setName(request.getName());
+                t.commit();
                 responseObserver.onNext(a.getProtoAccount());
                 responseObserver.onCompleted();
             }else {
@@ -237,11 +239,10 @@ public class PersistentServerImpl extends PersistentServerGrpc.PersistentServerI
         try(Session s = sf.openSession()){
             Transaction t = s.beginTransaction();
             MoneyTransfer mt = new MoneyTransfer();
-            mt.setSenderId(request.getSenderId());
             mt.setSenderCurrency(request.getSenderCurrency());
             mt.setAmount(request.getAmount());
-            mt.setCommission(request.getCommission());
             mt.setRecipientId(request.getRecipientId());
+            mt.setSenderId(s.get(org.via.sep3.persistentserver.model.Account.class,request.getSenderId()));
             s.persist(mt);
             t.commit();
             responseObserver.onNext(mt.getProtoMoneyTransfer());
