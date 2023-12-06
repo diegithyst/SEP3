@@ -5,15 +5,16 @@ public static class PlanMaker
     
     public static IPlan MakePlan(string planString)
     {
-        switch (planString)
+        string real = planString.ToLower();
+        switch (real)
         {
-            case "Default":
+            case "default":
                 return new DefaultPlan();
-            case "Bronze":
+            case "bronze":
                 return new BronzePlan();
-            case "Silver":
+            case "silver":
                 return new SilverPlan();
-            case "Gold":
+            case "gold":
                 return new GoldPlan();
         }
 

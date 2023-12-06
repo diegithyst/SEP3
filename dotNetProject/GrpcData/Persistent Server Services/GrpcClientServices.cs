@@ -16,7 +16,7 @@ public class GrpcClientServices : IGrpcClientServices
     
     public Task<Client> Create(ClientCreationDTO dto)
     {
-        PersistentServerClient.Client grpcClient = psc.CreateClient(new PersistentServerClient.ClientCreationDTO { UserName = dto.username, FirstName = dto.firstname, LastName = dto.lastname, Password = dto.password, Country = dto.country, Birthday = dto.birthday, IdentityDocument = dto.identityDocument, PlanType = dto.planType });
+        PersistentServerClient.Client grpcClient = psc.CreateClient(new PersistentServerClient.ClientCreationDTO { UserName = dto.username, FirstName = dto.firstname, LastName = dto.lastname, Password = dto.password, Country = dto.country, Birthday = dto.birthday, IdentityDocument = dto.identityDocument, PlanType = new DefaultPlan().getName() });
         
         return Task.FromResult(new Client { id = grpcClient.ClientId, firstname = grpcClient.FirstName,lastname = grpcClient.LastName,username = grpcClient.UserName, password = grpcClient.Password, country = grpcClient.Country, birthday = grpcClient.Birthday, identityDocument = grpcClient.IdentityDocument, planType = new DefaultPlan() });
     }

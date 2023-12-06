@@ -30,6 +30,7 @@ public class ClientLogic : IClientLogic
             }
         }
 
+
         //ValidateData(clientToCreate);
         //TODO what restrictions do we want?
         ClientCreationDTO toCreate = new ClientCreationDTO
@@ -41,7 +42,7 @@ public class ClientLogic : IClientLogic
             country = clientToCreate.country,
             identityDocument = clientToCreate.identityDocument,
             birthday = clientToCreate.birthday,
-            planType = clientToCreate.planType,
+            planType = clientToCreate.planType
         };
 
         Client created = await clientServices.Create(toCreate);
@@ -69,17 +70,17 @@ public class ClientLogic : IClientLogic
             throw new Exception($"The client with id: {updateDto.id} doesn't exist");
         }
 
-        string firstnameToChange = updateDto.firstname ?? toEdit.firstname;
-        string lastnameToChange = updateDto.lastname ?? toEdit.lastname;
-        string usernameToChange = updateDto.username ?? toEdit.username;
-        string passwordToChange = updateDto.password ?? toEdit.password;
-        string countryToChange = updateDto.country ?? toEdit.country;
-        string ident = updateDto.identityDocument ?? toEdit.identityDocument;
-        string birthToCh = updateDto.birthday ?? toEdit.birthday;
-        string planToChange = updateDto.planType ?? toEdit.planType.getName();
+        string? firstnameToChange = updateDto.firstname ?? toEdit.firstname;
+        string? lastnameToChange = updateDto.lastname ?? toEdit.lastname;
+        string? usernameToChange = updateDto.username ?? toEdit.username;
+        string? passwordToChange = updateDto.password ?? toEdit.password;
+        string? countryToChange = updateDto.country ?? toEdit.country;
+        string? ident = updateDto.identityDocument ?? toEdit.identityDocument;
+        string? birthToCh = updateDto.birthday ?? toEdit.birthday;
+        string? planToChange = updateDto.planType ?? toEdit.planType?.getName();
         
 
-        ClientUpdateDTO updated = new ClientUpdateDTO(updateDto.id)
+        ClientUpdateDTO updated = new ClientUpdateDTO(toEdit.id)
         {
             firstname = firstnameToChange,
             lastname = lastnameToChange,
@@ -88,8 +89,7 @@ public class ClientLogic : IClientLogic
             country = countryToChange,
             identityDocument = ident,
             birthday = birthToCh,
-            planType = planToChange,
-            id = toEdit.id,
+            planType = planToChange
         };
         
         await clientServices.Update(updated);
