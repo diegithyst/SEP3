@@ -1,6 +1,7 @@
 package org.via.sep3.persistentserver.model;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.NaturalId;
 
 import java.util.ArrayList;
 import java.util.List;

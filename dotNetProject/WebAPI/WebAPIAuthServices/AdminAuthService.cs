@@ -5,6 +5,7 @@ namespace WebAPI.WebAPIAuthServices;
 
 public class AdminAuthService : IAdminAuthService
 {
+
     private readonly IAdministratorLogic adminLogic;
 
     public AdminAuthService(IAdministratorLogic administratorLogic)
