@@ -81,7 +81,18 @@
     private async void buyPlan(string plan)
     {
         IPlan realPlan = PlanMaker.MakePlan(plan);
-        ClientUpdateDTO dto = new ClientUpdateDTO(client.firstname, client.lastname, client.username, client.password, client.country, client.identityDocument, client.birthday, plan, client.id);
+        ClientUpdateDTO dto = new ClientUpdateDTO(Id)
+        {
+            firstname = client.firstname,
+            lastname = client.lastname,
+            username = client.username,
+            password = client.password,
+            country = client.country,
+            identityDocument = client.identityDocument,
+            birthday = client.birthday,
+            planType = plan,
+            id = client.id
+        };
         navMgr.NavigateTo("/Accounts");
     }
 

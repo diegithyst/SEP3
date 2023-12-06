@@ -44,7 +44,7 @@ public class JwtAuthService : IAuthService
 
         string clientAsJson = JsonSerializer.Serialize(clientLoginDto);
         StringContent content = new(clientAsJson, Encoding.UTF8, "application/json");
-        HttpResponseMessage response = await client.PostAsync("https:://localhost:7112/Auth/login", content);
+        HttpResponseMessage response = await client.PostAsync("https://localhost:7112/auth/login", content);
 
         string responseContent = await response.Content.ReadAsStringAsync();
         if (!response.IsSuccessStatusCode)

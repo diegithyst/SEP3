@@ -15,13 +15,13 @@ namespace WebAPI.Controllers;
 public class AuthController : ControllerBase
 {
     private readonly IConfiguration config;
-    private readonly IClientAuthService clientAuth;
+    private readonly IClientAuthService authService;
     private readonly IAdminAuthService adminAuth;
 
-    public AuthController(IConfiguration config, IClientAuthService clientAuth, IAdminAuthService adminAuth)
+    public AuthController(IConfiguration config, IClientAuthService authService, IAdminAuthService adminAuth)
     {
         this.config = config;
-        this.clientAuth = clientAuth;
+        this.authService = authService;
         this.adminAuth = adminAuth;
     }
     
@@ -99,7 +99,7 @@ public class AuthController : ControllerBase
     {
         try
         {
-            Client user = await clientAuth.GetClientAsync(userLoginDto.Username, userLoginDto.Password);
+            Client user = await authService.GetClientAsync(userLoginDto.Username, userLoginDto.Password);
             string token = GenerateJwtClient(user);
             return Ok(token);
         }
