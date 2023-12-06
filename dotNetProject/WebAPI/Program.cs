@@ -3,12 +3,13 @@ using Application.DaoInterfaces;
 using Application.Logic;
 using Application.LogicInterfaces;
 using Domain.Auth;
-using Domain.Model;
 using FileData;
 using FileData.DAOs;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
-using WebAPI.WebAPIAuthServices;;
+
+using WebAPI.WebAPIAuthServices;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -43,7 +44,6 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
 });
 
 AuthorizationPolicies.AddPolicies(builder.Services);
-
 var app = builder.Build();
 
 app.UseCors(x => x
