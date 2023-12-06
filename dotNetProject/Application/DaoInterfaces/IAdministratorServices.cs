@@ -2,7 +2,7 @@ using Domain.Model;
 
 namespace Application.DaoInterfaces;
 
-public interface IAdministratorDao
+public interface IAdministratorServices
 {
     Task<Administrator> CreateAsync(Administrator administrator);
     Task<Administrator?> GetByUsernameAsync(string username);
