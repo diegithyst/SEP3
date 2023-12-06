@@ -28,7 +28,7 @@
         {
             try
             {
-                await accountService.CreateAsync(new AccountCreationDTO(mainCurrency, value, true, id, name));
+                await accountService.CreateAsync(new AccountCreationDTO(mainCurrency, true, value, id, name));
             }
             catch (Exception e)
             {
@@ -39,7 +39,7 @@
         {
             try
             {
-                await accountService.CreateAsync(new AccountCreationDTO(mainCurrency, value, false, id, name));
+                await accountService.CreateAsync(new AccountCreationDTO(mainCurrency, false, value, id, name));
             }
             catch (Exception e)
             {
