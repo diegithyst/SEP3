@@ -112,11 +112,10 @@ message AccountCreationDTO{
   string mainCurrency = 1;
   int64 clientId = 2;
   string name = 3;
-  int64 accountViewId = 4;
-  bool loan = 5;
-  double euro = 6;
-  double krone = 7;
-  double pound = 8;
+  bool loan = 4;
+  double euro = 5;
+  double krone = 6;
+  double pound = 7;
 }
 message AdministratorBasicDTO{
   int64 administratorId = 1;

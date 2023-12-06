@@ -23,7 +23,7 @@ builder.Services.AddScoped<IGrpcClientServices, GrpcClientServices>();
 builder.Services.AddScoped<IClientLogic, ClientLogic>();
 builder.Services.AddScoped<IGrpcAccountServices, GrpcAccountServices>();
 builder.Services.AddScoped<IAccountLogic, AccountLogic>();
-builder.Services.AddScoped<IAdministratorDao, GrpcAdministratorServices>();
+builder.Services.AddScoped<IAdministratorServices, GrpcAdministratorServices>();
 builder.Services.AddScoped<IAdministratorLogic, AdministratorLogic>();
 builder.Services.AddScoped<IClientAuthService, ClientAuthService>();
 builder.Services.AddScoped<IAdminAuthService, AdminAuthService>();

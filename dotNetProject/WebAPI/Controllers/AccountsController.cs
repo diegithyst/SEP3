@@ -30,8 +30,9 @@ public class AccountsController : ControllerBase
             return StatusCode(500, e.Message);
         }
     }
+    
 
-    [HttpGet ()]
+    [HttpGet]
     public async Task<ActionResult<IEnumerable<Account>>> GetByOwnerIdAsync([FromQuery] long ownerId)
     {
         try

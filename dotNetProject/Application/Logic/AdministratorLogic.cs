@@ -7,9 +7,9 @@ namespace Application.Logic;
 
 public class AdministratorLogic : IAdministratorLogic
 {
-    private readonly IAdministratorDao adminServices;
+    private readonly IAdministratorServices adminServices;
 
-    public AdministratorLogic(IAdministratorDao adminServices)
+    public AdministratorLogic(IAdministratorServices adminServices)
     {
         this.adminServices = adminServices;
     }

@@ -89,7 +89,7 @@ public class Main {
                 if (s.createQuery("from Account", Account.class).stream().count() < 1) {
                     Transaction t = s.beginTransaction();
                     MyLogger.getInstance().log("***psinit", "db is empty so put some bootstrap data into it. ");
-                    Account account = new Account(100L, "Euro", 100.0, 100.0, 100.0, false, s.get(Client.class, 1), "main");
+                    Account account = new Account( "Euro", 100.0, 100.0, 100.0, false, s.get(Client.class, 1), "main");
                     s.persist(account);
                     t.commit();
                 } else {
