@@ -102,7 +102,6 @@ public class PersistentServerImpl extends PersistentServerGrpc.PersistentServerI
         try(Session s = sf.openSession()){
             Transaction t = s.beginTransaction();
             org.via.sep3.persistentserver.model.Account a = new org.via.sep3.persistentserver.model.Account();
-            a.setAccountViewId(request.getAccountViewId());
             a.setOwner( s.get(org.via.sep3.persistentserver.model.Client.class,request.getClientId()));
             a.setMainCurrency(request.getMainCurrency());
             a.setEuro(request.getEuro());

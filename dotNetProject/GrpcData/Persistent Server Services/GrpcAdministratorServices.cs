@@ -3,7 +3,7 @@ using Domain.Model;
 
 namespace FileData.DAOs;
 
-public class GrpcAdministratorServices : IAdministratorDao
+public class GrpcAdministratorServices : IAdministratorServices
 {
     public Task<Administrator> CreateAsync(Administrator administrator)
     {

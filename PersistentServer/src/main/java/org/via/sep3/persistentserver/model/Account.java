@@ -13,7 +13,6 @@ public class Account {
     @Id
     @GeneratedValue
     private Long id;
-    private Long accountViewId;
     private String mainCurrency;
     private Boolean loan;
 
@@ -26,8 +25,7 @@ public class Account {
     private Client owner;
     @OneToMany(mappedBy = "senderId", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<MoneyTransfer> moneyTransfers = new ArrayList<>();
-    public Account(Long accountViewId, String mainCurrency, Double euro, Double krone, Double pound, Boolean loan, Client owner, String name) {
-        this.accountViewId = accountViewId;
+    public Account(String mainCurrency, Double euro, Double krone, Double pound, Boolean loan, Client owner, String name) {
         this.mainCurrency = mainCurrency;
         this.loan = loan;
         this.owner = owner;
@@ -44,13 +42,6 @@ public class Account {
         return id;
     }
 
-    public Long getAccountViewId() {
-        return accountViewId;
-    }
-
-    public void setAccountViewId(Long accountViewId) {
-        this.accountViewId = accountViewId;
-    }
 
     public String getMainCurrency() {
         return mainCurrency;
@@ -109,7 +100,6 @@ public class Account {
 
     public GrpcAccount getProtoAccount(){
         return GrpcAccount.newBuilder().setAccountId(getId())
-                .setAccountViewId(getAccountViewId())
                 .setMainCurrency(getMainCurrency())
                 .setEuro(getEuro())
                 .setKrone(getKrone())
