@@ -1,5 +1,8 @@
+using BlazorWASM.Auth;
+using Domain.Auth;
 using HttpClients.ClientInterfaces;
 using HttpClients.Implementations;
+using Microsoft.AspNetCore.Components.Authorization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +13,8 @@ builder.Services.AddScoped<IAccountService, AccountHttpClient>();
 builder.Services.AddScoped<IAuthService, JwtAuthService>();
 builder.Services.AddScoped<IClientService, ClientHttpClient>();
 builder.Services.AddScoped<IMoneyTransferService, MoneyTransferClient>();
+builder.Services.AddScoped<AuthenticationStateProvider, CustomAuthProvider>();
+AuthorizationPolicies.AddPolicies(builder.Services);
 builder.Services.AddScoped(
     sp => 
         new HttpClient { 
