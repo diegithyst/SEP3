@@ -5,6 +5,8 @@
 @using System.Security.Claims
 @inject IClientService clientService
 @inject NavigationManager navMgr
+@attribute [Authorize]
+
 
 @if (client != null)
 {

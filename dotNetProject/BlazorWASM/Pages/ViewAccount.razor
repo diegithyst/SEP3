@@ -14,6 +14,9 @@
 </div>
 
 @code {
+    [CascadingParameter]
+    private Task<AuthenticationState> AuthState { get; set; } = null!;
+    
     [Parameter]
     public int id { get; set; }
     private string MainCurrency = "";
@@ -28,6 +31,9 @@
     {
         try
         {
+            var user = (await AuthState).User;
+            id = Int32.Parse(user.Claims.First(claim => claim.Type.Equals("Id")).Value);
+            
             Account account = await accountService.GetAccountAsync(id);
             MainCurrency = account.mainCurrency;
             Loan = account.loan;
@@ -42,5 +48,4 @@
             msg = e.Message;
         }
     }
-
 }

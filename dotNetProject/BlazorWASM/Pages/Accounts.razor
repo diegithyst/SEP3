@@ -3,6 +3,8 @@
 @using HttpClients.ClientInterfaces
 @inject IAccountService accountService
 @inject NavigationManager nav
+@attribute [Authorize]
+
 
 <h3>Accounts</h3>
 @if (accounts != null)
@@ -20,7 +22,7 @@
         {
             <tr>
                 <td>@item.id</td>
-                <td @onclick="@(() => nav.NavigateTo($"/ViewAccount/{id:int}"))">@item.name </td>
+                <td @onclick="@(() => nav.NavigateTo($"/ViewAccount/{id}"))">@item.name </td>
             </tr>
         }
         </tbody>
