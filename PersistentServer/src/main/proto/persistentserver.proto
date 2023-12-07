@@ -86,7 +86,7 @@ message Client{
 }
 
 message GrpcAdministrator{
-  string domain = 1;
+  int64 administratorId = 1;
   string username = 2;
   string password = 3;
 }
