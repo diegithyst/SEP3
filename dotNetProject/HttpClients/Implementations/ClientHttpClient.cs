@@ -14,7 +14,7 @@ public class ClientHttpClient : IClientService
     {
         this.client = client;
     } 
-    public async Task<ICollection<Client>> GetAsync()
+    public async Task<ICollection<ClientUpdateDTO>> GetAsync()
     {
         HttpResponseMessage responseMessage = await client.GetAsync("/client");
         string content = await responseMessage.Content.ReadAsStringAsync();
@@ -23,7 +23,7 @@ public class ClientHttpClient : IClientService
             throw new Exception(content);
         }
 
-        ICollection<Client> clients = JsonSerializer.Deserialize<ICollection<Client>>(content, new JsonSerializerOptions
+        ICollection<ClientUpdateDTO> clients = JsonSerializer.Deserialize<ICollection<ClientUpdateDTO>>(content, new JsonSerializerOptions
         {
             PropertyNameCaseInsensitive = true
         })!;;
@@ -34,7 +34,7 @@ public class ClientHttpClient : IClientService
     {
         string userAsJson = JsonSerializer.Serialize(dto);
         StringContent content = new(userAsJson, Encoding.UTF8, "application/json");
-        HttpResponseMessage responseMessage = await client.PostAsync("https://localhost:5066/Auth/register", content);
+        HttpResponseMessage responseMessage = await client.PostAsync("https://localhost:7112/Auth/register", content);
         string responseContent = await responseMessage.Content.ReadAsStringAsync();
         if (!responseMessage.IsSuccessStatusCode)
         {
@@ -42,16 +42,16 @@ public class ClientHttpClient : IClientService
         }
     }
 
-    public async Task<Client> GetByIdAsync(long id)
+    public async Task<ClientUpdateDTO> GetByIdAsync(long id)
     {
-        HttpResponseMessage responseMessage = await client.GetAsync($"/client/{id}");
+        HttpResponseMessage responseMessage = await client.GetAsync($"/clients/{id}");
         string content = await responseMessage.Content.ReadAsStringAsync();
         if (!responseMessage.IsSuccessStatusCode)
         {
             throw new Exception(content);
         }
 
-        Client tmp = JsonSerializer.Deserialize<Client>(content, new JsonSerializerOptions
+        ClientUpdateDTO tmp = JsonSerializer.Deserialize<ClientUpdateDTO>(content, new JsonSerializerOptions
         {
             PropertyNameCaseInsensitive = true
         })!;
@@ -85,7 +85,7 @@ public class ClientHttpClient : IClientService
     {
         string userAsJson = JsonSerializer.Serialize(dto);
         StringContent content = new(userAsJson, Encoding.UTF8, "application/json");
-        HttpResponseMessage responseMessage = await client.PostAsync("https://localhost:5066/Auth/register", content);
+        HttpResponseMessage responseMessage = await client.PostAsync("https://localhost:7112/Auth/register", content);
         string responseContent = await responseMessage.Content.ReadAsStringAsync();
         if (!responseMessage.IsSuccessStatusCode)
         {

@@ -1,4 +1,4 @@
-@page "/Plan/{id:int}"
+@page "/Plan"
 @using Domain.Model
 @using HttpClients.ClientInterfaces
 @using Domain.DTOs
@@ -6,7 +6,7 @@
 @inject IClientService clientService
 @inject NavigationManager navMgr
 
-@if (client != null && loggedUsername.Equals(client.username))
+@if (client != null)
 {
     <text>Currently selected plan is </text>
     <table class="table">
@@ -36,17 +36,17 @@
 {
     <label>@msg</label>
 }
-    
 }
+@if (client == null)
+{
 <text>You have no permission to enter this page</text>
+}
 
 @code {
 
-    [Parameter]
-    public int Id { get; set; }
-    
+
     [CascadingParameter]
-    public Task<AuthenticationState?> AuthState { get; set; }
+    public Task<AuthenticationState?> AuthState { get; set; } = null!;
 
     private string msg = "";
 
@@ -54,7 +54,7 @@
 
     private string[] planDescriptions = new[]
     {
-        $"You get free banking! {System.Environment.NewLine} You get no comission on regular transactions and free exchange of currencies. With no limit! {System.Environment.NewLine} Finally, you get 0,005 interest rate and 0,25 loan rate!",
+        $"You get free banking! {System.Environment.NewLine} You get no commission on regular transactions and free exchange of currencies. With no limit! {System.Environment.NewLine} Finally, you get 0,005 interest rate and 0,25 loan rate!",
         $"You get all the benefits from the previous plan! {System.Environment.NewLine} Plus, you get 0,01 interest rate and 0,10 loan rate!",
         $"You get all the benefits from the previous plan! {System.Environment.NewLine} Plus, you get 0,02 interest rate and 0,08 loan rate!",
         $"You get all the benefits from the previous plan! {System.Environment.NewLine} Plus, you get 0,05 interest rate and 0,1 loan rate!"
@@ -62,26 +62,22 @@
 
     private double[] prices = new[] { 0.0, 2.99, 4.99, 7.49 };
 
-    private Client? client { get; set; }
+    private ClientUpdateDTO? client { get; set; }
     private string? loggedUsername { get; set; }
+    private long id;
 
     protected override async Task OnInitializedAsync()
     {
-        client = await clientService.GetByIdAsync(Id);
-        
-        AuthenticationState? authState = await AuthState;
-        ClaimsPrincipal? user = authState.User;
-        if (user.Identity != null)
-        {
-            loggedUsername = user.Identity.Name;
-        }
+        var user = (await AuthState).User;
+        id = long.Parse(user.Claims.First(claim => claim.Type.Equals("Id")).Value);
+        client = await clientService.GetByIdAsync(id);
     }
 
 
     private async void buyPlan(string plan)
     {
         IPlan realPlan = PlanMaker.MakePlan(plan);
-        ClientUpdateDTO dto = new ClientUpdateDTO(Id)
+        ClientUpdateDTO dto = new ClientUpdateDTO(id)
         {
             firstname = client.firstname,
             lastname = client.lastname,

@@ -1,23 +1,27 @@
 @page "/AdminMainPage"
 @using System.Security.Claims
+@using Domain.DTOs
 @using Domain.Model
 @using HttpClients.ClientInterfaces
 @inject IClientService ClientSquared
 @inject NavigationManager nvgMg
+@attribute [Authorize("emailDomain")]
 
-<div class="post-list">
-    <div class="post-card">
-        @foreach (var client in Clients)
-        {
-            <div class="post">
-                <h2 class="post-title">
-                    <a href="/ClientAdminPage/@client.id">@client.firstname @client.lastname</a>
-                </h2>
-                <p class="post-date">ID: @client.id</p>
-            </div>
-        }
+
+    <div class="post-list">
+        <div class="post-card">
+            @foreach (var client in Clients)
+            {
+                <div class="post">
+                    <h2 class="post-title">
+                        <a href="/ClientAdminPage/@client.id">@client.firstname @client.lastname</a>
+                    </h2>
+                    <p class="post-date">ID: @client.id</p>
+                </div>
+            }
+        </div>
     </div>
-</div>
+
 
 @code {
 
@@ -25,14 +29,33 @@
     public Task<AuthenticationState> AuthState { get; set; } = null!;
 
     private Administrator admin;
-    private IEnumerable<Client> Clients;
+    private IEnumerable<ClientUpdateDTO> Clients;
+    string loggedAdmin = "";
+    private long id;
 
     protected override async Task OnInitializedAsync()
     {
-        AuthenticationState authState = await AuthState;
-        ClaimsPrincipal admin_ = authState.User;
+        try
+        {
+            
+            var user  = (await AuthState).User;
+            id = Int32.Parse(user.Claims.First(claim => claim. Type.Equals ("Id" )).Value);
+            
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
+
     //TODO check that the logged user is an admin
 
         Clients = await ClientSquared.GetAsync();
     }
+
+    private bool isAdmin(string username)
+    {
+        return username.Equals("Admin1");
+    }
+
 }

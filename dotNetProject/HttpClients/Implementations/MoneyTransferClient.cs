@@ -29,7 +29,7 @@ public class MoneyTransferClient : IMoneyTransferService
     {
         string query = ConstructQuery(receiverAccount, senderAccount);
 
-        HttpResponseMessage response = await client.GetAsync("/trasnfers" + query);
+        HttpResponseMessage response = await client.GetAsync("/trasnfer" + query);
         string content = await response.Content.ReadAsStringAsync();
         if (!response.IsSuccessStatusCode)
         {

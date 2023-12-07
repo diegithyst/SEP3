@@ -90,7 +90,7 @@
     [CascadingParameter]
     public Task<AuthenticationState> AuthState { get; set; } = null!;
 
-    private Client _client;
+    private ClientUpdateDTO _client;
     private ClientUpdateDTO clientDTO;
     private IEnumerable<MoneyTransfer?>? transactions;
 
@@ -102,7 +102,7 @@
         _client = await ClientSquared.GetByIdAsync(id);
         transactions = await MoneyTransferService.GetAsync();
 
-        currentPlan = _client.planType.getName();
+        currentPlan = _client.planType!;
         clientDTO.firstname = _client.firstname;
         clientDTO.lastname = _client.lastname;
         clientDTO.username = _client.username;

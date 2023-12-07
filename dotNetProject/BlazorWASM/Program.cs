@@ -18,7 +18,7 @@ AuthorizationPolicies.AddPolicies(builder.Services);
 builder.Services.AddScoped(
     sp => 
         new HttpClient { 
-            BaseAddress = new Uri("http://localhost:5066") 
+            BaseAddress = new Uri("https://localhost:7112") 
         }
 );
 

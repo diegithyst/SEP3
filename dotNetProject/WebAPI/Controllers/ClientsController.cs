@@ -47,13 +47,29 @@ public class ClientsController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<Client?>>> GetAsync()
+    public async Task<ActionResult<IEnumerable<ClientUpdateDTO?>>> GetAsync()
     {
         try
         {
             ClientBasicDTO parameters = new ClientBasicDTO{ username = null, password = null};
-            IEnumerable<Client> clients = await _clientLogic.GetAll();
-            return Ok(clients);
+            IEnumerable<Client?> clients = await _clientLogic.GetAll();
+            IList<ClientUpdateDTO?>? clientsSend = null;
+            foreach (var client in clients)
+            {
+                clientsSend.Add(new ClientUpdateDTO(client.id)
+                {
+                    birthday = client.birthday,
+                    country = client.country,
+                    firstname = client.firstname,
+                    identityDocument = client.identityDocument,
+                    lastname = client.lastname,
+                    password = client.password,
+                    planType = client.planType.getName()
+                });
+            }
+
+            IEnumerable<ClientUpdateDTO?>? clients2 = clientsSend?.AsEnumerable();
+            return Ok(clients2);
         }
         catch (Exception e)
         {
@@ -67,8 +83,19 @@ public class ClientsController : ControllerBase
     {
         try
         {
-            Client client = await _clientLogic.GetByIdAsync(id);
-            return Ok(client);
+            Client? client = await _clientLogic.GetByIdAsync(id);
+
+            ClientUpdateDTO test = new ClientUpdateDTO(id)
+            {
+                birthday = client.birthday,
+                country = client.country,
+                firstname = client.firstname,
+                identityDocument = client.identityDocument,
+                lastname = client.lastname,
+                password = client.password,
+                planType = client.planType.getName()
+            };
+            return Ok(test);
 
         }
         catch (Exception e)
