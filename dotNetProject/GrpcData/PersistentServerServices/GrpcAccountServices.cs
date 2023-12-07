@@ -30,7 +30,7 @@ public class GrpcAccountServices : IGrpcAccountServices
         return Task.FromResult(created);
     }
 
-    public Task<IEnumerable<Account>> GetByOwnerId(long ownerId)
+    public Task<IEnumerable<Account>> GetByClientId(long ownerId)
     {
         List<Account> ownerAccounts = new List<Account>();
         PersistentServerClient.GrpcAccounts call = psc.GetClientAccounts(new PersistentServerClient.ClientBasicDTO { ClientId = ownerId });

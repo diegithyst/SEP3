@@ -5,15 +5,17 @@
 @inject NavigationManager nav
 
 <h3>Accounts</h3>
-<table class="table">
-    <thead>
+@if (accounts != null)
+{
+    <table class="table">
+        <thead>
         <tr>
             <th>Account ID</th>
             <th>Account Name</th>
-            
+
         </tr>
-    </thead>
-    <tbody>
+        </thead>
+        <tbody>
         @foreach (var item in accounts)
         {
             <tr>
@@ -21,8 +23,9 @@
                 <td @onclick="@(() => nav.NavigateTo($"/ViewAccount/{id:int}"))">@item.name </td>
             </tr>
         }
-    </tbody>
-</table>
+        </tbody>
+    </table>
+}
 @code {
 
     [CascadingParameter]
@@ -33,13 +36,14 @@
 
     protected override async Task OnInitializedAsync()
     {
-        var user = (await AuthState).User;
-        id = Int32.Parse(user.Claims.First(claim => claim.Type.Equals("Id")).Value);
         msg = "";
+        
         try
         {
+            var user = (await AuthState).User;
+            id = Int32.Parse(user.Claims.First(claim => claim.Type.Equals("Id")).Value);
             //This may not work :c
-            accounts = await accountService.GetAccountsByClientIdAsync(id);
+            accounts = await accountService.GetByClientIdAsync(id);
         }
         catch (Exception e)
         {

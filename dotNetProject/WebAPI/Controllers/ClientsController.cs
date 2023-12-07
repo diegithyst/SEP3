@@ -31,11 +31,11 @@ public class ClientsController : ControllerBase
     }
 
     [HttpGet("GetByUsername/")]
-    public async Task<ActionResult<IEnumerable<Client>>> GetByUsernameAsync([FromQuery] string? username)
+    public async Task<ActionResult<IEnumerable<Client?>?>> GetByUsernameAsync([FromQuery] string? username)
     {
         try
         {
-            Client client = await _clientLogic.GetByUsernameAsync(username);
+            Client? client = await _clientLogic.GetByUsernameAsync(username);
             return Ok(client);
 
         }
@@ -53,11 +53,12 @@ public class ClientsController : ControllerBase
         {
             ClientBasicDTO parameters = new ClientBasicDTO{ username = null, password = null};
             IEnumerable<Client?> clients = await _clientLogic.GetAll();
-            IList<ClientUpdateDTO?>? clientsSend = null;
+            IList<ClientUpdateDTO?>? clientsSend = new List<ClientUpdateDTO?>();
             foreach (var client in clients)
             {
-                clientsSend.Add(new ClientUpdateDTO(client.id)
+                ClientUpdateDTO temp = new ClientUpdateDTO(client.id)
                 {
+                    username = client.username,
                     birthday = client.birthday,
                     country = client.country,
                     firstname = client.firstname,
@@ -65,7 +66,8 @@ public class ClientsController : ControllerBase
                     lastname = client.lastname,
                     password = client.password,
                     planType = client.planType.getName()
-                });
+                };
+                clientsSend.Add(temp);
             }
 
             IEnumerable<ClientUpdateDTO?>? clients2 = clientsSend?.AsEnumerable();
@@ -87,6 +89,7 @@ public class ClientsController : ControllerBase
 
             ClientUpdateDTO test = new ClientUpdateDTO(id)
             {
+                username = client.username,
                 birthday = client.birthday,
                 country = client.country,
                 firstname = client.firstname,

@@ -34,13 +34,13 @@ public class AccountsController : ControllerBase
     
 
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<Account>>> GetByOwnerIdAsync([FromQuery] long ownerId)
+    public async Task<ActionResult<IEnumerable<Account?>?>> GetByClientIdAsync([FromQuery] long ownerId)
+    
     {
         try
         {
-            IEnumerable<Account?> accounts = await _accountLogic.GetByOwnerIdAsync(ownerId);
+            IEnumerable<Account?> accounts = await _accountLogic.GetByClientIdAsync(ownerId);
             return Ok(accounts);
-
         }
         catch (Exception e)
         {

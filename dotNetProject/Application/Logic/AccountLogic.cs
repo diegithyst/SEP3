@@ -39,9 +39,9 @@ public class AccountLogic : IAccountLogic
         return created;
     }
 
-    public Task<IEnumerable<Account?>> GetByOwnerIdAsync(long ownerId)
+    public Task<IEnumerable<Account?>> GetByClientIdAsync(long ownerId)
     {
-        return accountServices.GetByOwnerId(ownerId);
+        return accountServices.GetByClientId(ownerId);
     }
 
     public Task<Account?> GetByIdAsync(long id)

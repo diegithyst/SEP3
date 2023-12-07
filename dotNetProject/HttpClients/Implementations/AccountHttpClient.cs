@@ -50,16 +50,16 @@ public class AccountHttpClient : IAccountService
         }
     }
 
-    public async Task<ICollection<Account>> GetAccountsByClientIdAsync(long id)
+    public async Task<ICollection<Account>> GetByClientIdAsync(long id)
     {
-        HttpResponseMessage response = await client.GetAsync($"/Accounts/{id}");
+        HttpResponseMessage response = await client.GetAsync($"/accounts/?ownerId={id}");
         string content = await response.Content.ReadAsStringAsync();
         if (!response.IsSuccessStatusCode)
         {
             throw new Exception(content);
         }
 
-        ICollection<Account> accounts = JsonSerializer.Deserialize<ICollection<Account>>(content);
+        ICollection<Account>? accounts = JsonSerializer.Deserialize<ICollection<Account>>(content);
         return accounts;
     }
 
