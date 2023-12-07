@@ -22,13 +22,16 @@ public class JwtAuthService : IAuthService
 
         string adminAsJson = JsonSerializer.Serialize(clientLoginDto);
         StringContent content = new(adminAsJson, Encoding.UTF8, "application/json");
-        HttpResponseMessage response = await client.PostAsync("https:://localhost:7112/Auth/loginAdmin", content);
+        HttpResponseMessage response = await client.PostAsync("https://localhost:7112/Auth/loginAdmin", content);
 
         string responseContent = await response.Content.ReadAsStringAsync();
         if (!response.IsSuccessStatusCode)
         {
             throw new Exception(responseContent);
         }
+        
+        string token = responseContent;
+        Jwt = token;
 
         ClaimsPrincipal principal = CreateClaimsPrincipal();
         OnAuthStateChanged.Invoke(principal);
@@ -51,6 +54,9 @@ public class JwtAuthService : IAuthService
         {
             throw new Exception(responseContent);
         }
+        
+        string token = responseContent;
+        Jwt = token;
 
         ClaimsPrincipal principal = CreateClaimsPrincipal();
         OnAuthStateChanged.Invoke(principal);
@@ -107,5 +113,5 @@ public class JwtAuthService : IAuthService
         ClaimsPrincipal principal = new(identity);
         return principal;
     }
-    
+
 }
