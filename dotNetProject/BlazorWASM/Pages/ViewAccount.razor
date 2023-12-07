@@ -11,6 +11,12 @@
     <p>Currency of the account: @MainCurrency</p>
     <br/>
     <p>Loan of the account: @Loan</p>
+    <br/>
+    <p>Euros In Account: @_euro.balance </p>
+    <br/>
+    <p>Pounds In Account: @_pound.balance </p>
+    <br/>
+    <p>Krone In Account: @_krone.balance </p>
 </div>
 
 @code {
@@ -22,9 +28,9 @@
     private string MainCurrency = "";
     private bool Loan;
     private string name;
-    private ICurrency _euro;
-    private ICurrency _pound;
-    private ICurrency _krone;
+    private ICurrency _euro = new Euro();
+    private ICurrency _pound= new Pound();
+    private ICurrency _krone= new Krone();
     private string msg = "";
 
     protected override async Task OnInitializedAsync()

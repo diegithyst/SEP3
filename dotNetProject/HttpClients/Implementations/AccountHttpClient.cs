@@ -31,13 +31,23 @@ public class AccountHttpClient : IAccountService
         {
             throw new Exception(result);
         }
-
-        Account account = JsonSerializer.Deserialize<Account>(result, new JsonSerializerOptions
+        
+        AccountJsonDto accountDto = JsonSerializer.Deserialize<AccountJsonDto>(result, new JsonSerializerOptions
         {
             PropertyNameCaseInsensitive = true
         })!;
+        Account newAccount = new Account();
+        newAccount.id = accountDto.id;
+        newAccount.name = accountDto.name;
+        newAccount.mainCurrency = accountDto.mainCurrency;
+        newAccount.Euro = accountDto.euro;
+        newAccount.Krone = accountDto.krone;
+        newAccount.Pound = accountDto.pound;
+        newAccount.ownerId = accountDto.ownerId;
+        newAccount.loan = accountDto.loan;
 
-        return account;
+
+        return newAccount;
     }
 
     public async Task CreateAsync(AccountCreationDTO dto)
@@ -54,13 +64,28 @@ public class AccountHttpClient : IAccountService
     {
         HttpResponseMessage response = await client.GetAsync($"/accounts/?ownerId={id}");
         string content = await response.Content.ReadAsStringAsync();
+        Console.WriteLine(content);
         if (!response.IsSuccessStatusCode)
         {
             throw new Exception(content);
         }
-
-        ICollection<Account>? accounts = JsonSerializer.Deserialize<ICollection<Account>>(content);
-        return accounts;
+        
+        ICollection<AccountJsonDto> accounts = JsonSerializer.Deserialize<ICollection<AccountJsonDto>>(content);
+        ICollection<Account> accountList = new List<Account>();
+        foreach (var accountDto in accounts)
+        {
+            Account newAccount = new Account();
+            newAccount.id = accountDto.id;
+            newAccount.name = accountDto.name;
+            newAccount.mainCurrency = accountDto.mainCurrency;
+            newAccount.Euro = accountDto.euro;
+            newAccount.Krone = accountDto.krone;
+            newAccount.Pound = accountDto.pound;
+            newAccount.ownerId = accountDto.ownerId;
+            newAccount.loan = accountDto.loan;
+            accountList.Add(newAccount);
+        }
+        return accountList;
     }
 
     public Task UpdateAsync()
