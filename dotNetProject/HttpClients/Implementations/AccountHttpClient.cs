@@ -58,9 +58,22 @@ public class AccountHttpClient : IAccountService
         {
             throw new Exception(content);
         }
-
-        ICollection<Account> accounts = JsonSerializer.Deserialize<ICollection<Account>>(content);
-        return accounts;
+        ICollection<AccountUpdateDTO> accounts = JsonSerializer.Deserialize<ICollection<AccountUpdateDTO>>(content);
+        ICollection<Account> accountList = new List<Account>();
+        foreach (var accountDto in accounts)
+        {
+            Account newAccount = new Account();
+            newAccount.id = accountDto.id;
+            newAccount.name = accountDto.name;
+            newAccount.mainCurrency = accountDto.mainCurrency;
+            newAccount.Euro.balance = accountDto.euro;
+            newAccount.Krone.balance = accountDto.krone;
+            newAccount.Pound.balance = accountDto.pound;
+            newAccount.ownerId = accountDto.clientId;
+            newAccount.loan = false;
+            accountList.Add(newAccount);
+        }
+        return accountList;
     }
 
     public Task UpdateAsync()
