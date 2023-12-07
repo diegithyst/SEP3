@@ -2,7 +2,6 @@ using Application.LogicInterfaces;
 using Domain.DTOs;
 using Domain.Model;
 using Microsoft.AspNetCore.Mvc;
-
 namespace WebAPI.Controllers;
 
 [ApiController]
@@ -31,21 +30,21 @@ public class ClientsController : ControllerBase
         }
     }
 
-    /*[HttpGet]
-    public async Task<ActionResult<IEnumerable<Client>>> GetByNameAsync([FromQuery] string? name)
+    [HttpGet("GetByUsername/")]
+    public async Task<ActionResult<IEnumerable<Client>>> GetByUsernameAsync([FromQuery] string? username)
     {
         try
         {
-            SearchClientParametersDto parameters = new(name);
-            IEnumerable<Client> clients = await _clientLogic.GetByNameAsync(parameters);
-            return Ok(clients);
+            Client client = await _clientLogic.GetByUsernameAsync(username);
+            return Ok(client);
+
         }
         catch (Exception e)
         {
             Console.WriteLine(e);
             return StatusCode(500, e.Message);
         }
-    }*/
+    }
 
     [HttpGet]
     public async Task<ActionResult<IEnumerable<Client?>>> GetAsync()
@@ -93,5 +92,18 @@ public class ClientsController : ControllerBase
             return StatusCode(500, e.Message);
         }
     }
-
+    [HttpDelete("{id:long}")]
+    public async Task<ActionResult> DeleteAsync([FromRoute] long id)
+    {
+        try
+        {
+            await _clientLogic.DeleteClientAsync(id);
+            return Ok();
+        }
+        catch(Exception e)
+        {
+            Console.WriteLine(e);
+            return StatusCode(500, e.Message);
+        }
+    }
 }

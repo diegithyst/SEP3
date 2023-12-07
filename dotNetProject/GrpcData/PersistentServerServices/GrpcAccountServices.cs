@@ -83,5 +83,9 @@ public class GrpcAccountServices : IGrpcAccountServices
         }
         throw new Exception("Update  failed.");
     }
-
+    public Task<Boolean> Delete(long id)
+    {
+        PersistentServerClient.GrpcResult result = psc.DeleteAccount(new PersistentServerClient.AccountBasicDTO { AccountId = id });
+        return Task.FromResult(result.Success);
+    }
 }

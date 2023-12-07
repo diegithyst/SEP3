@@ -1,3 +1,4 @@
+using Application.Logic;
 using Application.LogicInterfaces;
 using Domain.DTOs;
 using Domain.Model;
@@ -43,6 +44,21 @@ public class TransferMoneyController : ControllerBase
             return StatusCode(500, e.Message);
         }
     }
-    
-    
+
+    [HttpGet]
+    public async Task<ActionResult<MoneyTransfer>> GetMoneyTransferById([FromQuery] long id)
+    {
+        try
+        {
+            MoneyTransfer? existing = await mtLogic.GetByIdAsync(id);
+            return Ok(existing);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            return StatusCode(500, e.Message);
+        }
+    }
+
+
 }

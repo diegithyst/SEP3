@@ -21,22 +21,17 @@ public class GrpcClientServices : IGrpcClientServices
         return Task.FromResult(new Client { id = grpcClient.ClientId, firstname = grpcClient.FirstName,lastname = grpcClient.LastName,username = grpcClient.UserName, password = grpcClient.Password, country = grpcClient.Country, birthday = grpcClient.Birthday, identityDocument = grpcClient.IdentityDocument, planType = new DefaultPlan() });
     }
 
-    public Task<Boolean> Delete(long id)
-    {
-        PersistentServerClient.GrpcResult result = psc.DeleteClient(new PersistentServerClient.ClientBasicDTO { ClientId = id });
-        return Task.FromResult(result.Success);
-    }
-
     public Task<Client?> GetById(long id)
     {
         PersistentServerClient.Client grpcClient = psc.GetClientById(new PersistentServerClient.ClientBasicDTO { ClientId = id });
-        IPlan newPlan = PlanMaker.MakePlan(grpcClient.PlanType);
+        
         if (grpcClient == null)
         {
             return null;
         }
         else
         {
+            IPlan newPlan = PlanMaker.MakePlan(grpcClient.PlanType);
             return Task.FromResult(new Client { id = grpcClient.ClientId, firstname = grpcClient.FirstName,lastname = grpcClient.LastName,username = grpcClient.UserName, password = grpcClient.Password, country = grpcClient.Country, birthday = grpcClient.Birthday, identityDocument = grpcClient.IdentityDocument, planType = newPlan });
 
         }
@@ -45,13 +40,27 @@ public class GrpcClientServices : IGrpcClientServices
     public Task<Client?> GetByUsername(string username)
     {
         PersistentServerClient.Client grpcClient = psc.GetClientByUsername(new PersistentServerClient.ClientUsernameDTO { Username = username });
-        IPlan newPlan = PlanMaker.MakePlan(grpcClient.PlanType);
         if (grpcClient == null)
         {
             return null;
         }
         else
         {
+            IPlan newPlan = PlanMaker.MakePlan(grpcClient.PlanType);
+            return Task.FromResult(new Client { id = grpcClient.ClientId, firstname = grpcClient.FirstName, lastname = grpcClient.LastName, username = grpcClient.UserName, password = grpcClient.Password, country = grpcClient.Country, birthday = grpcClient.Birthday, identityDocument = grpcClient.IdentityDocument, planType = newPlan });
+
+        }
+    }
+    public Task<Client?> GetByIdentityDocument(string identityDocument)
+    {
+        PersistentServerClient.Client grpcClient = psc.GetClientByIdentityDocument(new PersistentServerClient.ClientIdentityDocumentDTO { IdentityDocument = identityDocument });
+        if (grpcClient == null)
+        {
+            return null;
+        }
+        else
+        {
+            IPlan newPlan = PlanMaker.MakePlan(grpcClient.PlanType);
             return Task.FromResult(new Client { id = grpcClient.ClientId, firstname = grpcClient.FirstName, lastname = grpcClient.LastName, username = grpcClient.UserName, password = grpcClient.Password, country = grpcClient.Country, birthday = grpcClient.Birthday, identityDocument = grpcClient.IdentityDocument, planType = newPlan });
 
         }
@@ -81,5 +90,10 @@ public class GrpcClientServices : IGrpcClientServices
             return Task.FromResult(new Client { id = grpcClient.ClientId, firstname = grpcClient.FirstName, lastname = grpcClient.LastName, username = grpcClient.UserName, password = grpcClient.Password, country = grpcClient.Country, birthday = grpcClient.Birthday, identityDocument = grpcClient.IdentityDocument, planType = newPlan });
         }
         throw new Exception("Update  failed.");
+    }
+    public Task<Boolean> Delete(long id)
+    {
+        PersistentServerClient.GrpcResult result = psc.DeleteClient(new PersistentServerClient.ClientBasicDTO { ClientId = id });
+        return Task.FromResult(result.Success);
     }
 }

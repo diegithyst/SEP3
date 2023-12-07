@@ -76,4 +76,8 @@ public class AccountLogic : IAccountLogic
 
         await accountServices.UpdateAccount(dto);
     }
+    public Task<Boolean> DeleteAsync(long id)
+    {
+        return accountServices.Delete(id);
+    }
 }

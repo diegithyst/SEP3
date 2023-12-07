@@ -12,4 +12,5 @@ public interface IClientLogic
     Task<Client?> GetByIdAsync(long id);
     Task UpdateAsync(ClientUpdateDTO updateDto);
     Task<Client?> GetByUsernameAsync(string username);
+    Task<Boolean> DeleteClientAsync(long id);
 }

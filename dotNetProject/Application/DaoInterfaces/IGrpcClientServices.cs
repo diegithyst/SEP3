@@ -10,6 +10,7 @@ public interface IGrpcClientServices
 
     Task<IEnumerable<Client>> GetClients();
     Task<Client?> GetByUsername(string username);
+    Task<Client?>GetByIdentityDocument(string identityDocument);
     Task<Client> Update(ClientUpdateDTO client);
     Task<Boolean> Delete(long id);
 }

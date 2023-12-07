@@ -9,4 +9,5 @@ public interface IGrpcAccountServices
     Task<IEnumerable<Account>> GetByOwnerId(long ownerId);
     Task<Account> GetById(long id);
     Task UpdateAccount(AccountUpdateDTO accountUpdateDTO);
+    Task<Boolean> Delete(long id);
 }

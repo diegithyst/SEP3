@@ -36,7 +36,7 @@ public class PersistentServerImpl extends PersistentServerGrpc.PersistentServerI
     @Override
     public void getClientByUsername(ClientUsernameDTO request, StreamObserver<Client> responseObserver) {
         try(Session s = sf.openSession()){
-            org.via.sep3.persistentserver.model.Client client = s.createQuery("from Client c where c.username=:username", org.via.sep3.persistentserver.model.Client.class)
+            org.via.sep3.persistentserver.model.Client client = s.createQuery("from Client c where c.userName=:username", org.via.sep3.persistentserver.model.Client.class)
                     .setParameter("username",request.getUsername())
                     .getSingleResultOrNull();
             if (client != null){

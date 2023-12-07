@@ -17,22 +17,20 @@ public class ClientLogic : IClientLogic
 
     public async Task<Client> CreateAsync(ClientCreationDTO clientToCreate)
     {
-        IEnumerable<Client> existing = await clientServices.GetClients();
-
-        if (existing != null)
+        Client client = null;
+        try
         {
-            foreach (var client in existing)
-            {
-                if (client.identityDocument.Equals(clientToCreate.identityDocument))
-                {
-                    throw new Exception("There is already a client with this Identity Document!");
-                }
-            }
+            client = await clientServices.GetByIdentityDocument(clientToCreate.identityDocument);
         }
-
-
+        catch (Exception ex)
+        {
+            //There is no existing client with this identitydocumment, which is good.
+        }
+        if (client != null)
+        {
+            throw new Exception("There is already a client with this Identity Document!");
+        }
         //ValidateData(clientToCreate);
-        //TODO what restrictions do we want?
         ClientCreationDTO toCreate = new ClientCreationDTO
         {
             firstname = clientToCreate.firstname,
@@ -99,4 +97,9 @@ public class ClientLogic : IClientLogic
     {
         return clientServices.GetByUsername(username);
     }
+    public Task<Boolean> DeleteClientAsync(long id)
+    {
+        return clientServices.Delete(id);
+    }
+
 }

@@ -1,3 +1,4 @@
+using Application.Logic;
 using Application.LogicInterfaces;
 using Domain.DTOs;
 using Domain.Model;
@@ -55,6 +56,21 @@ public class AccountsController : ControllerBase
         {
             Account? existing = await _accountLogic.GetByIdAsync(accountId);
             return Ok(existing);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            return StatusCode(500, e.Message);
+        }
+    }
+
+    [HttpDelete("{id:long}")]
+    public async Task<ActionResult> DeleteAsync([FromRoute] long id)
+    {
+        try
+        {
+            await _accountLogic.DeleteAsync(id);
+            return Ok();
         }
         catch (Exception e)
         {

@@ -11,4 +11,5 @@ public interface IAccountLogic
     
     Task<Account?> GetByIdAsync(long id);
     Task UpdateBalanceAsync(Account account, double amount, string currency);
+    Task<Boolean> DeleteAsync(long id);
 }
