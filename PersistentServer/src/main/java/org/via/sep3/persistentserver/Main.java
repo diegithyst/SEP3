@@ -86,7 +86,7 @@ public class Main {
                         MyLogger.getInstance().log("***psinit", "db has a client: " + c);
                     }
                 }
-                if (s.createQuery("from Client", Client.class).stream().count() < 1) {
+                if (s.createQuery("from Client", Client.class).stream().count() < 2) {
                     Transaction t = s.beginTransaction();
                     MyLogger.getInstance().log("***psinit", "db is empty so put some bootstrap data into it. ");
                     s.persist(new Client("Dummy", "dummy", "user", "password", "DK", "BBBBB", "21101980", "default"));
