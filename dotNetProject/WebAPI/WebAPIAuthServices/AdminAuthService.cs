@@ -15,6 +15,13 @@ public class AdminAuthService : IAdminAuthService
     public async Task<Administrator> GetAdminAsync(string username, string password)
     {
         Administrator admin = await adminLogic.GetByUsernameAsync(username);
-        return admin;
+        if (admin.password.Equals(password))
+        {
+            return admin; 
+        }
+        else
+        {
+            throw new Exception("Password mismatch");
+        }
     }
 }

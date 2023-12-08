@@ -14,6 +14,13 @@ public class ClientAuthService : IClientAuthService
     public async Task<Client> GetClientAsync(string username, string password)
     {
         Client client = await ClientLogic.GetByUsernameAsync(username);
-        return client;
+        if (client.password.Equals(password))
+        {
+            return client; 
+        }
+        else
+        {
+            throw new Exception("Password mismatch");
+        }
     }
 }

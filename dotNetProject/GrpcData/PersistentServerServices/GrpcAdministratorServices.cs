@@ -25,7 +25,7 @@ public class GrpcAdministratorServices : IAdministratorServices
         else
         {
             return Task.FromResult(new Administrator
-                { username = grpcAdministrator.Username, password = grpcAdministrator.Username, emailDomain = "admin"});
+                { username = grpcAdministrator.Username, password = grpcAdministrator.Password, emailDomain = "admin"})!;
         }
     }
 }

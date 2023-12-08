@@ -19,7 +19,6 @@ public class JwtAuthService : IAuthService
             Username = username,
             Password = password
         };
-
         string adminAsJson = JsonSerializer.Serialize(clientLoginDto);
         StringContent content = new(adminAsJson, Encoding.UTF8, "application/json");
         HttpResponseMessage response = await client.PostAsync("https://localhost:7112/Auth/loginAdmin", content);
@@ -44,7 +43,7 @@ public class JwtAuthService : IAuthService
             Username = username,
             Password = password
         };
-
+        
         string clientAsJson = JsonSerializer.Serialize(clientLoginDto);
         StringContent content = new(clientAsJson, Encoding.UTF8, "application/json");
         HttpResponseMessage response = await client.PostAsync("https://localhost:7112/auth/login", content);
