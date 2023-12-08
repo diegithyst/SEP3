@@ -3,13 +3,14 @@
 @using HttpClients.ClientInterfaces
 @using System.Security.Claims
 @using Domain.DTOs
+@using System.Collections
 @inject IClientService ClientSquared
 @inject NavigationManager navMgr;
 @inject IMoneyTransferService MoneyTransferService;
 @attribute [Authorize("MustBeAdministrator")]
 
 
-<h3>Client @_client.id</h3>
+<h3>Client @clientDTO.id</h3>
 
 <label>First Name: </label>
 <input type="text" @bind="clientDTO.firstname"/>
@@ -60,15 +61,18 @@
         </tr>
         </thead>
         <tbody>
-        @foreach (var item in transactions!)
+        @if (transactions != null)
         {
-            <tr>
-                <td>@item!.accountNumberSender</td>
-                <td>@item.accountNumberRecipient</td>
-                <td>@item.id</td>
-                <td>@item.amount</td>
-                <td><button @onclick="@(()=> revertTransaction(item.id))">Revert</button></td>
-            </tr>
+            @foreach (var item in transactions!)
+            {
+                <tr>
+                    <td>@item!.accountNumberSender</td>
+                    <td>@item.accountNumberRecipient</td>
+                    <td>@item.id</td>
+                    <td>@item.amount</td>
+                    <td><button @onclick="@(() => revertTransaction(item.id))">Revert</button></td>
+                </tr>
+            }
         }
         </tbody>
     </table>
@@ -84,31 +88,30 @@
     public long transactionId { get; set; }
 
     private string[] planList = new[] { "Default", "Bronze", "Silver", "Gold" };
-    private string currentPlan;
-
-    [CascadingParameter]
-    public Task<AuthenticationState> AuthState { get; set; } = null!;
-
-    private ClientUpdateDTO _client;
-    private ClientUpdateDTO clientDTO;
-    private IEnumerable<MoneyTransfer?>? transactions;
+    private string currentPlan = "";
+    
+    private ClientUpdateDTO clientDTO = new ClientUpdateDTO(0);
+    private List<MoneyTransfer> transactions = new List<MoneyTransfer>();
 
     protected override async Task OnInitializedAsync()
     {
-        var user = (await AuthState).User;
-        
-        //TODO check that the logged user is an admin
-        //_client = await ClientSquared.GetByIdAsync(id);
-        //transactions = await MoneyTransferService.GetAsync();
+        ClientUpdateDTO clientAsDto = await ClientSquared.GetByIdAsync(id);
+        clientDTO.firstname = clientAsDto.firstname;
+        clientDTO.lastname = clientAsDto.lastname;
+        clientDTO.username = clientAsDto.username;
+        clientDTO.country = clientAsDto.country;
+        clientDTO.identityDocument = clientAsDto.identityDocument;
+        clientDTO.birthday = clientAsDto.birthday;
+        clientDTO.planType = clientAsDto.planType;
 
-        currentPlan = _client.planType!;
-        clientDTO.firstname = _client.firstname;
-        clientDTO.lastname = _client.lastname;
-        clientDTO.username = _client.username;
-        clientDTO.country = _client.country;
-        clientDTO.identityDocument = _client.identityDocument;
-        clientDTO.birthday = _client.birthday;
-        clientDTO.planType = currentPlan;
+        IEnumerable<MoneyTransfer?>? transfers = await MoneyTransferService.GetListByAccountIdAsync(id);
+        if (transfers.Count() > 0)
+        {
+            foreach (var trans in transfers)
+            {
+                transactions.Add(trans);
+            }
+        }
     }
 
     private async void UpdateAsync()

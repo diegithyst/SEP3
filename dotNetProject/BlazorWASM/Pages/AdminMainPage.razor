@@ -20,7 +20,7 @@
         <tbody>
         @foreach (var item in Clients)
         {
-            <tr  @onclick="@(() => nvgMg.NavigateTo($"/ClientAdminPage/{item.id}"))">
+            <tr  @onclick="@(() => nvgMg.NavigateTo($"/ClientAdminPage/{@item.id}"))">
                 <td>@item.id</td>
                 <td>@item.firstname</td>
                 <td>@item.lastname</td>
