@@ -23,7 +23,7 @@ public class TransferMoneyController : ControllerBase
         try
         {
             MoneyTransfer moneyTransfer = await mtLogic.CreateAsync(dto);
-            return Ok(); //return something else
+            return Created($"/TransferMoney/{moneyTransfer.id}", moneyTransfer); //return something else
         }
         catch (Exception e)
         {

@@ -84,7 +84,6 @@ public class AccountsController : ControllerBase
     {
         try
         {
-            Account account = await _accountLogic.GetByIdAsync(dto.id);
             await _accountLogic.Exchange(dto.id, dto.amount, dto.currencyFrom, dto.currencyTo);
             return Ok();
         }

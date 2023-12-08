@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Net.Http.Json;
+using System.Text;
 using System.Text.Json;
 using Domain.DTOs;
 using Domain.Model;
@@ -86,6 +87,18 @@ public class AccountHttpClient : IAccountService
             accountList.Add(newAccount);
         }
         return accountList;
+    }
+
+    public async Task UpdateAsync(AccountExchangeDTO dto)
+    {
+        string asJson = JsonSerializer.Serialize(dto);
+        StringContent content = new(asJson, Encoding.UTF8, "application/json");
+        HttpResponseMessage responseMessage = await client.PatchAsync("/accounts", content);
+        if (!responseMessage.IsSuccessStatusCode)
+        {
+            string contentError = await responseMessage.Content.ReadAsStringAsync();
+            throw new Exception(contentError);
+        }
     }
 
     public Task UpdateAsync()
