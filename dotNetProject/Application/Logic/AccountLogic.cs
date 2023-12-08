@@ -55,15 +55,15 @@ public class AccountLogic : IAccountLogic
 
     public async Task UpdateBalanceAsync(Account account, double amount, string currency)
     {
-        if (currency.Equals("Euro"))
+        if (currency.ToLower().Equals("euro"))
         {
             account.Euro.balance += amount;
         }
-        if (currency.Equals("Pound"))
+        if (currency.ToLower().Equals("pound"))
         {
             account.Pound.balance += amount;
         }
-        if (currency.Equals("Krone"))
+        if (currency.ToLower().Equals("krone"))
         {
             account.Krone.balance += amount;
         }
@@ -76,6 +76,12 @@ public class AccountLogic : IAccountLogic
 
         await accountServices.UpdateAccount(dto);
     }
+
+    public async Task Exchange(long id, double amount, string currencyFrom, string currencyTo)
+    {
+        Console.WriteLine("smiley face");
+    }
+    
     public Task<Boolean> DeleteAsync(long id)
     {
         return accountServices.Delete(id);

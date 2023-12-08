@@ -1,34 +1,43 @@
 @page "/AdminMainPage"
-@using System.Security.Claims
 @using Domain.DTOs
-@using Domain.Model
 @using HttpClients.ClientInterfaces
 @inject IClientService ClientSquared
 @inject NavigationManager nvgMg
-@attribute [Authorize("emailDomain")]
+@attribute [Authorize("MustBeAdministrator")]
 
+<AuthorizeView>
+@if (Clients != null)
+{
+    <table class="table" style="overflow:hidden; overflow-y:scroll">
+        <thead>
+        <tr>
+            <th>Client Id</th>
+            <th>Client Firstname</th>
+            <th>Client Lastname</th>
+            <th>Client Identity Document</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var item in Clients)
+        {
+            <tr  @onclick="@(() => nvgMg.NavigateTo($"/ClientAdminPage/{item.id}"))">
+                <td>@item.id</td>
+                <td>@item.firstname</td>
+                <td>@item.lastname</td>
+                <td>@item.identityDocument</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+}
 
-    <div class="post-list">
-        <div class="post-card">
-            @foreach (var client in Clients)
-            {
-                <div class="post">
-                    <h2 class="post-title">
-                        <a href="/ClientAdminPage/@client.id">@client.firstname @client.lastname</a>
-                    </h2>
-                    <p class="post-date">ID: @client.id</p>
-                </div>
-            }
-        </div>
-    </div>
-
+@if (Clients == null)
+{
+    <p>nothing here</p>
+}
+</AuthorizeView>
 
 @code {
-
-    [CascadingParameter]
-    public Task<AuthenticationState> AuthState { get; set; } = null!;
-
-    private Administrator admin;
     private IEnumerable<ClientUpdateDTO> Clients;
     string loggedAdmin = "";
     private long id;
@@ -37,25 +46,14 @@
     {
         try
         {
-            
-            var user  = (await AuthState).User;
-            id = Int32.Parse(user.Claims.First(claim => claim. Type.Equals ("Id" )).Value);
-            
+            Clients = await ClientSquared.GetAsync();
         }
         catch (Exception e)
         {
             Console.WriteLine(e);
             throw;
         }
-
-    //TODO check that the logged user is an admin
-
-        Clients = await ClientSquared.GetAsync();
+        
     }
-
-    private bool isAdmin(string username)
-    {
-        return username.Equals("Admin1");
-    }
-
+    
 }
