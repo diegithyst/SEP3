@@ -1,8 +1,9 @@
 using Application.DaoInterfaces;
 using Domain.DTOs;
 using Domain.Model;
+using FileData;
 
-namespace FileData.DAOs;
+namespace FileData.PersistentServerServices;
 
 public class GrpcAccountServices : IGrpcAccountServices
 {

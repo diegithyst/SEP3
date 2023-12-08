@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FileData.Persistent_Server_Services
+namespace FileData.PersistentServerServices
 {
     public class GrpcMoneyTransferServices : IGrpcMoneyTransferServices
     {

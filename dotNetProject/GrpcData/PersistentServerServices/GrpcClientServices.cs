@@ -3,7 +3,7 @@ using Domain.DTOs;
 using Domain.Model;
 using System.Diagnostics.Metrics;
 
-namespace FileData.DAOs;
+namespace FileData.PersistentServerServices;
 
 public class GrpcClientServices : IGrpcClientServices
 {

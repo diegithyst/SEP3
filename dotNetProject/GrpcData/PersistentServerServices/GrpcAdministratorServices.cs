@@ -2,7 +2,7 @@ using Application.DaoInterfaces;
 using Domain.Model;
 using Domain.DTOs;
 
-namespace FileData.DAOs;
+namespace FileData.PersistentServerServices;
 
 public class GrpcAdministratorServices : IAdministratorServices
 
