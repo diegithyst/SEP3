@@ -86,7 +86,7 @@ public class AccountLogic : IAccountLogic
             { 
                 var accountExchange = await GetByIdAsync(id);
             var negativeAmount = (-1) * (amount);
-            UpdateBalanceAsync(accountExchange, amount, currencyFrom);
+            UpdateBalanceAsync(accountExchange, negativeAmount, currencyFrom);
             ICurrency euro = new Euro();
             ICurrency krone = new Krone();
             ICurrency pound = new Pound();
