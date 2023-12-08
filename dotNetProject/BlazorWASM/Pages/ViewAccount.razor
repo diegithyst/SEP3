@@ -9,21 +9,21 @@
 
 @if (allowed())
 {
-<div>
-    <p>Id of the account: @id</p>
-    <br/>
-    <p>Name of the account: @name</p>
-    <br/>
-    <p>Currency of the account: @MainCurrency</p>
-    <br/>
-    <p>Loan of the account: @Loan</p>
-    <br/>
-    <p>Euros In Account: @_euro.balance€</p>
-    <br/>
-    <p>Pounds In Account: @_pound.balance£</p>
-    <br/>
-    <p>Krone In Account: @_krone.balance DKK</p>
-</div>
+    <div>
+        <p>Id of the account: @id</p>
+        <br/>
+        <p>Name of the account: @name</p>
+        <br/>
+        <p>Currency of the account: @MainCurrency</p>
+        <br/>
+        <p>Loan of the account: @Loan</p>
+        <br/>
+        <p>Euros In Account: @_euro.balance€</p>
+        <br/>
+        <p>Pounds In Account: @_pound.balance£</p>
+        <br/>
+        <p>Krone In Account: @_krone.balance DKK</p>
+    </div>
 
     <div class="card">
         <div class="form-group field">
@@ -37,7 +37,7 @@
         <div class="form-group field">
             <label for="currency">Currency:</label>
             <select @bind="_currency" id="currency">
-                <option selected>Dansk Krone</option>
+                <option selected>Krone</option>
                 <option>Pound</option>
                 <option>Euro</option>
             </select>
@@ -66,26 +66,51 @@ function changed(){
     }
   }
 </script>
+
+    <h4>Exchange Currencies</h4>
+    <br/>
+    <label>Amount to exchange</label>
+    <input type="text" @bind="Exchange"/>
+    <label>Currency to get the money from:</label>
+    <select @bind="_currency1" id="currency">
+        <option selected>Krone</option>
+        <option>Pound</option>
+        <option>Euro</option>
+    </select>
+    <label>Currency to convert the money:</label>
+    <select @bind="_currency2" id="currency">
+        <option selected>Krone</option>
+        <option>Pound</option>
+        <option>Euro</option>
+    </select>
+    <div class="button-row">
+        <button @onclick="() => ExchangeCurrencies(double.Parse(Exchange), _currency1, _currency2)" disabled="@(string.IsNullOrEmpty(_currency1) || string.IsNullOrEmpty(_currency2))" class="acceptbtn">Exchange</button>
+    </div>
 }
 
 @code {
+
     [CascadingParameter]
     private Task<AuthenticationState> AuthState { get; set; } = null!;
-    
+
     [Parameter]
     public int id { get; set; }
+
     private string MainCurrency = "";
     private bool Loan;
     private string name;
     private ICurrency _euro = new Euro();
-    private ICurrency _pound= new Pound();
-    private ICurrency _krone= new Krone();
+    private ICurrency _pound = new Pound();
+    private ICurrency _krone = new Krone();
     private string msg = "";
     private long accountNrSeder;
     private string _accountNrReceiver;
     private string _value;
     private string _currency;
     private ClientUpdateDTO client;
+    private string Exchange = "";
+    private string _currency1 = "";
+    private string _currency2 = "";
 
     private IEnumerable<Account?>? clientsAccounts;
 
@@ -97,14 +122,8 @@ function changed(){
         {
             var user = (await AuthState).User;
             id = Int32.Parse(user.Claims.First(claim => claim.Type.Equals("Id")).Value);
+            loadInfo();
             
-            Account account = await accountService.GetAccountAsync(id);
-            MainCurrency = account.mainCurrency;
-            Loan = account.loan;
-            name = account.name;
-            _euro = account.Euro;
-            _pound = account.Pound;
-            _krone = account.Krone;
             client = await clientService.GetByIdAsync(id);
             clientsAccounts = await accountService.GetByClientIdAsync(client.id);
             accountNrSeder = id;
@@ -115,6 +134,18 @@ function changed(){
             msg = e.Message;
         }
     }
+
+    private async void loadInfo()
+    {
+        Account account = await accountService.GetAccountAsync(id);
+        MainCurrency = account.mainCurrency;
+        Loan = account.loan;
+        name = account.name;
+        _euro = account.Euro;
+        _pound = account.Pound;
+        _krone = account.Krone;
+    }
+
     private async Task TransferMoni()
     {
         error = "";
@@ -129,6 +160,7 @@ function changed(){
             error = $"Error: {e.Message}";
         }
     }
+
     private bool allowed()
     {
         if (clientsAccounts == null)
@@ -144,4 +176,26 @@ function changed(){
         }
         return false;
     }
+
+    private async void ExchangeCurrencies(double value, string senderCurrency, string receiverCurrency)
+    {
+        try
+        {
+            AccountExchangeDTO dto = new AccountExchangeDTO()
+            {
+                id = accountNrSeder,
+                amount = value,
+                currencyFrom = senderCurrency.ToLower(),
+                currencyTo = receiverCurrency.ToLower()
+            };
+            await accountService.UpdateAsync(dto);
+            msg = $"{value}{senderCurrency} converted to {receiverCurrency}";
+            loadInfo();
+        }
+        catch (Exception e)
+        {
+            throw new Exception(e.Message);
+        }
+    }
+
 }

@@ -100,9 +100,5 @@ public class AccountHttpClient : IAccountService
             throw new Exception(contentError);
         }
     }
-
-    public Task UpdateAsync()
-    {
-        throw new NotImplementedException();
-    }
+    
 }
