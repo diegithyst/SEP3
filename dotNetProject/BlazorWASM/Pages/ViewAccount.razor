@@ -1,8 +1,14 @@
 ﻿@page "/ViewAccount/{id:int}"
 @using Domain.Model
 @using HttpClients.ClientInterfaces
+@using Domain.DTOs
 @inject IAccountService accountService
+@inject IMoneyTransferService moneyTransferService
+@inject IClientService clientService
+@inject NavigationManager navMgr
 
+@if (allowed())
+{
 <div>
     <p>Id of the account: @id</p>
     <br/>
@@ -12,12 +18,55 @@
     <br/>
     <p>Loan of the account: @Loan</p>
     <br/>
-    <p>Euros In Account: @_euro.balance </p>
+    <p>Euros In Account: @_euro.balance€</p>
     <br/>
-    <p>Pounds In Account: @_pound.balance </p>
+    <p>Pounds In Account: @_pound.balance£</p>
     <br/>
-    <p>Krone In Account: @_krone.balance </p>
+    <p>Krone In Account: @_krone.balance DKK</p>
 </div>
+
+    <div class="card">
+        <div class="form-group field">
+            <label>Account Receiver Number:</label>
+            <input type="text" @bind="_accountNrReceiver" oninput="changed()" id="accountNr"/>
+            @if (string.IsNullOrEmpty(error))
+            {
+                <label>@error</label>
+            }
+        </div>
+        <div class="form-group field">
+            <label for="currency">Currency:</label>
+            <select @bind="_currency" id="currency">
+                <option selected>Dansk Krone</option>
+                <option>Pound</option>
+                <option>Euro</option>
+            </select>
+        </div>
+        <div class="form-group field">
+            <label>Value:</label>
+            <input type="text" @bind="_value" oninput="changed()" id="valueNr"/>
+            @if (string.IsNullOrEmpty(error))
+            {
+                <label>@error</label>
+            }
+        </div>
+        <div class="button-row">
+            <button disabled @onclick="TransferMoni" class="acceptbtn" id="bttn">Send</button>
+        </div>
+    </div>
+
+    <script>
+function changed(){
+    var accountInput = document.getElementById("accountNr");
+    var s = accountInput.value;
+    var valueInput = document.getElementById("valueNr");
+    var t = valueInput.value;
+    if (s.length !== 0 && t.length !==0){
+        document.getElementById("bttn").removeAttribute("disabled");
+    }
+  }
+</script>
+}
 
 @code {
     [CascadingParameter]
@@ -32,6 +81,15 @@
     private ICurrency _pound= new Pound();
     private ICurrency _krone= new Krone();
     private string msg = "";
+    private long accountNrSeder;
+    private string _accountNrReceiver;
+    private string _value;
+    private string _currency;
+    private ClientUpdateDTO client;
+
+    private IEnumerable<Account?>? clientsAccounts;
+
+    private string error = "";
 
     protected override async Task OnInitializedAsync()
     {
@@ -47,11 +105,43 @@
             _euro = account.Euro;
             _pound = account.Pound;
             _krone = account.Krone;
+            client = await clientService.GetByIdAsync(id);
+            clientsAccounts = await accountService.GetByClientIdAsync(client.id);
+            accountNrSeder = id;
         }
         catch (Exception e)
         {
             Console.WriteLine(e);
             msg = e.Message;
         }
+    }
+    private async Task TransferMoni()
+    {
+        error = "";
+        try
+        {
+            MoneyTransferCreationDto dto = new MoneyTransferCreationDto(accountNrSeder, long.Parse(_accountNrReceiver), _currency, double.Parse(_value));
+            await moneyTransferService.CreateAsync(dto);
+            msg = $"{_value}{_currency} sent to account id: {_accountNrReceiver} ";
+        }
+        catch (Exception e)
+        {
+            error = $"Error: {e.Message}";
+        }
+    }
+    private bool allowed()
+    {
+        if (clientsAccounts == null)
+        {
+            return false;
+        }
+        foreach (var account in clientsAccounts)
+        {
+            if (account.id == id)
+            {
+                return true;
+            }
+        }
+        return false;
     }
 }

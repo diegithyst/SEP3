@@ -17,7 +17,7 @@ public class MoneyTransferClient : IMoneyTransferService
     
     public async Task CreateAsync(MoneyTransferCreationDto dto)
     {
-        HttpResponseMessage message = await client.PostAsJsonAsync("/Transfer", dto);
+        HttpResponseMessage message = await client.PostAsJsonAsync("/Transfermoney", dto);
         string content = await message.Content.ReadAsStringAsync();
         if (!message.IsSuccessStatusCode)
         {
@@ -29,7 +29,7 @@ public class MoneyTransferClient : IMoneyTransferService
     {
         string query = ConstructQuery(receiverAccount, senderAccount);
 
-        HttpResponseMessage response = await client.GetAsync("/Trasnfer" + query);
+        HttpResponseMessage response = await client.GetAsync("/Trasnfermoney" + query);
         string content = await response.Content.ReadAsStringAsync();
         if (!response.IsSuccessStatusCode)
         {
@@ -45,7 +45,7 @@ public class MoneyTransferClient : IMoneyTransferService
 
     public async Task<IEnumerable<MoneyTransfer?>?> GetAsync()
     {
-        HttpResponseMessage response = await client.GetAsync($"/Transfer");
+        HttpResponseMessage response = await client.GetAsync($"/Transfermoney");
         string content = await response.Content.ReadAsStringAsync();
         if (!response.IsSuccessStatusCode)
         {
@@ -58,7 +58,7 @@ public class MoneyTransferClient : IMoneyTransferService
 
     public async Task<MoneyTransfer?> GetByIdAsync(long id)
     {
-        HttpResponseMessage response = await client.GetAsync($"/Transfers/{id}");
+        HttpResponseMessage response = await client.GetAsync($"/Transfermoney/{id}");
         string content = await response.Content.ReadAsStringAsync();
         if (!response.IsSuccessStatusCode)
         {
