@@ -79,7 +79,42 @@ public class AccountLogic : IAccountLogic
 
     public async Task Exchange(long id, double amount, string currencyFrom, string currencyTo)
     {
-        Console.WriteLine("smiley face");
+        Account accountExchange = await GetByIdAsync(id);
+        double negativeAmount = (-1) * (amount);
+        UpdateBalanceAsync(accountExchange, amount, currencyFrom);
+        ICurrency euro = new Euro();
+        ICurrency krone = new Krone();
+        ICurrency pound = new Pound();
+        switch (currencyFrom)
+        {
+            case "euro":
+                euro.balance = amount;
+                break;
+            case  "krone":
+                krone.balance = amount;
+                break;
+            case "pound":
+                pound.balance = amount;
+                break;
+        }
+
+        ICurrency convertedToEuro = new Euro{balance = 0};
+        ICurrency convertedToKrone = new Krone{balance = 0};
+        ICurrency convertedToPound = new Pound{balance = 0};
+        switch (currencyTo)
+        {
+            case "euro":
+                convertedToEuro = new Euro{balance = euro.convertToEuro().balance + krone.convertToEuro().balance +  pound.convertToEuro().balance }; ;
+                break;
+            case  "krone":
+                convertedToKrone = new Krone { balance = euro.convertToKrone().balance + krone.convertToKrone().balance + pound.convertToKrone().balance };
+                break;
+            case "pound":
+                convertedToPound = new Pound { balance = euro.convertToPound().balance + krone.convertToPound().balance + pound.convertToPound().balance };
+                break;
+        }
+
+        UpdateBalanceAsync(accountExchange, convertedToEuro.balance+convertedToKrone.balance+convertedToPound.balance, currencyTo);
     }
     
     public Task<Boolean> DeleteAsync(long id)
