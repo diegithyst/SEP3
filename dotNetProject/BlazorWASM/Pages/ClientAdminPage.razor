@@ -3,11 +3,10 @@
 @using HttpClients.ClientInterfaces
 @using System.Security.Claims
 @using Domain.DTOs
-@using HttpClients.Implementations
 @inject IClientService ClientSquared
 @inject NavigationManager navMgr;
 @inject IMoneyTransferService MoneyTransferService;
-@attribute [Authorize("Domain")]
+@attribute [Authorize("MustBeAdministrator")]
 
 
 <h3>Client @_client.id</h3>
@@ -96,11 +95,11 @@
 
     protected override async Task OnInitializedAsync()
     {
-        AuthenticationState authState = await AuthState;
-        ClaimsPrincipal admin_ = authState.User;
-    //TODO check that the logged user is an admin
-        _client = await ClientSquared.GetByIdAsync(id);
-        transactions = await MoneyTransferService.GetAsync();
+        var user = (await AuthState).User;
+        
+        //TODO check that the logged user is an admin
+        //_client = await ClientSquared.GetByIdAsync(id);
+        //transactions = await MoneyTransferService.GetAsync();
 
         currentPlan = _client.planType!;
         clientDTO.firstname = _client.firstname;
@@ -116,7 +115,7 @@
     {
         try
         {
-            await ClientSquared.UpdateAsync(clientDTO);
+            //await ClientSquared.UpdateAsync(clientDTO);
             navMgr.NavigateTo("/AdminMainPage");
         }
         catch (Exception e)

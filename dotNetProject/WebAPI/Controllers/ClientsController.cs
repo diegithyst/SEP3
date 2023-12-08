@@ -51,7 +51,6 @@ public class ClientsController : ControllerBase
     {
         try
         {
-            ClientBasicDTO parameters = new ClientBasicDTO{ username = null, password = null};
             IEnumerable<Client?> clients = await _clientLogic.GetAll();
             IList<ClientUpdateDTO?>? clientsSend = new List<ClientUpdateDTO?>();
             foreach (var client in clients)

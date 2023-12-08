@@ -79,4 +79,19 @@ public class AccountsController : ControllerBase
         }
     }
 
+    [HttpPatch]
+    public async Task<ActionResult> UpdateAsync([FromBody] AccountExchangeDTO dto)
+    {
+        try
+        {
+            Account account = await _accountLogic.GetByIdAsync(dto.id);
+            await _accountLogic.Exchange(dto.id, dto.amount, dto.currencyFrom, dto.currencyTo);
+            return Ok();
+        }
+        catch (Exception e)
+        {
+            return StatusCode(500, e.Message);
+        }
+    }
+
 }

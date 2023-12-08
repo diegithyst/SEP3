@@ -16,7 +16,7 @@ public class ClientHttpClient : IClientService
     } 
     public async Task<ICollection<ClientUpdateDTO>> GetAsync()
     {
-        HttpResponseMessage responseMessage = await client.GetAsync("/client");
+        HttpResponseMessage responseMessage = await client.GetAsync("/Clients");
         string content = await responseMessage.Content.ReadAsStringAsync();
         if (!responseMessage.IsSuccessStatusCode)
         {
@@ -44,7 +44,7 @@ public class ClientHttpClient : IClientService
 
     public async Task<ClientUpdateDTO> GetByIdAsync(long id)
     {
-        HttpResponseMessage responseMessage = await client.GetAsync($"/clients/{id}");
+        HttpResponseMessage responseMessage = await client.GetAsync($"/Clients/{id}");
         string content = await responseMessage.Content.ReadAsStringAsync();
         if (!responseMessage.IsSuccessStatusCode)
         {
@@ -60,7 +60,7 @@ public class ClientHttpClient : IClientService
 
     public async Task DeleteAsync(long id)
     {
-        HttpResponseMessage message = await client.DeleteAsync($"/clients/{id}");
+        HttpResponseMessage message = await client.DeleteAsync($"/Clients/{id}");
         string content = await message.Content.ReadAsStringAsync();
         if (!message.IsSuccessStatusCode)
         {
@@ -73,7 +73,7 @@ public class ClientHttpClient : IClientService
         string dtoAsJson = JsonSerializer.Serialize(updateDto);
         StringContent body = new StringContent(dtoAsJson, Encoding.UTF8, "application/json");
 
-        HttpResponseMessage response = await client.PatchAsync("/clients", body);
+        HttpResponseMessage response = await client.PatchAsync("/Clients", body);
         if (!response.IsSuccessStatusCode)
         {
             string content = await response.Content.ReadAsStringAsync();
