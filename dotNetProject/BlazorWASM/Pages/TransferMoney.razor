@@ -1,40 +1,45 @@
-@page "/TransferMoney"
+@page "/TransferMoney/{id:long}"
 @using HttpClients.ClientInterfaces
 @using Domain.DTOs
+@using Domain.Model
 @inject IMoneyTransferService mtService
+@inject IClientService clientService
+@inject IAccountService accountsService
 <h3>TransferMoney</h3>
 
-<div class="card">
-    <div class="form-group field">
-        <label>Account Receiver Number:</label>
-        <input type="text" @bind="_accountNrReceiver" oninput="changed()" id="accountNr"/>
-        @if (string.IsNullOrEmpty(error))
-        {
-            <label>@error</label>
-        }
+@if (allowed())
+{
+    <div class="card">
+        <div class="form-group field">
+            <label>Account Receiver Number:</label>
+            <input type="text" @bind="_accountNrReceiver" oninput="changed()" id="accountNr"/>
+            @if (string.IsNullOrEmpty(error))
+            {
+                <label>@error</label>
+            }
+        </div>
+        <div class="form-group field">
+            <label for="currency">Currency:</label>
+            <select @bind="_currency" id="currency">
+                <option selected>Dansk Krone</option>
+                <option>Pound</option>
+                <option>Euro</option>
+            </select>
+        </div>
+        <div class="form-group field">
+            <label>Value:</label>
+            <input type="text" @bind="_value" oninput="changed()" id="valueNr"/>
+            @if (string.IsNullOrEmpty(error))
+            {
+                <label>@error</label>
+            }
+        </div>
+        <div class="button-row">
+            <button disabled @onclick="TransferMoni" class="acceptbtn" id="bttn">Send</button>
+        </div>
     </div>
-    <div class="form-group field">
-        <label for="currency">Currency:</label>
-        <select @bind="_currency" id="currency">
-            <option selected>Dansk Krone</option>
-            <option>Pound</option>
-            <option>Euro</option>
-        </select>
-    </div>
-    <div class="form-group field">
-        <label>Value:</label>
-        <input type="text" @bind="_value" oninput="changed()" id="valueNr" />
-        @if (string.IsNullOrEmpty(error))
-        {
-            <label>@error</label>
-        }
-    </div>
-    <div class="button-row">
-        <button disabled  @onclick="TransferMoni" class="acceptbtn" id="bttn">Send</button>
-    </div>
-</div>
 
-<script>
+    <script>
 function changed(){
     var accountInput = document.getElementById("accountNr");
     var s = accountInput.value;
@@ -45,15 +50,52 @@ function changed(){
     }
   }
 </script>
+}
+@if (!allowed())
+{
+    <h2>This account is not yours</h2>
+}
 
 @code {
+    [Parameter]
+    public long id { get; set; }
     private string accountNrSeder;
 
     private string _accountNrReceiver;
     private string _value;
     private string _currency;
-    
+    private ClientUpdateDTO client;
+
+    private IEnumerable<Account?>? clientsAccounts;
+
     private string error = "";
+    
+    [CascadingParameter]
+    public Task<AuthenticationState?> AuthState { get; set; } = null!;
+    
+    protected override async Task OnInitializedAsync()
+    {
+        var user = (await AuthState).User;
+        id = long.Parse(user.Claims.First(claim => claim.Type.Equals("Id")).Value);
+        client = await clientService.GetByIdAsync(id);
+        clientsAccounts = await accountsService.GetByClientIdAsync(client.id);
+    }
+
+    private bool allowed()
+    {
+        if (clientsAccounts == null)
+        {
+            return false;
+        }
+        foreach (var account in clientsAccounts)
+        {
+            if (account.id == id)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
 
     protected async Task TransferMoni()
     {
