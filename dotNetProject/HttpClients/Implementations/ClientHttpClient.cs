@@ -29,18 +29,6 @@ public class ClientHttpClient : IClientService
         })!;;
         return clients;
     }
-    
-    public async Task CreateAsync(ClientCreationDTO dto)
-    {
-        string userAsJson = JsonSerializer.Serialize(dto);
-        StringContent content = new(userAsJson, Encoding.UTF8, "application/json");
-        HttpResponseMessage responseMessage = await client.PostAsync("https://localhost:7112/Auth/register", content);
-        string responseContent = await responseMessage.Content.ReadAsStringAsync();
-        if (!responseMessage.IsSuccessStatusCode)
-        {
-            throw new Exception();
-        }
-    }
 
     public async Task<ClientUpdateDTO> GetByIdAsync(long id)
     {
@@ -85,7 +73,7 @@ public class ClientHttpClient : IClientService
     {
         string userAsJson = JsonSerializer.Serialize(dto);
         StringContent content = new(userAsJson, Encoding.UTF8, "application/json");
-        HttpResponseMessage responseMessage = await client.PostAsync("https://localhost:7112/Auth/register", content);
+        HttpResponseMessage responseMessage = await client.PostAsync("/Clients", content);
         string responseContent = await responseMessage.Content.ReadAsStringAsync();
         if (!responseMessage.IsSuccessStatusCode)
         {

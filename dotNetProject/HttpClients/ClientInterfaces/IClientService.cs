@@ -5,7 +5,6 @@ namespace HttpClients.ClientInterfaces;
 
 public interface IClientService
 {
-    public Task CreateAsync(ClientCreationDTO dto);
     Task<ICollection<ClientUpdateDTO>> GetAsync();
 
     Task<ClientUpdateDTO> GetByIdAsync(long id);

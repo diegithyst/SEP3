@@ -3,12 +3,13 @@
 @using Domain.DTOs
 @inject IClientService clientService
 @inject NavigationManager nav
-@attribute [Authorize("Domain")]
+@attribute [Authorize("MustBeAdministrator")]
 
+<AuthorizeView>
 <h3>RegisterClient</h3>
 
 <div class="card">
- <div class="form-group field">
+    <div class="form-group field">
         <label>Username:</label>
         <input type="text" @bind="username" @bind:event="oninput"/>
         @if (!string.IsNullOrEmpty(error))
@@ -76,7 +77,7 @@
         <button @onclick="RegisterAsync" disabled="@(string.IsNullOrEmpty(username))" class="acceptbtn">Register</button>
     </div>
 </div>
-
+</AuthorizeView>
 @code {
     private string username = "";
     private string password = "";
@@ -93,8 +94,8 @@
         error = "";
         try
         {
+            Console.Write(username + password + firstname + lastname + country + identityDocument + birthday + planType);
             await clientService.RegisterAsync(new ClientCreationDTO(firstname, lastname, username, password, country, identityDocument, birthday, planType));
-            nav.NavigateTo("/Login");
         }
         catch (Exception e)
         {
