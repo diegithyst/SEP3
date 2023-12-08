@@ -79,7 +79,17 @@ public class Main {
                 if (s.createQuery("from Client", Client.class).stream().count() < 1) {
                     Transaction t = s.beginTransaction();
                     MyLogger.getInstance().log("***psinit", "db is empty so put some bootstrap data into it. ");
-                    s.persist(new Client("Fredie", "Freda", "Makko", "password", "hungary", "AAAAA", "31042000", "Premium"));
+                    s.persist(new Client("Bank", "Via", "Bank", "pass", "UK", "AAAAA", "31042000", "default"));
+                    t.commit();
+                } else {
+                    for (Client c : s.createQuery("from Client", Client.class).list()) {
+                        MyLogger.getInstance().log("***psinit", "db has a client: " + c);
+                    }
+                }
+                if (s.createQuery("from Client", Client.class).stream().count() < 1) {
+                    Transaction t = s.beginTransaction();
+                    MyLogger.getInstance().log("***psinit", "db is empty so put some bootstrap data into it. ");
+                    s.persist(new Client("Dummy", "dummy", "user", "password", "DK", "BBBBB", "21101980", "default"));
                     t.commit();
                 } else {
                     for (Client c : s.createQuery("from Client", Client.class).list()) {
@@ -89,7 +99,18 @@ public class Main {
                 if (s.createQuery("from Account", Account.class).stream().count() < 1) {
                     Transaction t = s.beginTransaction();
                     MyLogger.getInstance().log("***psinit", "db is empty so put some bootstrap data into it. ");
-                    Account account = new Account("Euro", 100.0, 100.0, 100.0, false, s.get(Client.class, 1), "main");
+                    Account account = new Account("Euro", 1000000.0, 1000000.0, 1000000.0, false, s.get(Client.class, 1), "bank");
+                    s.persist(account);
+                    t.commit();
+                } else {
+                    for (Account a : s.createQuery("from Account", Account.class).list()) {
+                        MyLogger.getInstance().log("***psinit", "db has a Account: " + a);
+                    }
+                }
+                if (s.createQuery("from Account", Account.class).stream().count() < 1) {
+                    Transaction t = s.beginTransaction();
+                    MyLogger.getInstance().log("***psinit", "db is empty so put some bootstrap data into it. ");
+                    Account account = new Account("Euro", 10000.0, 5000.0, 1000.0, false, s.get(Client.class, 2), "firstClient");
                     s.persist(account);
                     t.commit();
                 } else {
