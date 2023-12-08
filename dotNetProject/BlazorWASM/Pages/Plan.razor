@@ -3,7 +3,14 @@
 @using HttpClients.ClientInterfaces
 @using Domain.DTOs
 @using System.Security.Claims
+@using BlazorWASM.Data
+@using BronzePlan = BlazorWASM.Data.BronzePlan
+@using DefaultPlan = BlazorWASM.Data.DefaultPlan
+@using GoldPlan = BlazorWASM.Data.GoldPlan
+@using SilverPlan = BlazorWASM.Data.SilverPlan
 @inject IClientService clientService
+@inject IMoneyTransferService transferService
+@inject IAccountService accountService
 @inject NavigationManager navMgr
 @attribute [Authorize]
 
@@ -21,14 +28,14 @@
         </tr>
         </thead>
         <tbody>
-        @for (int i = 0; i < plans.Length; i++)
+        @foreach(IPlanBlazor plan in plans)
         {
             <tr>
-                <td>@plans[i]</td>
-                <td>@planDescriptions[i]</td>
-                <td>@prices[i]€/month</td>
+                <td>@plan.getName()</td>
+                <td>@plan.getDescription()</td>
+                <td>@*@plan.getPrice/month*@</td>
                 <td>
-                    <button @onclick="@(() => buyPlan(@plans[i]))">Buy @plans[i] plan</button>
+                    <button @onclick="@(() => buyPlan(@plan.getName(), @plan.getPrice()))">Buy @plan.getName() plan</button>
                 </td>
             </tr>
         }
@@ -51,16 +58,13 @@
     public Task<AuthenticationState?> AuthState { get; set; } = null!;
 
     private string msg = "";
+    
+    private IPlanBlazor Default = new DefaultPlan();
+    private IPlanBlazor Bronze = new BronzePlan();
+    private IPlanBlazor Silver = new SilverPlan();
+    private IPlanBlazor Gold = new GoldPlan();
+    private IList<IPlanBlazor> plans = new List<IPlanBlazor>();
 
-    private string[] plans = new[] { "Default", "Bronze", "Silver", "Gold" };
-
-    private string[] planDescriptions = new[]
-    {
-        $"You get free banking! {System.Environment.NewLine} You get no commission on regular transactions and free exchange of currencies. With no limit! {System.Environment.NewLine} Finally, you get 0,005 interest rate and 0,25 loan rate!",
-        $"You get all the benefits from the previous plan! {System.Environment.NewLine} Plus, you get 0,01 interest rate and 0,10 loan rate!",
-        $"You get all the benefits from the previous plan! {System.Environment.NewLine} Plus, you get 0,02 interest rate and 0,08 loan rate!",
-        $"You get all the benefits from the previous plan! {System.Environment.NewLine} Plus, you get 0,05 interest rate and 0,1 loan rate!"
-    };
 
     private double[] prices = new[] { 0.0, 2.99, 4.99, 7.49 };
 
@@ -73,12 +77,17 @@
         var user = (await AuthState).User;
         id = long.Parse(user.Claims.First(claim => claim.Type.Equals("Id")).Value);
         client = await clientService.GetByIdAsync(id);
+            plans.Add(Default);
+        plans.Add(Bronze);
+        plans.Add(Silver);
+        plans.Add(Gold);
     }
 
 
-    private async void buyPlan(string plan)
+    private async void buyPlan(string plan, double price)
     {
         IPlan realPlan = PlanMaker.MakePlan(plan);
+        IEnumerable<Account> accounts = await accountService.GetByClientIdAsync(client.id);
         ClientUpdateDTO dto = new ClientUpdateDTO(id)
         {
             firstname = client.firstname,
@@ -91,6 +100,15 @@
             planType = plan,
             id = client.id
         };
+        MoneyTransferCreationDto dto2 = new MoneyTransferCreationDto()
+        {
+            Amount = price,
+            ReceiverAccountNumber = 1,
+            SenderAccountNumber = accounts.ElementAt(0).id,
+            SenderCurrency = "Euro"
+        };
+        await clientService.UpdateAsync(dto);
+        await transferService.CreateAsync(dto2);
         navMgr.NavigateTo("/Accounts");
     }
 
