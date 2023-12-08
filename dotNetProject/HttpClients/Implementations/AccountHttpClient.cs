@@ -37,6 +37,7 @@ public class AccountHttpClient : IAccountService
         {
             PropertyNameCaseInsensitive = true
         })!;
+        
         Account newAccount = new Account();
         newAccount.id = accountDto.id;
         newAccount.name = accountDto.name;
@@ -53,7 +54,7 @@ public class AccountHttpClient : IAccountService
 
     public async Task CreateAsync(AccountCreationDTO dto)
     {
-        HttpResponseMessage response = await client.PostAsJsonAsync("/accounts", dto);
+        HttpResponseMessage response = await client.PostAsJsonAsync("/Accounts", dto);
         if (!response.IsSuccessStatusCode)
         {
             string content = await response.Content.ReadAsStringAsync();

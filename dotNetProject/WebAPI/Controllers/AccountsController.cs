@@ -18,7 +18,7 @@ public class AccountsController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<ActionResult<Account>> CreateAsync([FromQuery] AccountCreationDTO dto)
+    public async Task<ActionResult<Account>> CreateAsync(AccountCreationDTO dto)
     {
         try
         {
