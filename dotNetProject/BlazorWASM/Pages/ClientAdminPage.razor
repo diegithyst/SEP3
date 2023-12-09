@@ -5,12 +5,14 @@
 @using Domain.DTOs
 @using System.Collections
 @inject IClientService ClientSquared
+@inject IAccountService accountService
+@inject IMoneyTransferService transferService
 @inject NavigationManager navMgr;
 @inject IMoneyTransferService MoneyTransferService;
 @attribute [Authorize("MustBeAdministrator")]
 
 
-<h3>Client @clientDTO.id</h3>
+<h3>Client @clientDTO.id, @clientDTO.firstname @clientDTO.lastname</h3>
 
 <label>First Name: </label>
 <input type="text" @bind="clientDTO.firstname"/>
@@ -28,16 +30,12 @@
 <input type="text" @bind="clientDTO.identityDocument"/>
 <label>Plan Type: </label>
 <div class="row">
-    <span> Current plan: @currentPlan</span>
-</div>
-<div class="row">
     <div class="mb-1">
         <select class="mr-2" @bind="@clientDTO.planType">
             @foreach (var plan in planList)
             {
                 <option value="@plan">@plan</option>
             }
-            <option></option>
         </select>
     </div>
 </div>
@@ -90,21 +88,16 @@
     private string[] planList = new[] { "Default", "Bronze", "Silver", "Gold" };
     private string currentPlan = "";
     
-    private ClientUpdateDTO clientDTO = new ClientUpdateDTO(0);
+    private ClientUpdateDTO clientDTO;
     private List<MoneyTransfer> transactions = new List<MoneyTransfer>();
 
     protected override async Task OnInitializedAsync()
     {
-        ClientUpdateDTO clientAsDto = await ClientSquared.GetByIdAsync(id);
-        clientDTO.firstname = clientAsDto.firstname;
-        clientDTO.lastname = clientAsDto.lastname;
-        clientDTO.username = clientAsDto.username;
-        clientDTO.country = clientAsDto.country;
-        clientDTO.identityDocument = clientAsDto.identityDocument;
-        clientDTO.birthday = clientAsDto.birthday;
-        clientDTO.planType = clientAsDto.planType;
+        clientDTO = new ClientUpdateDTO(id);
+        clientDTO = await ClientSquared.GetByIdAsync(id);
+        currentPlan = clientDTO.planType;
 
-        IEnumerable<MoneyTransfer?>? transfers = await MoneyTransferService.GetListByAccountIdAsync(id);
+        IEnumerable<MoneyTransfer?> transfers = await MoneyTransferService.GetListByAccountIdAsync(id);
         if (transfers.Count() > 0)
         {
             foreach (var trans in transfers)
@@ -118,8 +111,12 @@
     {
         try
         {
-            //await ClientSquared.UpdateAsync(clientDTO);
-            navMgr.NavigateTo("/AdminMainPage");
+            await ClientSquared.UpdateAsync(clientDTO);
+            if (clientDTO!.planType! != currentPlan)
+            {
+                buyPlan(clientDTO.planType);
+                await OnInitializedAsync();
+            }
         }
         catch (Exception e)
         {
@@ -133,6 +130,49 @@
         MoneyTransfer? transfer = await MoneyTransferService.GetByIdAsync(id);
         MoneyTransferCreationDto dto = new MoneyTransferCreationDto(transfer!.accountNumberSender, transfer.accountNumberRecipient, transfer.currency, transfer.amount);
         await MoneyTransferService.CreateAsync(dto);
-    }
+        await OnInitializedAsync();
 
+    }
+    
+    private async void buyPlan(string plan)
+    {
+        double planPrice = 0;
+        switch (plan)
+        {
+            case "Default":
+                planPrice = 0;
+                break;
+            case "Bronze":
+                planPrice = 2.9;
+                break;
+            case "Silver":
+                planPrice = 4.9;
+                break;
+            case "Gold":
+                planPrice = 7.49;
+                break;
+        }
+        IEnumerable<Account> accounts = await accountService.GetByClientIdAsync(clientDTO.id);
+        ClientUpdateDTO dto = new ClientUpdateDTO(id)
+        {
+            firstname = clientDTO.firstname,
+            lastname = clientDTO.lastname,
+            username = clientDTO.username,
+            password = clientDTO.password,
+            country = clientDTO.country,
+            identityDocument = clientDTO.identityDocument,
+            birthday = clientDTO.birthday,
+            planType = plan,
+            id = clientDTO.id
+        };
+        MoneyTransferCreationDto dto2 = new MoneyTransferCreationDto()
+        {
+            Amount = planPrice,
+            ReceiverAccountNumber = 1,
+            SenderAccountNumber = accounts.ElementAt(0).id,
+            SenderCurrency = "Euro"
+        };
+        await ClientSquared.UpdateAsync(dto);
+        await transferService.CreateAsync(dto2);
+    }
 }

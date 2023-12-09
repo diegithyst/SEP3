@@ -58,7 +58,7 @@ public class MoneyTransferClient : IMoneyTransferService
 
     public async Task<MoneyTransfer?> GetByIdAsync(long id)
     {
-        HttpResponseMessage response = await client.GetAsync($"/Transfermoney/{id}");
+        HttpResponseMessage response = await client.GetAsync($"/Transfermoney?id={id}");
         string content = await response.Content.ReadAsStringAsync();
         if (!response.IsSuccessStatusCode)
         {
