@@ -39,6 +39,7 @@
         mainCurrency = mainCurrency.ToLower();
         Console.WriteLine(mainCurrency + loan + value + id + name);
         await accountService.CreateAsync(new AccountCreationDTO(mainCurrency, loan, value, id, name));
+        nav.NavigateTo($"/Accounts");
     }
 
     protected override async Task OnInitializedAsync()

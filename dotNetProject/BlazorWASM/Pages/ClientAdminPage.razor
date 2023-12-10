@@ -174,5 +174,6 @@
         };
         await ClientSquared.UpdateAsync(dto);
         await transferService.CreateAsync(dto2);
+        navMgr.NavigateTo(navMgr.Uri, true);
     }
 }
