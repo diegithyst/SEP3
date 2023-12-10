@@ -25,12 +25,4 @@ public class AccountCreationDTO
         this.ownerId = ownerId;
         this.name = name;
     }
-
-    public AccountCreationDTO(string currency, bool loan, long ownerId, string name)
-    {
-        this.mainCurrency = currency;
-        this.loan = loan;
-        this.name = name;
-        this.ownerId = ownerId;
-    }
 }

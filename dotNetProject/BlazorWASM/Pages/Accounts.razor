@@ -20,14 +20,18 @@
         <tbody>
         @foreach (var item in accounts)
         {
-            <tr>
+            <tr @onclick="@(() => nav.NavigateTo($"/ViewAccount/{@item.id}"))">
                 <td>@item.id</td>
-                <td @onclick="@(() => nav.NavigateTo($"/ViewAccount/{id}"))">@item.name </td>
+                <td>@item.name </td>
             </tr>
         }
         </tbody>
     </table>
 }
+
+<button @onclick="@(() => nav.NavigateTo($"/CreateAccount/{false}"))">Create Normal Account</button>
+
+<button @onclick="@(() => nav.NavigateTo($"/CreateAccount/{true}"))">Create Loan Account</button>
 @code {
 
     [CascadingParameter]

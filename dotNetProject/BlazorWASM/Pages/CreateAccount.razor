@@ -1,12 +1,21 @@
 @page "/CreateAccount/{loan:bool}"
 @using HttpClients.ClientInterfaces
 @using Domain.DTOs
-@using Domain.Auth
 @inject IAccountService accountService
-<h3>CreateAccount</h3>
+@inject NavigationManager nav;
+<h3>CreateAccount @id</h3>
 
-<!--Needs to be authoritized as administrator-->
+        <label>Name of the account</label>
+        <input @bind="name">
+        <label>Currency:</label>
+        <input @bind="mainCurrency">
+    @if (loan)
+    {
+        <label>Value</label>
+        <input @bind="value">
+    }
 
+<button @onclick="Create">Create!</button>
 @code {
 
     [CascadingParameter]
@@ -14,43 +23,23 @@
     [Parameter]
     public bool loan { get; set; }
     
-    private string name;
-    private string mainCurrency;
-    private double value;
+    private string name = "";
+    private string mainCurrency = "";
+    private double value = 0;
     private long id;
     
     private string error;
     
     private async Task Create()
     {
-        error = "";
-        if (loan == true)
-        {
-            try
-            {
-                await accountService.CreateAsync(new AccountCreationDTO(mainCurrency, true, value, id, name));
-            }
-            catch (Exception e)
-            {
-                error = e.Message;
-            }
-        }
-        else
-        {
-            try
-            {
-                await accountService.CreateAsync(new AccountCreationDTO(mainCurrency, false, value, id, name));
-            }
-            catch (Exception e)
-            {
-                error = e.Message;
-            }
-        }
+        Console.WriteLine(mainCurrency + loan + value + id + name);
+        await accountService.CreateAsync(new AccountCreationDTO(mainCurrency, loan, value, id, name));
     }
 
     protected override async Task OnInitializedAsync()
     {
+        value = 0;
         var user = (await AuthState).User;
-        id = Int32.Parse(user.Claims.First(claim => claim.Type.Equals("Id")).Value);
+        id = Int64.Parse(user.Claims.First(claim => claim.Type.Equals("Id")).Value);
     }
 }
