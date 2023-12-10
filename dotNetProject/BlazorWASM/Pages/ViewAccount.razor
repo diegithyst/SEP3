@@ -44,13 +44,12 @@
         </div>
         <div class="button-row">
             <button disabled @onclick="TransferMoni" class="acceptbtn" id="bttn">Send</button>
-            @if (!string.IsNullOrEmpty(error))
+            @if (!string.IsNullOrEmpty(TransferMoneyError))
             {
-                <label>@error</label>
+                <label>@TransferMoneyError</label>
             }
         </div>
     </div>
-
     <script>
 function changed(){
     var accountInput = document.getElementById("accountNr");
@@ -81,7 +80,11 @@ function changed(){
     </select>
     <div class="button-row">
         <button @onclick="() => ExchangeCurrencies(double.Parse(Exchange), _currency1, _currency2)" disabled="@(string.IsNullOrEmpty(_currency1) || string.IsNullOrEmpty(_currency2))" class="acceptbtn">Exchange</button>
-    </div>
+                @if (!string.IsNullOrEmpty(error))
+                {
+                    <label>@error</label>
+                }
+        </div>
 }
 
 @code {
@@ -116,6 +119,7 @@ function changed(){
     private IEnumerable<Account?>? clientsAccounts;
 
     private string error = "";
+    private string TransferMoneyError = "";
 
     protected override async Task OnInitializedAsync()
     {
@@ -161,6 +165,38 @@ function changed(){
             {
                 throw new Exception("You cannot send money to the same account");
             }
+            double valueToDouble = double.Parse(_value);
+            string lowerCurrency = _currency.ToLower();
+            switch (lowerCurrency)
+            {
+                case "euro":
+                    if (AccountPositiveCheck(_euro.balance,valueToDouble))
+                    {
+                        throw new Exception("Not enough money to send");
+                    }
+                    else
+                    {
+                        break;
+                    }
+                case "pound":
+                    if (AccountPositiveCheck(_pound.balance,valueToDouble))
+                    {
+                        throw new Exception("Not enough money to send");
+                    }
+                    else
+                    {
+                        break;
+                    }
+                case "krone":
+                    if (AccountPositiveCheck(_krone.balance,valueToDouble))
+                    {
+                        throw new Exception("Not enough money to send");
+                    }
+                    else
+                    {
+                        break;
+                    }
+            }
             MoneyTransferCreationDto dto = new MoneyTransferCreationDto(accountNrSeder, long.Parse(_accountNrReceiver), _currency, double.Parse(_value));
             await moneyTransferService.CreateAsync(dto);
             msg = $"{_value}{_currency} sent to account id: {_accountNrReceiver} ";
@@ -168,8 +204,7 @@ function changed(){
         }
         catch (Exception e)
         {
-            error = $"Error: {e.Message}";
-            msg = error;
+            TransferMoneyError = $"Error: {e.Message}";
         }
     }
 
@@ -200,14 +235,50 @@ function changed(){
                 currencyFrom = senderCurrency.ToLower(),
                 currencyTo = receiverCurrency.ToLower()
             };
+            senderCurrency = senderCurrency.ToLower();
+            switch (senderCurrency)
+            {
+                case "euro":
+                    if (AccountPositiveCheck(_euro.balance,value))
+                    {
+                        throw new Exception("Not enough money to exchange");
+                    }
+                    else
+                    {
+                        break;
+                    }
+                case "pound":
+                    if (AccountPositiveCheck(_pound.balance,value))
+                    {
+                        throw new Exception("Not enough money to exchange");
+                    }
+                    else
+                    {
+                        break;
+                    }
+                case "krone":
+                    if (AccountPositiveCheck(_krone.balance,value))
+                    {
+                        throw new Exception("Not enough money to exchange");
+                    }
+                    else
+                    {
+                        break;
+                    }
+            }
             await accountService.UpdateAsync(dto);
             msg = $"{value}{senderCurrency} converted to {receiverCurrency}";
             navMgr.NavigateTo(navMgr.Uri, true);  
         }
         catch (Exception e)
         {
-            throw new Exception(e.Message);
+            error = e.Message;
         }
-  }
+   }
+
+    private bool AccountPositiveCheck(double moneyInAccount, double moneyToRemove)
+    {
+        return (moneyToRemove > moneyInAccount);
+    }
 
 }
