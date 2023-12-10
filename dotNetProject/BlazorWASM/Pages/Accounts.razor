@@ -14,7 +14,7 @@
         <tr>
             <th>Account ID</th>
             <th>Account Name</th>
-
+            <th>Type of account</th>
         </tr>
         </thead>
         <tbody>
@@ -23,6 +23,14 @@
             <tr @onclick="@(() => nav.NavigateTo($"/ViewAccount/{@item.id}"))">
                 <td>@item.id</td>
                 <td>@item.name </td>
+                @if (@item.loan)
+                    {
+                        <td>Loan</td>
+                    }
+                @if (@item.loan == false)
+                {
+                    <td>Normal</td>
+                }
             </tr>
         }
         </tbody>
@@ -36,6 +44,7 @@
 
     [CascadingParameter]
     private Task<AuthenticationState> AuthState { get; set; } = null!;
+
     private IEnumerable<Account> accounts;
     private string msg = "";
     private int id;
@@ -43,12 +52,12 @@
     protected override async Task OnInitializedAsync()
     {
         msg = "";
-        
+
         try
         {
             var user = (await AuthState).User;
             id = Int32.Parse(user.Claims.First(claim => claim.Type.Equals("Id")).Value);
-            //This may not work :c
+    //This may not work :c
             accounts = await accountService.GetByClientIdAsync(id);
         }
         catch (Exception e)
@@ -56,4 +65,5 @@
             throw new Exception(e.Message);
         }
     }
+
 }
