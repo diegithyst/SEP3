@@ -10,6 +10,8 @@
 @if (allowed())
 {
     <div>
+        <p>Owner of the account: @client.firstname @client.lastname</p>
+        <br/>
         <p>Id of the account: @id</p>
         <br/>
         <p>Name of the account: @name</p>
@@ -24,6 +26,31 @@
         <br/>
         <p>Krone In Account: @roundedKrone DKK</p>
     </div>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Sender Id</th>
+            <th>Receiver Id</th>
+            <th>Transaction Id</th>
+            <th>Value</th>
+        </tr>
+        </thead>
+        <tbody>
+        @if (transactions != null)
+        {
+            @foreach (var item in transactions!)
+            {
+                <tr>
+                    <td>@item.accountNumberSender</td>
+                    <td>@item.accountNumberRecipient</td>
+                    <td>@item.id</td>
+                    <td>@item.amount</td>
+                </tr>
+            }
+        }
+        </tbody>
+    </table>
+
 
     <div class="card">
         <div class="form-group field">
@@ -80,11 +107,11 @@ function changed(){
     </select>
     <div class="button-row">
         <button @onclick="() => ExchangeCurrencies(double.Parse(Exchange), _currency1, _currency2)" disabled="@(string.IsNullOrEmpty(_currency1) || string.IsNullOrEmpty(_currency2))" class="acceptbtn">Exchange</button>
-                @if (!string.IsNullOrEmpty(error))
-                {
-                    <label>@error</label>
-                }
-        </div>
+        @if (!string.IsNullOrEmpty(error))
+        {
+            <label>@error</label>
+        }
+    </div>
 }
 
 @code {
@@ -95,16 +122,18 @@ function changed(){
     [Parameter]
     public int id { get; set; }
 
+    private List<MoneyTransfer> transactions = new List<MoneyTransfer>();
+
     private string MainCurrency = "";
-    private  int UserId;
+    private int UserId;
     private bool Loan;
     private string name;
     private ICurrency _euro = new Euro();
     private ICurrency _pound = new Pound();
     private ICurrency _krone = new Krone();
     private double roundedEuro = 0;
-    private double roundedPound =0 ;
-    private double roundedKrone =0 ;
+    private double roundedPound = 0;
+    private double roundedKrone = 0;
 
     private string msg = "";
     private long accountNrSeder;
@@ -128,9 +157,18 @@ function changed(){
             var user = (await AuthState).User;
             UserId = Int32.Parse(user.Claims.First(claim => claim.Type.Equals("Id")).Value);
             loadInfo();
-            
+
             client = await clientService.GetByIdAsync(UserId);
             clientsAccounts = await accountService.GetByClientIdAsync(client.id);
+
+            IEnumerable<MoneyTransfer?> transfers = await moneyTransferService.GetListByAccountIdAsync(id);
+            if (transfers.Any())
+            {
+                foreach (var trans in transfers)
+                {
+                    transactions.Add(trans);
+                }
+            }
         }
         catch (Exception e)
         {
@@ -152,7 +190,7 @@ function changed(){
         roundedPound = Math.Round(_pound.balance, 2);
         roundedKrone = Math.Round(_krone.balance, 2);
 
-        
+
         accountNrSeder = id;
     }
 
@@ -170,7 +208,7 @@ function changed(){
             switch (lowerCurrency)
             {
                 case "euro":
-                    if (AccountPositiveCheck(_euro.balance,valueToDouble))
+                    if (AccountPositiveCheck(_euro.balance, valueToDouble))
                     {
                         throw new Exception("Not enough money to send");
                     }
@@ -179,7 +217,7 @@ function changed(){
                         break;
                     }
                 case "pound":
-                    if (AccountPositiveCheck(_pound.balance,valueToDouble))
+                    if (AccountPositiveCheck(_pound.balance, valueToDouble))
                     {
                         throw new Exception("Not enough money to send");
                     }
@@ -188,7 +226,7 @@ function changed(){
                         break;
                     }
                 case "krone":
-                    if (AccountPositiveCheck(_krone.balance,valueToDouble))
+                    if (AccountPositiveCheck(_krone.balance, valueToDouble))
                     {
                         throw new Exception("Not enough money to send");
                     }
@@ -239,7 +277,7 @@ function changed(){
             switch (senderCurrency)
             {
                 case "euro":
-                    if (AccountPositiveCheck(_euro.balance,value))
+                    if (AccountPositiveCheck(_euro.balance, value))
                     {
                         throw new Exception("Not enough money to exchange");
                     }
@@ -248,7 +286,7 @@ function changed(){
                         break;
                     }
                 case "pound":
-                    if (AccountPositiveCheck(_pound.balance,value))
+                    if (AccountPositiveCheck(_pound.balance, value))
                     {
                         throw new Exception("Not enough money to exchange");
                     }
@@ -257,7 +295,7 @@ function changed(){
                         break;
                     }
                 case "krone":
-                    if (AccountPositiveCheck(_krone.balance,value))
+                    if (AccountPositiveCheck(_krone.balance, value))
                     {
                         throw new Exception("Not enough money to exchange");
                     }
@@ -268,13 +306,13 @@ function changed(){
             }
             await accountService.UpdateAsync(dto);
             msg = $"{value}{senderCurrency} converted to {receiverCurrency}";
-            navMgr.NavigateTo(navMgr.Uri, true);  
+            navMgr.NavigateTo(navMgr.Uri, true);
         }
         catch (Exception e)
         {
             error = e.Message;
         }
-   }
+    }
 
     private bool AccountPositiveCheck(double moneyInAccount, double moneyToRemove)
     {

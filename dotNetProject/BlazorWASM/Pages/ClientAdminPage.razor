@@ -43,6 +43,9 @@
 <div class="button-row">
     <button @onclick="UpdateAsync" class="acceptbtn">Update</button>
 </div>
+<div class="button-row">
+    <button @onclick="DeleteUser" class="acceptbtn">Delete User</button>
+</div>
 @if (!string.IsNullOrEmpty(msg))
 {
     <label style="color: red">@msg</label>
@@ -175,5 +178,11 @@
         await ClientSquared.UpdateAsync(dto);
         await transferService.CreateAsync(dto2);
         navMgr.NavigateTo(navMgr.Uri, true);
+    }
+
+    private async void DeleteUser()
+    {
+        await ClientSquared.DeleteAsync(id);
+        navMgr.NavigateTo("/AdminMainPage");
     }
 }
