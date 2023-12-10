@@ -18,11 +18,11 @@
         <br/>
         <p>Loan of the account: @Loan</p>
         <br/>
-        <p>Euros In Account: @_euro.balance€</p>
+        <p>Euros In Account: @roundedEuro€</p>
         <br/>
-        <p>Pounds In Account: @_pound.balance£</p>
+        <p>Pounds In Account: @roundedPound£</p>
         <br/>
-        <p>Krone In Account: @_krone.balance DKK</p>
+        <p>Krone In Account: @roundedKrone DKK</p>
     </div>
 
     <div class="card">
@@ -103,6 +103,10 @@ function changed(){
     private ICurrency _euro = new Euro();
     private ICurrency _pound = new Pound();
     private ICurrency _krone = new Krone();
+    private double roundedEuro = 0;
+    private double roundedPound =0 ;
+    private double roundedKrone =0 ;
+
     private string msg = "";
     private long accountNrSeder;
     private string _accountNrReceiver;
@@ -144,6 +148,11 @@ function changed(){
         _euro = account.Euro;
         _pound = account.Pound;
         _krone = account.Krone;
+        roundedEuro = Math.Round(_euro.balance, 2);
+        roundedPound = Math.Round(_pound.balance, 2);
+        roundedKrone = Math.Round(_krone.balance, 2);
+
+        
         accountNrSeder = id;
     }
 
