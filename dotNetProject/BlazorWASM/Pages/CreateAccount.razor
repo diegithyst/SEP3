@@ -3,12 +3,16 @@
 @using Domain.DTOs
 @inject IAccountService accountService
 @inject NavigationManager nav;
-<h3>CreateAccount @id</h3>
+<h3>Create New Account</h3>
 
         <label>Name of the account</label>
         <input @bind="name">
         <label>Currency:</label>
-        <input @bind="mainCurrency">
+    <select @bind="mainCurrency" id="currency">
+        <option selected>Krone</option>
+        <option>Pound</option>
+        <option>Euro</option>
+    </select>
     @if (loan)
     {
         <label>Value</label>
@@ -32,6 +36,7 @@
     
     private async Task Create()
     {
+        mainCurrency = mainCurrency.ToLower();
         Console.WriteLine(mainCurrency + loan + value + id + name);
         await accountService.CreateAsync(new AccountCreationDTO(mainCurrency, loan, value, id, name));
     }

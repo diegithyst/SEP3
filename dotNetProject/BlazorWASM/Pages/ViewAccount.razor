@@ -97,6 +97,7 @@ function changed(){
     public int id { get; set; }
 
     private string MainCurrency = "";
+    private  int UserId;
     private bool Loan;
     private string name;
     private ICurrency _euro = new Euro();
@@ -121,12 +122,11 @@ function changed(){
         try
         {
             var user = (await AuthState).User;
-            id = Int32.Parse(user.Claims.First(claim => claim.Type.Equals("Id")).Value);
+            UserId = Int32.Parse(user.Claims.First(claim => claim.Type.Equals("Id")).Value);
             loadInfo();
             
-            client = await clientService.GetByIdAsync(id);
+            client = await clientService.GetByIdAsync(UserId);
             clientsAccounts = await accountService.GetByClientIdAsync(client.id);
-            accountNrSeder = id;
         }
         catch (Exception e)
         {
@@ -144,6 +144,7 @@ function changed(){
         _euro = account.Euro;
         _pound = account.Pound;
         _krone = account.Krone;
+        accountNrSeder = id;
     }
 
     private async Task TransferMoni()
