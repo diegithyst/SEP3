@@ -12,6 +12,8 @@ public class AuthorizationPolicies
         {
            options.AddPolicy("MustBeAdministrator", a =>
                a.RequireAuthenticatedUser().RequireClaim("emailDomain", "admin"));
+           options.AddPolicy("MustBeClient" , a =>
+               a.RequireAuthenticatedUser().RequireClaim("Id"));
         });
     }
 }
