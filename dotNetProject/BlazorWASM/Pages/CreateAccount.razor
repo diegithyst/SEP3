@@ -8,11 +8,11 @@
         <label>Name of the account</label>
         <input @bind="name">
         <label>Currency:</label>
-        <select @bind="mainCurrency">
-        <option selected value="krone">Krone</option>
-        <option value="pound">Pound</option>
-        <option value="euro">Euro</option>
-        </select>
+    <select @bind="mainCurrency" id="currency">
+        <option selected>Krone</option>
+        <option>Pound</option>
+        <option>Euro</option>
+    </select>
     @if (loan)
     {
         <label>Value</label>
@@ -39,7 +39,7 @@
         mainCurrency = mainCurrency.ToLower();
         Console.WriteLine(mainCurrency + loan + value + id + name);
         await accountService.CreateAsync(new AccountCreationDTO(mainCurrency, loan, value, id, name));
-        nav.NavigateTo($"/Accounts/");
+        nav.NavigateTo($"/Accounts");
     }
 
     protected override async Task OnInitializedAsync()
