@@ -95,7 +95,7 @@ function changed(){
     <input type="text" @bind="Exchange"/>
     <label>Currency to get the money from:</label>
     <select @bind="_currency1" id="currency">
-        <option selected>Krone</option>
+        <option>Krone</option>
         <option>Pound</option>
         <option>Euro</option>
     </select>
@@ -139,7 +139,7 @@ function changed(){
     private long accountNrSeder;
     private string _accountNrReceiver;
     private string _value;
-    private string _currency;
+    private string _currency = "Krone";
     private ClientUpdateDTO client;
     private string Exchange = "";
     private string _currency1 = "";
