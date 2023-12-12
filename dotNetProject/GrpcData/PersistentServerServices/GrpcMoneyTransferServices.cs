@@ -20,8 +20,13 @@ namespace FileData.PersistentServerServices
 
         public Task<MoneyTransfer> TransferMoney(MoneyTransferCreationDto dto)
         {
-            PersistentServerClient.GrpcMoneyTransfer gmt = psc.MakeMoneyTransfer(new PersistentServerClient.CreateMoneyTransferDTO { SenderId = dto.SenderAccountNumber, RecipientId = dto.ReceiverAccountNumber, SenderCurrency = dto.SenderCurrency, Amount = dto.Amount });
-            MoneyTransfer created = new MoneyTransfer { id = gmt.MoneyTransferId, accountNumberSender = gmt.SenderId, accountNumberRecipient = gmt.RecipientId, currency = gmt.SenderCurrency, amount = gmt.Amount };
+            PersistentServerClient.GrpcMoneyTransfer gmt = 
+                psc.MakeMoneyTransfer(new PersistentServerClient.CreateMoneyTransferDTO 
+                    { SenderId = dto.SenderAccountNumber, RecipientId = dto.ReceiverAccountNumber, 
+                        SenderCurrency = dto.SenderCurrency, Amount = dto.Amount });
+            MoneyTransfer created = new MoneyTransfer { id = gmt.MoneyTransferId,
+                accountNumberSender = gmt.SenderId, accountNumberRecipient = gmt.RecipientId, 
+                currency = gmt.SenderCurrency, amount = gmt.Amount };
             return Task.FromResult(created);
         }
         public Task<MoneyTransfer?> GetMoneyTransferById(long id)

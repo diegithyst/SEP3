@@ -199,6 +199,7 @@ function changed(){
         error = "";
         try
         {
+            loadInfo();
             if (accountNrSeder.Equals(long.Parse(_accountNrReceiver)))
             {
                 throw new Exception("You cannot send money to the same account");
@@ -235,7 +236,8 @@ function changed(){
                         break;
                     }
             }
-            MoneyTransferCreationDto dto = new MoneyTransferCreationDto(accountNrSeder, long.Parse(_accountNrReceiver), _currency, double.Parse(_value));
+            MoneyTransferCreationDto dto = new MoneyTransferCreationDto(accountNrSeder, 
+                long.Parse(_accountNrReceiver), _currency, double.Parse(_value));
             await moneyTransferService.CreateAsync(dto);
             msg = $"{_value}{_currency} sent to account id: {_accountNrReceiver} ";
             navMgr.NavigateTo(navMgr.Uri, true);

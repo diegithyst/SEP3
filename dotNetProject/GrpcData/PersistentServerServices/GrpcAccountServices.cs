@@ -78,7 +78,14 @@ public class GrpcAccountServices : IGrpcAccountServices
   
     public Task UpdateAccount(AccountUpdateDTO accountUpdateDTO)
     {
-        PersistentServerClient.GrpcAccount ga = psc.UpdateAccount(new PersistentServerClient.AccountUpdateDTO { AccountId = accountUpdateDTO.id, ClientId = accountUpdateDTO.clientId , Name = accountUpdateDTO.name, MainCurrency = accountUpdateDTO.mainCurrency, Euro = accountUpdateDTO.euro, Krone = accountUpdateDTO.krone, Pound = accountUpdateDTO.pound });
+        PersistentServerClient.GrpcAccount ga = psc.UpdateAccount(new PersistentServerClient.AccountUpdateDTO { 
+            AccountId = accountUpdateDTO.id, 
+            ClientId = accountUpdateDTO.clientId ,
+            Name = accountUpdateDTO.name, 
+            MainCurrency = accountUpdateDTO.mainCurrency,
+            Euro = accountUpdateDTO.euro, 
+            Krone = accountUpdateDTO.krone,
+            Pound = accountUpdateDTO.pound });
         if (ga != null){
             return Task.CompletedTask;
         }

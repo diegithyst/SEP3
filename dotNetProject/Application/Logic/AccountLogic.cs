@@ -71,7 +71,9 @@ public class AccountLogic : IAccountLogic
 
         AccountUpdateDTO dto = new AccountUpdateDTO
         {
-             id = account.id,clientId = account.ownerId,name = account.name, mainCurrency = account.mainCurrency, euro = account.Euro.balance, krone = account.Krone.balance,
+             id = account.id,clientId = account.ownerId,name = account.name,
+             mainCurrency = account.mainCurrency, euro = account.Euro.balance,
+             krone = account.Krone.balance,
             pound = account.Pound.balance
         };
 

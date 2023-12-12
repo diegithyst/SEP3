@@ -244,7 +244,8 @@ public class PersistentServerImpl extends PersistentServerGrpc.PersistentServerI
     @Override
     public void updateAccount(AccountUpdateDTO request, StreamObserver<GrpcAccount> responseObserver) {
         try(Session s = sf.openSession()){
-            org.via.sep3.persistentserver.model.Account a = s.get(org.via.sep3.persistentserver.model.Account.class,request.getAccountId());
+            org.via.sep3.persistentserver.model.Account a = s.get(
+                    org.via.sep3.persistentserver.model.Account.class,request.getAccountId());
             if(a != null){
                 Transaction t = s.beginTransaction();
                 a.setMainCurrency(request.getMainCurrency());
