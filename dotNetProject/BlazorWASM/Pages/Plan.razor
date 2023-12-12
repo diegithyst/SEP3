@@ -33,7 +33,7 @@
             <tr>
                 <td>@plan.getName()</td>
                 <td>@plan.getDescription()</td>
-                <td>@*@plan.getPrice/month*@</td>
+                <td>@plan.getPrice()€/month</td>
                 <td>
                     <button @onclick="@(() => buyPlan(@plan.getName(), @plan.getPrice()))">Buy @plan.getName() plan</button>
                 </td>
