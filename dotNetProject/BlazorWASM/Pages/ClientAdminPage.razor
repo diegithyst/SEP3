@@ -50,33 +50,35 @@
 {
     <label style="color: red">@msg</label>
 }
-
-    <table class="table">
-        <thead>
-        <tr>
-            <th>Sender Id</th>
-            <th>Receiver Id</th>
-            <th>Transaction Id</th>
-            <th>Value</th>
-            <th>Revert</th>
-        </tr>
-        </thead>
-        <tbody>
-        @if (transactions != null)
+        @if (transfers != null)
         {
-            @foreach (var item in transactions!)
-            {
+            <table class="table">
+                <thead>
                 <tr>
-                    <td>@item!.accountNumberSender</td>
-                    <td>@item.accountNumberRecipient</td>
-                    <td>@item.id</td>
-                    <td>@item.amount</td>
-                    <td><button @onclick="@(() => revertTransaction(item.id))">Revert</button></td>
+                    <th>Sender Id</th>
+                    <th>Receiver Id</th>
+                    <th>Transaction Id</th>
+                    <th>Value</th>
+                    <th>Revert</th>
                 </tr>
-            }
+                </thead>
+                @foreach (var item in transfers)
+                {
+                    <tbody>
+                    <tr>
+                        <td>@item!.accountNumberSender</td>
+                        <td>@item.accountNumberRecipient</td>
+                        <td>@item.id</td>
+                        <td>@item.amount</td>
+                        <td><button @onclick="@(() => revertTransaction(item.id))">Revert</button></td>
+                    </tr>
+                    </tbody>
+                }
+            </table>
         }
-        </tbody>
-    </table>
+      @if (transfers == null){
+          <p>Client has no transactions yet.</p>
+      }
 
 
 @code {
@@ -92,22 +94,24 @@
     private string currentPlan = "";
     
     private ClientUpdateDTO clientDTO;
-    private List<MoneyTransfer> transactions = new List<MoneyTransfer>();
+    private IEnumerable<MoneyTransfer> transfers;
 
     protected override async Task OnInitializedAsync()
     {
-        clientDTO = new ClientUpdateDTO(id);
-        clientDTO = await ClientSquared.GetByIdAsync(id);
-        currentPlan = clientDTO.planType;
-
-        IEnumerable<MoneyTransfer?> transfers = await MoneyTransferService.GetListByAccountIdAsync(id);
-        if (transfers.Count() > 0)
+        try
         {
-            foreach (var trans in transfers)
-            {
-                transactions.Add(trans);
-            }
+            clientDTO = new ClientUpdateDTO(id);
+            clientDTO = await ClientSquared.GetByIdAsync(id);
+            currentPlan = clientDTO.planType;
+
+            transfers = await MoneyTransferService.GetListByAccountIdAsync(id);
         }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+        }
+        
+        
     }
 
     private async void UpdateAsync()
