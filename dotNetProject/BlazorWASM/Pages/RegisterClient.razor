@@ -1,6 +1,7 @@
 @page "/RegisterClient"
 @using HttpClients.ClientInterfaces
 @using Domain.DTOs
+@using System.Xml
 @inject IClientService clientService
 @inject NavigationManager nav
 @attribute [Authorize("MustBeAdministrator")]
@@ -96,6 +97,7 @@
         {
             Console.Write(username + password + firstname + lastname + country + identityDocument + birthday + planType);
             await clientService.RegisterAsync(new ClientCreationDTO(firstname, lastname, username, password, country, identityDocument, birthday, planType));
+            nav.NavigateTo("/AdminMainPage");
         }
         catch (Exception e)
         {
